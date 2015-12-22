@@ -1,0 +1,27 @@
+﻿#_panelId_ .contact {
+    width: 100%;
+    height: 100%;
+}
+
+#_panelId_ .kdo-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#_panelId_ .kdo-table-title {
+    height: 80px;
+}
+
+#_panelId_ .kdo-table td {
+    line-height: 30px;
+}
+
+#_panelId_ .contact .kdo-table-label {
+    width: 15%;
+    max-width: 100px;
+    min-width: 30px;
+}
+
+#_panelId_ .contact .kdo-table-text {
+    width: 85%;
+}

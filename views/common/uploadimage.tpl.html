@@ -1,0 +1,41 @@
+﻿<div class="setting-content" style="min-height:250px;">
+    <div class="col-sm-12 settimg-image">
+        <div flow-init="flowInitOption">
+            <!-- local upload images grid -->
+            <div id="localImages" class="col-sm-12 images-grid">
+                <div class="col-sm-3 col-padding-clear image-column {{ file.focus }}" style="width:150px" ng-repeat="file in $flow.files">
+                    <div class="pull-left" ng-click="btnSelectedFile(file, $flow)">
+                        <img flow-img="file" style="width:120px; height: 120px;" />
+                    </div>
+                    <div class="clearfix"></div>
+                    <div style="margin-top: 2px; width: 120px;" ng-hide="file.hideProgress" class="progress progress-striped" ng-class="{active: file.isUploading()}">
+                        <div class="progress-bar" role="progressbar"
+                             aria-valuenow="{{file.progress() * 100}}"
+                             aria-valuemin="0"
+                             aria-valuemax="100"
+                             ng-style="{width: (file.progress() * 100) + '%'}">
+                            <span class="sr-only">{{file.progress()}}% Complete</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- upload -->
+            <div class="col-sm-12">
+                <div id="flow_imageupload"
+                     flow-object="uploadObject"
+                     flow-files-submitted="$flow.upload()"
+                     flow-file-added="fileAdded($file,$event,$flow)"
+                     flow-complete="fileComplete($file,$event,$flow)">
+                    <div class="drop" flow-drop ng-class="dropClass">
+                        <span class="btn btn-default" flow-btn>上传图片</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="setting-btn">
+    <div class="form-group text-center">
+        <button class="btn btn-primary" ng-click="btnUploadImageOK($event)">确定</button>
+    </div>
+</div>

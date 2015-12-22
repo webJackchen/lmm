@@ -1,0 +1,74 @@
+﻿<div ng-controller="SettingmessageboardCtrl" style="width:330px;">
+    <div class="setting-content">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label class="control-label">标题</label>
+                <div class="row">
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" ng-model="data.title" />
+                    </div>
+                    <div class="col-sm-3">
+                        <label style="margin-top:8px;">
+                            <input type="checkbox" ng-model="data.hideTitle" class="" /> 隐藏
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label class="control-label">位置</label>
+                <div class="btn-toolbar">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default" ng-click="setAlign('left')">
+                            <i class="fa fa-align-left"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="setAlign('center')">
+                            <i class="fa fa-align-center"></i>
+                        </button>
+                        <button type="button" class="btn btn-default" ng-click="setAlign('right')">
+                            <i class="fa fa-align-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label class="control-label">欢迎语</label>
+                <div class="row">
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" ng-model="data.welcomeTitle" />
+                    </div>
+                    <div class="col-sm-3">
+                        <label style="margin-top:8px;">
+                            <input type="checkbox" ng-model="data.hideWelcomeTitle" class="" /> 隐藏
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label class="control-label">按钮文字</label>
+                <input type="text" class="form-control" ng-model="data.submitText" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <custom-manage type="plug_message_board"></custom-manage>
+            </div>
+        </div>
+    </div>
+
+    <div class="setting-btn">
+        <div class="form-group row lanh-line">
+            <div class="col-sm-12">
+                <location-size-manage></location-size-manage>
+            </div>
+        </div>
+        <div class="col-sm-12 text-center">
+            <button class="btn btn-primary" ng-click="applySetting();">确定</button>
+        </div>
+    </div>
+</div>

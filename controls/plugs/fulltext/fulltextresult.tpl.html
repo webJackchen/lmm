@@ -1,0 +1,58 @@
+﻿<div class="fulltext-search-result">
+    <div class="row search-input-region">
+        <div class="col-sm-12">
+            <div class="input-group">
+                <input id="txtSearch" type="text" class="form-control">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" id="btnSearch">查询</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="row search-list-region">
+        <div class="col-sm-12">
+            <div class="result-total-text"></div>
+            <ul class="result-list">
+                <li class="result-item">
+                    <div>
+                        <a id="lnk-region" href="#" target="_blank">
+                            <div class="thumbnails result-detail">
+                                <img style="width:100px;height:90px;" src="http://www.ilanhai.cn/public/uploads/images/2015/07/20150724155231187.jpg" alt="新闻" />
+                            </div>
+                            <div class="content result-detail">
+                                <label class="title">
+                                    社科院:十年后最富城市 北京上海成都排前三
+                                </label>
+                                <div class="description">
+                                    【摘要】社科院根据过去五年全国城市发展的格局及未来发展趋势，从294个城市中选出了24个城市进行深入的案例研究分析
+                                </div>
+                                <div class="text-time">【时间】2015-10-22</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div style="clear:both;"></div>
+                </li>
+            </ul>
+            <div class="content-page text-right" id="content-page">
+                <ul class="pagination">
+                    <li ng-class="active"><a href="javascript:void(0)">首页</a></li>
+                    <li><a href="javascript:void(0);">上一页</a></li>
+                    <li><a href="javascript:void(0);">1</a></li>
+                    <li><a href="javascript:void(0);">下一页</a></li>
+                    <li><a href="javascript:void(0)">末页</a></li>
+                </ul>
+                <ul class="page_skp">
+                    <li>共<span id="totalText"></span>页</li>
+                    <li>跳转到第</li>
+                    <li><input class="form-control text-center page_skip" id="goPage" type="text" ng-model="pageNumber"></li>
+                    <li>页</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row search-list-no">
+        <div class="col-sm-12">
+            暂无搜索结果
+        </div>
+    </div>
+</div>

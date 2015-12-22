@@ -1,0 +1,10 @@
+﻿<div class="linksContent" data-col="{{data.col}}" data-row="{{data.row}}">
+    <ul class="links">
+        <li ng-repeat="link in data.links" style="width:{{data.width}}%">
+            <a href="{{link.hyperLink.text}}" title="{{link.title.text}}">
+                <span ng-show="data.type === 'text'">{{link.title.text}}</span>
+                <img ng-show="data.type === 'image'" src="{{link.image.url}}" alt="{{link.title.text}}" />
+            </a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,153 @@
+﻿<div ng-controller="SettingBaseStyleCtrl" class="setting-basestyle" style="width: 380px;">
+    <div class="setting-content">
+        <div class="form-group row setting-basestyle-background-color nomargin" ng-show="tpl_status.backgroundColor">
+            <div class="col-sm-3 text-right nopadding">
+                <label>背景颜色:</label>
+            </div>
+            <div class="col-sm-8">
+                <input id="pageColorPicker" type="text" />
+            </div>
+        </div>
+
+        <div class="form-group row setting-basestyle-background-image nomargin" ng-show="tpl_status.backgroundImage">
+            <div class="col-sm-3 text-right nopadding">
+                <label>背景图片:</label>
+            </div>
+            <div class="col-sm-9">
+                <div class="pull-left">
+                    <img ng-src="{{ model.style['background-image'] }}" style="width: 200px; height: 200px; border:1px solid #c8c8c8" />
+                </div>
+                <div class="pull-left" style="margin-top: 145px; margin-left: 5px;">
+                    <div><i class="iconfont icon-pic-upload" image-manage="imageManageCallback" title="选择图片"></i></div>
+                    <div><i class="iconfont icon-delete" ng-click="btnDelBackgroundImage()" title="删除"></i></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row setting-basestyle-background-repeat nomargin" ng-show="tpl_status.backgroundRepeat">
+            <div class="col-sm-3 text-right nopadding">
+                <label>背景布局:</label>
+            </div>
+            <div class="col-sm-8">
+                <div class="col-sm-6 nopadding">
+                    <label class="radio-text"><input type="radio" ng-model="model.style['background-repeat']" value="repeat" />平铺</label>
+                </div>
+                <div class="col-sm-6 nopadding">
+                    <label class="radio-text"><input type="radio" ng-model="model.style['background-repeat']" value="repeat-x" />横向平铺</label>
+                </div>
+                <div class="col-sm-6 nopadding">
+                    <label class="radio-text"><input type="radio" ng-model="model.style['background-repeat']" value="repeat-y" />纵向平铺</label>
+                </div>
+                <div class="col-sm-6 nopadding">
+                    <label class="radio-text"><input type="radio" ng-model="model.style['background-repeat']" value="no-repeat" />不平铺</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row setting-basestyle-background-position nomargin" ng-show="tpl_status.backgroundPosition">
+            <div class="col-sm-3 text-right nopadding">
+                <label>对齐方式:</label>
+            </div>
+            <div class="col-sm-8">
+                <div class="lanh-bg-position">
+                    <div class="box-item corner top-left {{ model.style['background-position'] == 'top left' ? 'checked' : '' }}" ng-click="selectBackgroundPosition('top left', $event)"></div>
+                    <div class="box-item top-center {{ model.style['background-position'] == 'top center' ? 'checked' : '' }}" ng-click="selectBackgroundPosition('top center', $event)"></div>
+                    <div class="box-item corner top-right {{ model.style['background-position'] == 'top right' ? 'checked' : '' }}" ng-click="selectBackgroundPosition('top right', $event)"></div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="box-item center-left {{ model.style['background-position'] == 'center left' ? 'checked' : '' }}" ng-click="selectBackgroundPosition('center left', $event)"></div>
+                    <div class="box-item center-center {{ model.style['background-position'] == 'center center' ? 'checked' : '' }}" ng-click="selectBackgroundPosition('center center', $event)"></div>
+                    <div class="box-item center-right {{ model.style['background-position'] == 'center right' ? 'checked' : '' }}" ng-click="selectBackgroundPosition('center right', $event)"></div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="box-item corner bottom-left {{ model.style['background-position'] == 'bottom left' ? 'checked' : '' }}" ng-click="selectBackgroundPosition('bottom left', $event)"></div>
+                    <div class="box-item bottom-center {{ model.style['background-position'] == 'bottom center' ? 'checked' : '' }}" ng-click="selectBackgroundPosition('bottom center', $event)"></div>
+                    <div class="box-item corner bottom-right {{ model.style['background-position'] == 'bottom right' ? 'checked' : '' }}" ng-click="selectBackgroundPosition('bottom right', $event)"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row setting-basestyle-border-color nomargin" ng-show="tpl_status.border">
+            <div class="col-sm-3 text-right nopadding">
+                <label>边框颜色:</label>
+            </div>
+            <div class="col-sm-8">
+                <input id="borderColorPicker" type="text" />
+            </div>
+        </div>
+
+
+        <!--边框 start-->
+        <div ng-show="tpl_status.border || tpl_status.opacity">
+            <div class="form-group row setting-basestyle-border-color nomargin" ng-show="tpl_status.border">
+                <div class="col-sm-3 text-right nopadding">
+                    <label>边框宽度:</label>
+                </div>
+                <div class="col-sm-6">
+                    <input style="width:100%;" type="text" id="border-width"
+                           data-slider-min="0" data-slider-max="25" data-slider-step="1"
+                           data-slider-value="0" data-slider-tooltip="hide" data-slider-handle="round" />
+                </div>
+                <div class="col-sm-2">
+                    <input class="slider-text-number" type="number" min="0" max="25" ng-model="model.style['border-width']" ng-change="changeBorderNumber('border-width')" />
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="form-group row setting-basestyle-border-color nomargin" ng-show="tpl_status.border">
+                <div class="col-sm-3 text-right nopadding">
+                    <label>边框弧度:</label>
+                </div>
+                <div class="col-sm-6">
+                    <input style="width:100%;" type="text" id="border-radius"
+                           data-slider-min="0" data-slider-max="30" data-slider-step="1"
+                           data-slider-value="0" data-slider-tooltip="hide" data-slider-handle="round" />
+                </div>
+                <div class="col-sm-2">
+                    <input class="slider-text-number" type="number" min="0" max="30" ng-model="model.style['border-radius']" ng-change="changeBorderNumber('border-radius')" />
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+            <div class="form-group row setting-basestyle-border-color nomargin" ng-show="tpl_status.border">
+                <div class="col-sm-3 text-right nopadding">
+                    <label>透明度:</label>
+                </div>
+                <div class="col-sm-6">
+                    <input style="width:100%;" type="text" id="opacity"
+                           data-slider-min="1" data-slider-max="100" data-slider-step="1"
+                           data-slider-value="100" data-slider-tooltip="hide" data-slider-handle="round" />
+                </div>
+                <div class="col-sm-2">
+                    <input class="slider-text-number" type="number" min="1" max="100" ng-model="_opacity" ng-change="changeBorderNumber('opacity')" />
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
+             <div class="form-group row setting-basestyle-border-color nomargin" ng-show="tpl_status.border">
+                 <div class="slider-preview-div" style="border:{{model.style['border-width']}}px solid {{model.style['border-color']}}; border-radius:{{model.style['border-radius']}}px; opacity:{{model.style['opacity']}};"></div>
+             </div>
+
+        </div>
+
+        <div class="form-group row nomargin" ng-show="model.key=='setting_header'|| model.key=='setting_body'|| model.key=='setting_footer'">
+            <div class="col-sm-3 text-right nopadding">
+                <label>高度:</label>
+            </div>
+            <div class="col-sm-6">
+                <input style="width:100%;" class="form-control" type="text" ng-model="model.style['height']" />
+            </div>
+            <div class="col-sm-3" style="padding-top:5px;" ng-hide="model.location === 'body'">
+                <label><input type="checkbox" ng-model="model.isHide" ng-change="setHide()" /> 隐藏</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="setting-btn">
+        <div class=" form-group text-center">
+            <button class="btn btn-primary" ng-click="btnOK()">确定</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+﻿<div class="category-setting" ng-controller="SettingCategoryListCtrl">
+    <div class="setting-content">
+        <div class="form-group row" ng-show="data.showType">
+            <div class="col-sm-12">
+                <label>数据类型:</label>
+            </div>
+            <div class="col-sm-12">
+                <select class="form-control" ng-model="data.category" ng-change="changeCategory()">
+                    <option value="news">新闻</option>
+                    <option value="article">简介</option>
+                    <option value="download">下载</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>选择分类:</label>
+            </div>
+            <div class="col-sm-12 setting-category-list">
+               <!-- <ul class="categogry-list" ng-if="data.categories&&data.categories.length">
+                    <li class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="data.selectedAll" ng-click="selectAll()" />全选
+                        </label>
+                    </li>
+                    <li class="checkbox" ng-repeat="category in data.categories">
+                        <label>
+                            <input type="checkbox" ng-checked="category.selected" ng-click="selectedCurrentItems(category)" />{{category.text}}
+                        </label>
+                        <ul ng-if="category.childs&&category.childs.length">
+                            <li class="checkbox" ng-repeat="childItem in category.childs">
+                                <label>
+                                    <input type="checkbox" ng-checked="childItem.selected" ng-click="selectedCurrentItems(childItem)" />{{childItem.text}}
+                                </label>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>-->
+                <kdo-tree source='data.categories' single-all="true" child-name="item"></kdo-tree>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>打开方式</label>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-6">
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" ng-model="data.target" value="_self">
+                        本页
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" ng-model="data.target" value="_blank">
+                        新标签页
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <custom-manage type="controls_list_category"></custom-manage>
+            </div>
+        </div>
+    </div>
+    <div class="setting-btn">
+        <div class="form-group row lanh-line">
+            <div class="col-sm-12">
+                <location-size-manage></location-size-manage>
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <button class="btn btn-primary" ng-click="btnOK()">确定</button>
+        </div>
+    </div>
+</div>

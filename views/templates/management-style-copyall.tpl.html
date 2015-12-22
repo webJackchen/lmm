@@ -1,0 +1,112 @@
+﻿<div class="col-sm-12 manuscript management" ng-controller="styleCopyCtrl" style="width:1000px;margin-top:0px;">
+    <div class="conditionQuery">
+        <div class="col-sm-12 nopadding">
+            <div class="col-sm-4 pull-left keyword">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="输入稿件编号或样式名称" ng-model="styleKeyword">
+                    <span class="input-group-addon" ng-click="keyword()"><i class="iconfont icon-search"></i></span>
+                </div>
+            </div>
+            <div class="col-sm-2 pull-left more-condition" style="width: 120px;" ng-click="showMoreCondition()">
+                <span>精简筛选条件</span>
+                <i class="iconfont icon-down-arrow" ng-hide="moreCondition"></i>
+                <i class="iconfont icon-up-arrow" ng-show="moreCondition"></i>
+            </div>
+            <div class="pull-right">
+                <button class="btn btn-primary btn-copy pull-right" ng-click="copyStyleInfo($event)">复制</button>
+            </div>
+        </div>
+
+        <div class="pull-right query-more-condition" ng-show="moreCondition">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label>终端筛选：</label>
+                    <select class="form-control" ng-model="styleCondition.webType">
+                        <option value="">全部</option>
+                        <option value="Web">PC</option>
+                        <!--<option value="WAP">MB</option>-->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>样式类型：</label>
+                    <select class="form-control" ng-model="styleCondition.moduleType"
+                            ng-options="model.key as model.title for model in tpl_status.sltModuleList"></select>
+                </div>
+
+                <div class="form-group pull-right nomargin">
+                    <label>设计师：</label>
+                    <input class="form-control" ng-model="styleCondition.editor">
+                </div>
+
+                <div class="form-group">
+                    <label>编辑日期：</label>
+                    <div class="form-control datetimepicker">
+                        <input type="text" id="datetimepicker" ng-model="styleCondition.lastEditTime" style="width: 180px;">
+                        <span class="add-on" ng-click="removeDate($event)"><i class="iconfont icon-close"></i></span>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group pull-right nomargin">
+                    <button class="btn btn-primary btn-add pull-left" ng-click="queryList()">搜 索</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grid -->
+    <div class="col-sm-12 template nopadding">
+        <div class="col-sm-12 grid nopadding dialog-copy-content">
+            <div class="col-sm-3 col-padding-clear column template-content" ng-repeat="template in styleList">
+                <div class="column-template template-copy" style="padding:0px;">
+                    <div class="col-sm-12 col-padding-clear template-body" style="background-image: url({{host}}{{ template.previewImg }});margin:0;" ng-click="checkedTemplate(template, $event)">
+                        <div class="template-Check">
+                            <div class="template-ok">
+                                <i class="iconfont icon-ok"></i>
+                            </div>
+                        </div>
+                        <div class="template-description">
+                            <div class="template-style">
+                                <div>
+                                    <span>申请人:</span>
+                                    <span>{{ template.editor }}</span>
+                                </div>
+                                <div>
+                                    <span>样式名称:</span>
+                                    <span>{{ template.title }}</span>
+                                </div>
+                                <div>
+                                    <span>样式类别:</span>
+                                    <span>{{ template.moduleName }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-padding-clear text-center template-title" style="display:none;">
+                        <label class="col-sm-4 nopadding" style="line-height: 28px;font-weight: normal;">样式名称:</label>
+                        <div class="col-sm-8 nopadding">
+                            <input type="text" class="form-control" style="border:none;">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-page text-center" id="content-page">
+        <pagination total-items="stylePage.total"
+                    ng-model="stylePage.pageIndex"
+                    items-per-page="stylePage.pageSize"
+                    max-size="5"
+                    class="pagination-sm"
+                    boundary-links="true"
+                    rotate="false"
+                    ng-change="pageChanged()"
+                    previous-text="前一页"
+                    next-text="下一页"
+                    first-text="首页"
+                    last-text="尾页"></pagination>
+    </div>
+</div>

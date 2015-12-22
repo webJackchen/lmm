@@ -1,0 +1,75 @@
+﻿.content-body {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+}
+
+    .content-body .log-info {
+        width: 100%;
+    }
+
+        .content-body .log-info h5 {
+            font-weight: bold;
+        }
+
+    .content-body .address-info span {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+        .content-body .address-info span.default-address {
+            padding: 5px 20px;
+            border: 2px solid #E21616;
+        }
+
+    .content-body .bottom-border {
+        padding: 20px 0;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .content-body .pay-info span {
+        padding: 5px 10px;
+        display: inline-block;
+        margin-right: 20px;
+        border: 1px solid #ccc;
+        cursor:pointer;
+    }
+
+        .content-body .pay-info span.active {
+            border: 2px solid #E21616;
+        }
+
+    .content-body .goods-info {
+        padding: 5px;
+        background-color: #F6FDFC;
+    }
+
+        .content-body .goods-info img {
+            height: 100px;
+        }
+
+        .content-body .goods-info h6 {
+            font-weight: bold;
+        }
+        .content-body .goods-info .price {
+            color:#E21616;
+                font-weight: bold;
+        }
+    .content-body .pay {
+        font-size:16px;
+        padding:10px 5px;
+        background-color:#ccc;
+    }
+    .content-body .pay .pay-moeny{
+        display:inline-block;
+        color:#E21616;
+                font-weight: bold;
+    }
+        .content-body .pay .buttom-form {
+            display:inline-block;
+            padding:5px 20px;
+            background-color:#CE4B4B;
+            color:#fff;
+            margin-left:10px;
+            border-radius:3px;
+            text-decoration:none;
+        }

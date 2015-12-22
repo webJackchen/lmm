@@ -1,0 +1,136 @@
+﻿<div>
+    <div class="content-detail">
+        <input type="hidden" id="link" value="{{data.$link$.text}}">
+        <input type="hidden" id="isvip" value="{{data.$isvip$.text}}">
+        <div class="detail-top">
+            <div class="pull-left">
+                <img src="{{data.host}}{{data.$image$.text}}" />
+                <div class="perivew-count">已查看：{{data.$visitcount$.text}}次</div>
+            </div>
+            <div class="pull-right">
+                <h4>{{data.$title$.text}}</h4>
+                <h5>{{data.$description$.text}}</h5>
+                <div class="price">
+                    <span class="shop-price">市场价：￥{{data.$moduleInfo$.$sale$.text}}</span>
+                    <div class="VIP-price"><span>VIP：</span><h4>￥{{data.$vipPrice$.text}}</h4></div>
+                </div>
+                <div class="detail-attribute" id="attribute" ng-repeat="value in data.$item$.$attribute$.$item$">
+                    <div class="pull-left title">{{value.title}}：</div>
+                    <div class="pull-left attribute">{{value.text}}</div>
+                </div>
+                <div class="detail-attribute">
+                    <div class="pull-left title">数量：</div>
+                    <div class="pull-left value">
+                        <input id="count" type="text" class="stock" value="1">
+                        <div class="count-stock">
+                            <span id="addStock"><s></s></span>
+                            <span id="reduceStock"><s class="subtract"></s></span>
+                        </div>
+                    </div>
+                </div>
+                <a href="javascript:void(0)" class="btn btn-buy" id="btnOrder">{{data.btntext}}</a>
+            </div>
+        </div>
+
+        <div class="detail-descript">
+            <ul class="nav nav-tabs" id="myTab">
+                <li class="active">
+                    <a>商品详情</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade in form-horizontal active">
+                    <div class="detail-attribute">
+                        <label class="detail-attribute-title">品牌名称：</label>
+                        <div class="detail-attribute-content blue">{{data.$special$.title}}</div>
+                    </div>
+                    <div class="detail-attribute" style="margin-bottom:5px;">
+                        <label class="detail-attribute-title">产品参数</label>
+                    </div>
+                    <div class="detail-attribute">
+                        <label class="detail-attribute-title parameter">产品属性</label>
+                        <div class="detail-attribute-content">
+                            <span>产品编号：{{data.$rank$.text}}</span>
+                            <span>产品规格：{{data.$stock$.text}}</span>
+                        </div>
+                    </div>
+                    <div class="detail-attribute">
+                        <label class="detail-attribute-title parameter">产品产地</label>
+                        <div class="detail-attribute-content">{{data.$address$.text}}</div>
+                    </div>
+                    <div class="detail-attribute">
+                        <label class="detail-attribute-title parameter">基本信息</label>
+                        <div class="detail-attribute-content" style="border-left:none;" bind-html-unsafe-new="data.$content$.text"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="orderModalLabel">订购信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="txtordername"><b>*</b> 收货人：</label>
+                                <div class="col-sm-9 fixmargin">
+                                    <input type="text" class="form-control" id="txtordername" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="txtorderphone"><b>*</b> 联系电话：</label>
+                                <div class="col-sm-9 fixmargin">
+                                    <input type="text" class="form-control" id="txtorderphone" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="txtorderemail"><b>*</b> 电子邮箱：</label>
+                                <div class="col-sm-9 fixmargin">
+                                    <input type="text" class="form-control" id="txtorderemail" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="txtorderaddress"><b>*</b> 收货地址：</label>
+                                <div class="col-sm-9 fixmargin">
+                                    <input type="text" class="form-control" id="txtorderaddress" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="txtorderdescription">订购留言：</label>
+                                <div class="col-sm-9 fixmargin">
+                                    <textarea class="form-control" rows="4" id="txtorderdescription"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnSubmitOrder" type="button" class="btn btn-primary">提 交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="confirmOrderModal" tabindex="-1" role="dialog" aria-labelledby="confirmOrderModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="confirmOrderModalLabel">订购留言</h4>
+                    </div>
+                    <div class="modal-body">
+                        <textarea class="form-control" rows="5" id="txtorderdescriptionformember" placeholder="如有需要请填写订购留言（非必填）"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取 消</button>
+                        <button type="button" class="btn btn-primary" id="btnConfirmOrder">确 定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

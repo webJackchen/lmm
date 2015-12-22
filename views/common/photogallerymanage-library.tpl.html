@@ -1,0 +1,60 @@
+﻿<div class="col-sm-12 photogallery-manage">
+    <div class="setting-content">
+        <div class="col-sm-12 col-padding-clear">
+            <button class="btn btn-primary">管理图集</button>
+        </div>
+        <div class="col-sm-12 col-padding-clear">
+            <style>
+                .jssora03l, .jssora03r {
+                    display: block;
+                    position: absolute;
+                    /* size of arrow element */
+                    width: 55px;
+                    height: 55px;
+                    cursor: pointer;
+                    background: url(../../images/kdesign/carousel/a03.png) no-repeat;
+                    overflow: hidden;
+                }
+
+                .jssora03l {
+                    background-position: -3px -33px;
+                }
+
+                .jssora03r {
+                    background-position: -63px -33px;
+                }
+
+                .jssora03l:hover {
+                    background-position: -123px -33px;
+                }
+
+                .jssora03r:hover {
+                    background-position: -183px -33px;
+                }
+
+                .jssora03l.jssora03ldn {
+                    background-position: -243px -33px;
+                }
+
+                .jssora03r.jssora03rdn {
+                    background-position: -303px -33px;
+                }
+            </style>
+            <div id="photogallery_container" style="position: relative; top: 0px; left: 0px; width: 523px; height: 120px; overflow: hidden;">
+            </div>
+        </div>
+        <div class="col-sm-12 col-padding-clear manage-body">
+            <div class="col-sm-3 col-padding-clear image-column {{ photo.focus }}" style="width:120px;" ng-repeat="photo in photoList">
+                <div class="pull-left" ng-click="btnSelectedPhoto(photo)">
+                    <img ng-src="{{ photo.src }}" style="width:120px; height: 120px; opacity:1;" title="{{ photo.title }}" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="setting-btn">
+        <div class="form-group text-center">
+            <button class="btn btn-primary" ng-click="btnSelected($event)">确定</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,127 @@
+﻿<div class="col-sm-12 manuscript" ng-controller="ManagementStyleCtrl">
+
+    <!-- Recycle Body -->
+    <div class="col-sm-12 nopadding">
+        <ul class="col-sm-12 nav nav-tabs management-content-bar nopadding">
+            <li class="active" ng-click="switchStatue($event,'')"><a href="javascript:void(0);">我的样式<s class="active"><i></i></s></a></li>
+            <li ng-click="switchStatue($event,'Design')"><a href="javascript:void(0);">设计中</a></li>
+            <li ng-click="switchStatue($event,'Check')"><a href="javascript:void(0);">审核中</a></li>
+            <li ng-click="switchStatue($event,'CheckFailed')"><a href="javascript:void(0);">未通过</a></li>
+            <li ng-click="switchStatue($event,'Active')"><a href="javascript:void(0);">已上架</a></li>
+            <li class="pull-right"><button class="btn btn-primary btn-copy pull-right" ng-click="copyAllStyle()">复制</button></li>
+            <li class="pull-right"><button class="btn btn-primary btn-add pull-right" ng-click="btnOpenCreateForm()">新建</button></li>
+        </ul>
+    </div>
+
+    <div class="conditionQuery">
+        <div class="col-sm-12 nopadding">
+            <div class="col-sm-3 pull-left keyword">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="输入稿件编号或样式名称" ng-model="styleKeyword">
+                    <span class="input-group-addon" ng-click="keyword()"><i class="iconfont icon-search"></i></span>
+                </div>
+            </div>
+            <div class="col-sm-1 pull-left more-condition" style="width: 110px;" ng-click="showMoreCondition()">
+                <span>精简筛选条件</span>
+                <i class="iconfont icon-down-arrow" ng-hide="moreCondition"></i>
+                <i class="iconfont icon-up-arrow" ng-show="moreCondition"></i>
+            </div>
+        </div>
+
+        <div class="pull-right query-more-condition" ng-show="moreCondition">
+            <div class="form-inline">
+                <div class="form-group" style="margin-right:210px;">
+                    <label>终端筛选：</label>
+                    <select class="form-control" ng-model="styleCondition.webType">
+                        <option value="">全部</option>
+                        <option value="Web">PC</option>
+                        <!--<option value="WAP">MB</option>-->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>样式类型：</label>
+                    <select class="form-control" ng-model="styleCondition.moduleType"
+                            ng-options="model.key as model.title for model in tpl_status.sltModuleList">
+                    </select>
+                </div>
+
+                <div class="form-group pull-right nomargin">
+                    <label>编辑日期：</label>
+                    <div class="form-control datetimepicker">
+                        <input type="text" id="datetimepicker" ng-model="styleCondition.lastEditTime" style="width: 180px;">
+                        <span class="add-on" ng-click="removeDate($event)"><i class="iconfont icon-close"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group" ng-show="showStatus">
+                    <label>样式状态：</label>
+                    <select class="form-control" ng-model="styleCondition.prcoessStatus">
+                        <option value="">全部</option>
+                        <option value="Design">设计中</option>
+                        <option value="Check">审核中</option>
+                        <option value="CheckFailed">未通过</option>
+                        <option value="Active">已上架</option>
+                        <option value="Deactive">已下架</option>
+                        <option value="Removed">已移出</option>
+                    </select>
+                </div>
+                <div class="form-group" style="width: 200px;"></div>
+                <div class="form-group pull-right nomargin">
+                    <button class="btn btn-primary btn-add pull-left" ng-click="queryList()">搜 索</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grid -->
+    <div class="col-sm-12 template nopadding">
+        <div class="col-sm-12 grid nopadding">
+            <div class="col-sm-3 col-padding-clear column" ng-repeat="template in styleList">
+                <div class="column-template">
+                    <div class="col-sm-12 col-padding-clear template-title">
+                        <span>{{ template.title }}</span>
+                        <i ng-show="template.prcoessStatus === 'Design' && !template.isAssignToOther || template.prcoessStatus === 'CheckFailed' && !template.isAssignToOther" ng-click="btnDelete(template)" class="iconfont icon-close" title="删除"></i>
+                    </div>
+                    <div class="col-sm-12 col-padding-clear template-body" style="background-image: url({{host}}{{ template.previewImg }})">
+                        <div class="template-description">
+                            <div class="template-style" style="text-align: center;">
+                                <i ng-click="btnOpenInfoForm(template)" class="iconfont icon-view" title="查看"></i>
+                                <i ng-show="template.prcoessStatus == 'Design' && !template.isAssignToOther|| template.prcoessStatus === 'CheckFailed' && !template.isAssignToOther" ng-click="editStyleContent(template)" class="iconfont icon-editor" title="编辑"></i>
+                                <i ng-click="copyStyleInfo(template)" class="iconfont icon-copy" title="复制"></i>
+                                <i ng-show="template.prcoessStatus === 'Design'&& !template.isAssignToOther || template.prcoessStatus === 'CheckFailed' && !template.isAssignToOther" ng-click="uploadImage(template)" upload-image="uploadImageCallback" class="iconfont icon-up-pic" title="上传图片"></i>
+                            </div>
+                            <div class="apply-failure-reason" ng-show="template.prcoessStatus === 'CheckFailed'">
+                                <span>原因:{{template.checkFailedRemark}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-padding-clear text-center">
+                        <button class="btn btn-apply" ng-click="btnSubmit(template)" ng-show="template.prcoessStatus === 'Design' && !template.isAssignToOther || template.prcoessStatus === 'CheckFailed' && !template.isAssignToOther">申请上架</button>
+                        <button class="btn btn-result template-Check" ng-show="template.prcoessStatus === 'Check' && !template.isAssignToOther">样式审核中...</button>
+                        <button class="btn btn-result" ng-show="template.prcoessStatus === 'Active' && !template.isAssignToOther">已上架</button>
+                        <button class="btn btn-result" ng-show="template.prcoessStatus === 'Deactive' && !template.isAssignToOther">已下架</button>
+                        <button class="btn btn-result" ng-show="template.isAssignToOther">已移出</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="content-page text-right" id="content-page">
+            <pagination total-items="stylePage.total"
+                        ng-model="stylePage.pageIndex"
+                        items-per-page="stylePage.pageSize"
+                        max-size="5"
+                        class="pagination-sm"
+                        boundary-links="true"
+                        rotate="false"
+                        ng-change="pageChanged()"
+                        previous-text="前一页"
+                        next-text="下一页"
+                        first-text="首页"
+                        last-text="尾页"></pagination>
+        </div>
+
+    </div>

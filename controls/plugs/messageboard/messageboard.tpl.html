@@ -1,0 +1,40 @@
+﻿<div class="kdo-panel">
+    <div class="kdo-panel-head" ng-hide="data.hideTitle==true" style="text-align:{{data.titleTextAlign}}">
+        <h3>{{ data.title }}</h3>
+    </div>
+    <div class="kdo-panel-body">
+        <div class="form-group row" ng-hide="data.hideWelcomeTitle==true">
+            <div class="col-sm-12">
+                {{ data.welcomeTitle }}
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-2 col-label"><span style="color:red">*</span> 内容:</div>
+            <div class="col-sm-9">
+                <textarea class="form-control" id="txtMessage"></textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-2 col-label col-label-inline"><span style="color:red">*</span> 姓名:</div>
+            <div class="col-sm-3">
+                <input class="form-control" id="txtPerson" />
+            </div>
+            <div class="col-sm-2 tel-label"><span style="color:red">*</span> 电话:</div>
+            <div class="col-sm-3">
+                <input class="form-control" id="txtTelephone" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-2 col-label col-label-inline">验证码:</div>
+            <div class="col-sm-3">
+                <input class="form-control" id="txtValidCode" />
+            </div>
+            <div class="col-sm-3">
+                <div id="validCode"></div>
+            </div>
+        </div>
+    </div>
+    <div class="kdo-panel-footer">
+        <button class="kdo-button" id="btnSubmit">{{ data.submitText }}</button>
+    </div>
+</div>

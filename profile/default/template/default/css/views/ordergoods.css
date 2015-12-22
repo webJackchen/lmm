@@ -1,0 +1,20 @@
+﻿.content-body .ordergoos-list-tr {
+    height: 100px;
+}
+
+    .content-body .ordergoos-list-tr td {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+        .content-body .ordergoos-list-tr td dl {
+            margin-bottom: 0px;
+        }
+
+        .content-body .ordergoos-list-tr td .orderCancel {
+            color: #9F9E9E;
+        }
+
+.modal-dialog textarea {
+    height: 120px;
+}

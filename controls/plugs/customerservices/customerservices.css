@@ -1,0 +1,68 @@
+﻿.ui-dialog {
+    padding: 0;
+}
+
+#message_text > div > div.edui-default {
+    width: 99% !important;
+}
+
+#message_text .edui-editor-iframeholder {
+    height: 140px !important;
+    overflow: hidden;
+    overflow-y: scroll;
+    width: 100% !important;
+}
+
+.ui-widget-header {
+    background: #fff;
+    border: none;
+}
+
+.ui-tabs-nav.ui-widget-header {
+    border-bottom: 1px solid #bbb;
+}
+
+#edui_fixedlayer {
+    z-index: 10005 !important;
+}
+
+#message_text {
+    margin: 0;
+    padding: 0;
+}
+
+#msg_region.ui-dialog-content > div {
+    padding: 0;
+}
+
+#msg_region.ui-dialog-content {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
+#msg_tabs.ui-widget-content {
+    border: 0;
+}
+
+.btn-primary, .btn-primary:focus, .btn-primary:hover, .btn-primary:active {
+    background-color: #3ec5df;
+    border: 1px solid #3ec5df;
+    padding: 5px 25px;
+    border-color: #3ec5df;
+}
+
+.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus {
+    outline: none;
+    outline-offset: -2px;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #3ec5df;
+    border-color: #3ec5df;
+}
+
+#msg_region hr {
+    margin-top: 0;
+}

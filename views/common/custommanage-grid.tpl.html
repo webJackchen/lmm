@@ -1,0 +1,65 @@
+﻿<div class="col-sm-12 custommanage-grid">
+    <!-- Menus -->
+    <ul class="col-sm-12 nav nav-tabs" style="margin-bottom: 10px;">
+        <li role="presentation" class="{{tpl_status.mode == 'select' ? 'active' : ''}}" ng-click="tpl_status.mode = 'select'"><a href="javascript:void(0);">选择样式</a></li>
+        <li role="presentation" class="{{tpl_status.mode == 'custom' ? 'active' : ''}}" ng-click="tpl_status.mode = 'custom'"><a href="javascript:void(0);">自定义</a></li>
+    </ul>
+    <!--<div class="col-sm-2 custom-btn">
+        <button class="btn btn-primary" ng-show="tpl_status.mode == 'custom'">加载样式</button>
+    </div>-->
+    <!--Condition-->
+    <div class="col-sm-12 form-inline custom-condition" ng-show="tpl_status.mode == 'select' && isDesigner">
+        <div class="form-group">
+            <select class="form-control" ng-model="stylePage.isOnlyActive" ng-change="btnSearch()">
+                <option value="true">系统已上架样式</option>
+                <option value="false">我的样式</option>
+            </select>
+        </div>
+        <div class="form-group"><input type="text" class="form-control" ng-model="stylePage.keyword" placeholder="输入样式编号或样式名称" /></div>
+        <div class="form-group"><button class="btn btn-primary" ng-click="btnSearch()">搜索</button></div>
+    </div>
+    <!-- Select Grid -->
+    <div class="col-sm-12 custom-grid" ng-show="tpl_status.mode == 'select'">
+        <div id="{{ template.skinName }}" class="col-sm-6 custom-column {{ template.focus }}" ng-repeat="template in templateList" ng-click="btnSelected(template)">
+            <img ng-src="{{ template.previewImg || '../../images/no_image_220x220.jpg' }}" />
+        </div>
+    </div>
+
+    <!-- Custom Editor -->
+    <div class="col-sm-12 custom-editor" ng-show="tpl_status.mode == 'custom'">
+        <div id="preview" class="col-sm-12 col-padding-clear preview" style="margin-bottom: 10px;" bind-html-unsafe-new="_template._preview"></div>
+        <div class="col-sm-12 col-padding-clear">
+            <ul class="col-sm-12  col-padding-clear nav nav-tabs" style="margin-bottom:10px;">
+                <li role="presentation" class="{{tpl_status.editor == 'css' ? 'active' : ''}}" ng-click="tpl_status.editor = 'css'"><a href="javascript:void(0);">CSS</a></li>
+                <li role="presentation" class="{{tpl_status.editor == 'js' ? 'active' : ''}}" ng-click="tpl_status.editor = 'js'"><a href="javascript:void(0);">JavaScript</a></li>
+                <li role="presentation" class="{{tpl_status.editor == 'html' ? 'active' : ''}}" ng-click="tpl_status.editor = 'html'"><a href="javascript:void(0);">HTML</a></li>
+            </ul>
+            <div class="col-sm-12 col-padding-clear">
+                <textarea class="col-sm-12 col-padding-clear" ng-model="_template.css" ng-show="tpl_status.editor == 'css'" style="height:200px;" ng-change="changedPreview()"></textarea>
+                <textarea class="col-sm-12 col-padding-clear" ng-model="_template.js" ng-show="tpl_status.editor == 'js'" style="height:200px;" ng-change="changedPreview()"></textarea>
+                <textarea class="col-sm-12 col-padding-clear" ng-model="_template.html" ng-show="tpl_status.editor == 'html'" style="height:200px;" ng-change="changedPreview()"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-page text-right" id="content-page" ng-show="tpl_status.mode == 'select'">
+        <pagination total-items="stylePage.total"
+                    ng-model="stylePage.pageIndex"
+                    items-per-page="stylePage.pageSize"
+                    max-size="5"
+                    class="pagination-sm"
+                    boundary-links="true"
+                    rotate="false"
+                    ng-change="pageChanged()"
+                    previous-text="前一页"
+                    next-text="下一页"
+                    first-text="首页"
+                    last-text="尾页"></pagination>
+    </div>
+
+    <div class="col-sm-12 form-group text-center">
+        <button class="btn btn-primary" ng-click="btnSet($event)" ng-show="tpl_status.mode == 'select'">选择</button>
+        <button class="btn btn-primary" ng-click="btnSet($event)" ng-show="tpl_status.mode == 'custom'">保存</button>
+    </div>
+
+</div>

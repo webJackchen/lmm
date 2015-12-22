@@ -1,0 +1,55 @@
+
+.messageTitle ul {
+    padding: 10px;
+    background-color: #F3F3F3;
+    border: 1px solid #C2C2C2;
+}
+
+    .messageTitle ul li {
+        float: left;
+        list-style-type: none;
+        text-align: center;
+    }
+
+.commentList {
+    margin-top: 10px;
+}
+
+    .commentList table tr {
+        border: 1px solid #C2C2C2;
+        text-align: center;
+        height: 90px!important;
+    }
+
+    .commentList table td {
+        line-height: 90px!important;
+        padding: 20px 0;
+    }
+
+    .commentList table a {
+        color: #3ec5df;
+    }
+
+.showInfo {
+    margin-right: 15px;
+}
+
+.messageDialog {
+    margin-top: 20px;
+}
+
+.messageDialogFirst {
+    border-bottom: 1px solid #ddd;
+    margin-top: 20px;
+    padding-bottom: 25px;
+}
+
+.ui-widget-header {
+    border: none;
+    background: #fff;
+    border-bottom: 1px solid #bbb;
+}
+
+.ui-widget-content a {
+    color: #F3F3F3;
+}

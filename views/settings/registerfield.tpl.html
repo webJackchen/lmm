@@ -1,0 +1,23 @@
+﻿<div style="width:330px;">
+    <div class="setting-content">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <span>选择注册信息:</span>
+            </div>
+        </div>
+        <div style="border:1px solid #c8c8c8;padding:10px;">
+            <div ng-repeat="item in data.registerFields">
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <input type="checkbox" value="{{item.key}}" ng-disabled="item.default" ng-model="item.selected" />&nbsp;{{item.title}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="setting-btn">
+        <div class="form-group text-center">
+            <button class="btn btn-primary" ng-click="btnCloseRegisterfield($event)">确定</button>
+        </div>
+    </div>
+</div>

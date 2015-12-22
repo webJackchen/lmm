@@ -1,0 +1,116 @@
+﻿<div class="col-sm-12 manuscript" ng-controller="RecyleCtrl">
+
+    <div class="conditionQuery">
+        <div class="col-sm-12 nopadding">
+            <div class="col-sm-3 pull-left keyword">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="输入组件编号或组件名称" ng-model="componentKeyword">
+                    <span class="input-group-addon" ng-click="searchKeyword()"><i class="iconfont icon-search"></i></span>
+                </div>
+            </div>
+            <div class="col-sm-1 pull-left more-condition" style="width: 110px;" ng-click="showMoreCondition()">
+                <span>精简筛选条件</span>
+                <i class="iconfont icon-down-arrow" ng-hide="moreCondition"></i>
+                <i class="iconfont icon-up-arrow" ng-show="moreCondition"></i>
+            </div>
+        </div>
+
+        <div class="pull-right query-more-condition" ng-show="moreCondition">
+            <div class="form-inline">
+                <div class="form-group" style="margin-right:210px;">
+                    <label>终端筛选：</label>
+                    <select class="form-control" ng-model="componentCondition.webType">
+                        <option value="">全部</option>
+                        <option value="Web">PC</option>
+                        <!--<option value="WAP">MB</option>-->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>编辑日期：</label>
+                    <div class="form-control datetimepicker">
+                        <input type="text" id="datetimepickerCompon" ng-model="componentCondition.editTime" value="" style="width: 180px;">
+                        <span class="add-on" ng-click="removeDate($event)"><i class="iconfont icon-close"></i></span>
+                    </div>
+                </div>
+                <div class="form-group pull-right nomargin">
+                    <label>组件状态：</label>
+                    <select class="form-control" ng-model="componentCondition.prcoessStatus">
+                        <option value="">全部</option>
+                        <option value="Design">设计中</option>
+                        <option value="Check">审核中</option>
+                        <option value="CheckFailed">未通过</option>
+                        <option value="Active">已上架</option>
+                        <option value="Deactive">已下架</option>
+                        <option value="Removed">已移出</option>
+                    </select>
+                </div>
+                <div class="form-group" style="width: 200px;"></div>
+                <div class="form-group pull-right nomargin">
+                    <button class="btn btn-primary btn-add pull-left" ng-click="searchCondition()">搜 索</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 template-list">
+        <div class="form-group pull-left nomargin">
+            <button class="btn btn-copy btn-add pull-left" ng-click="batchDeletCompon()">批量删除</button>
+            <button class="btn btn-copy pull-left" ng-click="batchReductionCompon()">批量还原</button>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" ng-checked="selectedCompon" ng-click="selectAllCompon()"></th>
+                    <th>编号</th>
+                    <th>名称</th>
+                    <th>预览</th>
+                    <th>来源</th>
+                    <th>上次编辑时间</th>
+                    <th>状态</th>
+                    <th>备注</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="{{ template.id }}" ng-repeat="template in componentList">
+                    <th><input type="checkbox" ng-checked="template.selected" ng-click="selectInfoCompon(template)"></th>
+                    <td>{{ template.id }}</td>
+                    <td>{{template.title}}</td>
+                    <td style="overflow: visible;position:relative;width:64px;">
+                        <i class="iconfont icon-pic-background pull-right" title="预览" ng-mouseenter="showImage($event)" ng-mouseleave="hideImage($event)"></i>
+                        <img ng-class="{'preview-template-top':$index>5}" class="preview-template" src="{{host}}{{ template.previewImg }}" />
+                    </td>
+                    <td>{{ template.creator }}</td>
+                    <td>{{template.lastEditTime|date:'yyyy年MM月dd日 HH:mm:ss'}}</td>
+                    <td>
+                        <span ng-if="template.prcoessStatus=='Design'">设计中</span>
+                        <span ng-if="template.prcoessStatus=='Check'">审核中</span>
+                        <span ng-if="template.prcoessStatus=='CheckFailed'">未通过</span>
+                        <span ng-if="template.prcoessStatus=='Active'">已上架</span>
+                        <span ng-if="template.prcoessStatus=='Deactive'">已下架</span>
+                    </td>
+                    <td title="{{template.deleteRemark}}">{{template.deleteRemark}}</td>
+                    <td>
+                        <i class="iconfont icon-reduction" title="还原" ng-click="reductionComponent(template)"></i>
+                        <i class="iconfont icon-delete" title="删除" ng-click="throughComponent(template)"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="content-page text-right" id="content-page">
+            <pagination total-items="componentPage.total"
+                        ng-model="componentPage.pageIndex"
+                        items-per-page="componentPage.pageSize"
+                        max-size="5"
+                        class="pagination-sm"
+                        boundary-links="true"
+                        rotate="false"
+                        ng-change="pageComponentChanged()"
+                        previous-text="前一页"
+                        next-text="下一页"
+                        first-text="首页"
+                        last-text="尾页"></pagination>
+        </div>
+    </div>
+</div>

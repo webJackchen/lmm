@@ -1,0 +1,57 @@
+﻿<div class="detail-content">
+    <div class="detail-top">
+        <h2>{{data.$title$.text }}</h2>
+        <p>
+            <span>时间：{{data.$pubdate$.text}}</span>
+            <span>点击量：{{data.$visitcount$.text}}</span>
+        </p>
+        <div>
+            <span style="float: left; margin-top: 5px;">分享到：</span>
+            <div class="bdshare-button-style0-16 bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+        </div>
+    </div>
+    <div class="content">
+        <ul class="job-requirements">
+            <li ng-hide="data.wage === false">薪资待遇：{{data.$price$.text}}</li>
+            <li ng-hide="data.sex === false">性别要求：{{data.$sex$.text}}</li>
+            <li ng-hide="data.date === false">有效日期：{{data.$hnumber$.text}}</li>
+            <li ng-hide="data.record === false">学历要求：{{data.$rank$.text}}</li>
+            <li ng-hide="data.experience === false">工作经验：{{data.$configure$.text}}</li>
+            <li ng-hide="data.address === false">工作地点：{{data.$address$.text}}</li>
+            <li ng-hide="data.number === false">招聘人数：{{data.$stock$.text}}人</li>
+        </ul>
+    </div>
+    <div class="job-content" bind-html-unsafe-new="data.$content$.text"></div>
+    <a id="btnApply" href="javascript:void(0)" class="job-apply" onclick="jobDialog()">{{data.btntext || '职位申请'}}</a>
+
+
+    <div id="job-apply" style="display: none;">
+        <div class="job-apply-content">
+            <div class="form-group">
+                <span style="color: red;" class="control-label">*</span>
+                <label class="form-label">您的名字：</label>
+                <input type="text" class="job-form-control" id="name" onblur=' promptHide("nameVerify")' />
+                <label id="nameVerify" style="display: none;" for="text" generated="true" class="error"></label>
+            </div>
+            <div class="form-group">
+                <span style="color: red;" class="control-label">*</span>
+                <label class="form-label">您的手机：</label>
+                <input type="text" class="job-form-control" id="phone" onblur=' promptHide("phoneVerify")' />
+                <label id="phoneVerify" style="display: none;" for="text" generated="true" class="error"></label>
+            </div>
+            <div class="form-group">
+                <span style="color: red;" class="control-label">*</span>
+                <label class="form-label">您的简历：</label>
+                <input type="text" disabled class="job-form-control resume" id="file" name="savePath" />
+                <a href="javascript:void(0)" class="upload-resume">
+                    <input type="file" id="fileInput" name="fileInput" onchange="fileInputChange()" />浏览</a>
+                <label id="fileVerify" style="display: none;" for="text" generated="true" class="error"></label>
+            </div>
+            <div class="form-group">
+                <button href="javascript:void(0)" class="btn-resume" onclick="doSubmitJob()">提交</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+

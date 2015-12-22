@@ -1,0 +1,27 @@
+﻿<div class="kdesign-login">
+    <div class="design" ng-show="!tpl_status.mode">
+        <div>
+            <div class="login-content-top"></div>
+            <div class="login-content-bottom">
+                <div class="login-design-content">
+                    <i class="design"></i>
+                    <h3>在线制作设计师版</h3>
+                    <div class="login-input">
+                        <i class="iconfont icon-people"></i>
+                        <input type="text" ng-model="username" placeholder="请输入用户名" ng-keyup="$event.keyCode == 13 && login()" />
+                    </div>
+                    <div class="login-input">
+                        <i class="iconfont icon-lock"></i>
+                        <input type="password" ng-model="password" placeholder="请输入密码" ng-keyup="$event.keyCode == 13 && login()" />
+                    </div>
+                    <a class="btn login" href="javascript:void(0);" ng-click="login()">登 录</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="login-content" ng-show="!!tpl_status.mode">
+        <i class="design"></i>
+        <h2>欢迎使用在线制作系统</h2>
+        <a class="immediately" href="javascript:void(0)" ng-click="login()">立即体验</a>
+    </div>
+</div>

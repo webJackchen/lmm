@@ -1,0 +1,83 @@
+﻿#_panelId_ * {
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+#_panelId_ .col-label {
+    text-align: right;
+    margin-top: 3px;
+}
+
+/*Special Controls*/
+#_panelId_ textarea {
+    height: 150px;
+}
+
+#_panelId_ #validCode {
+    width: 80px;
+    height: 42px;
+}
+
+#_panelId_ [type='text'] {
+    height: 25px;
+}
+
+#_panelId_ .tel-label {
+    padding-top: 10px;
+    width: 99px;
+    text-align: right;
+}
+
+#_panelId_ .col-label-inline {
+    padding-top: 10px;
+}
+
+#_panelId_ .form-col{
+    margin-left: 5px;
+}
+    #_panelId_ .form-col [type='checkbox'] {
+        margin-right: 5px;
+    }
+/*Special Controls End*/
+
+
+#_panelId_ .kdo-panel {
+    border: 1px solid #eee;
+    border-radius: 0.8em;
+    padding: 5px 0;
+    min-width: 650px;
+}
+
+#_panelId_ .kdo-button {
+    border-radius: 5px;
+    background-color: #3ec5df;
+    border: 0;
+    height: 30px;
+    min-width: 90px;
+    color: #fff;
+}
+
+#_panelId_ .kdo-panel > .kdo-panel-head {
+    height: 30px;
+    border-bottom: 1px solid #ccc;
+}
+
+    #_panelId_ .kdo-panel > .kdo-panel-head h3 {
+        font-size: 15px;
+        font-weight: bold;
+        margin: 10px 0 0 15px;
+        padding: 0;
+    }
+
+#_panelId_ .kdo-panel > .kdo-panel-body {
+    min-height: 200px;
+    padding: 8px 20px;
+}
+
+#_panelId_ .kdo-panel > .kdo-panel-footer {
+    height: 40px;
+    text-align: center;
+    border-top: 1px solid #ccc;
+    padding: 10px 0 0;
+}

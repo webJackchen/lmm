@@ -1,0 +1,97 @@
+﻿<div class="col-sm-12 manuscript management" ng-controller="ComponentShelveCtrl" style="width: 1000px; margin-top: 0px;">
+    <div class="conditionQuery">
+        <div class="col-sm-12 nopadding">
+            <div class="col-sm-4 pull-left keyword">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="输入组件编号或组件名称" ng-model="componentKeyword">
+                    <span class="input-group-addon" ng-click="searchKeyword()"><i class="iconfont icon-search"></i></span>
+                </div>
+            </div>
+            <div class="col-sm-2 pull-left more-condition" style="width: 120px;" ng-click="showMoreCondition()">
+                <span>精简筛选条件</span>
+                <i class="iconfont icon-down-arrow" ng-hide="moreCondition"></i>
+                <i class="iconfont icon-up-arrow" ng-show="moreCondition"></i>
+            </div>
+            <div class="pull-right">
+                <button class="btn btn-primary btn-copy pull-right" ng-click="copyManuscriptInfo($event)">复制</button>
+            </div>
+        </div>
+
+        <div class="pull-right query-more-condition" ng-show="moreCondition">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label>编辑日期：</label>
+                    <div class="form-control datetimepicker">
+                        <input type="text" id="datetimepickerMauscript1" ng-model="componentCondition.editTime" value="" style="width: 180px;">
+                        <span class="add-on" ng-click="removeDate($event)"><i class="iconfont icon-close"></i></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>终端筛选：</label>
+                    <select class="form-control" ng-model="componentCondition.webType">
+                        <option value="">全部</option>
+                        <option value="Web">PC</option>
+                        <!--<option value="WAP">MB</option>-->
+                    </select>
+                </div>
+                <div class="form-group pull-right nomargin">
+                    <button class="btn btn-primary btn-add pull-left" ng-click="searchCondition()">搜 索</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grid -->
+    <div class="col-sm-12 template nopadding">
+        <div class="col-sm-12 grid nopadding dialog-copy-content">
+            <div class="col-sm-3 col-padding-clear column template-content" ng-repeat="component in componentShelveList">
+                <div class="column-template template-copy" style="padding: 0px;">
+                    <div class="col-sm-12 col-padding-clear template-body" style="background-image: url({{host}}{{ component.previewImg }}); margin: 0;" ng-click="checkedTemplate(component, $event)">
+                        <div class="template-Check">
+                            <div class="template-ok">
+                                <i class="iconfont icon-ok"></i>
+                            </div>
+                        </div>
+                        <div class="template-description">
+                            <div class="template-style">
+                                <div>
+                                    <span>编号:</span>
+                                    <span>{{ component.id }}</span>
+                                </div>
+                                <div>
+                                    <span>设计师:</span>
+                                    <span>{{ component.creator }}</span>
+                                </div>
+                                <div>
+                                    <span>组件名称:</span>
+                                    <span>{{ component.title }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-padding-clear text-center template-title" style="display: none;">
+                        <label class="col-sm-4 nopadding" style="line-height: 28px; font-weight: normal;">组件名称:</label>
+                        <div class="col-sm-8 nopadding">
+                            <input type="text" class="form-control" style="border: none;">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content-page text-center" id="content-page">
+        <pagination total-items="componentPage.total"
+            ng-model="componentPage.pageIndex"
+            items-per-page="componentPage.pageSize"
+            max-size="5"
+            class="pagination-sm"
+            boundary-links="true"
+            rotate="false"
+            ng-change="pageCopyChanged()"
+            previous-text="前一页"
+            next-text="下一页"
+            first-text="首页"
+            last-text="尾页"></pagination>
+    </div>
+</div>

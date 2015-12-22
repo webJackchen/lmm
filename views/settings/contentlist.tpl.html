@@ -1,0 +1,171 @@
+﻿<div class="contentlist-setting" ng-controller="SettingContentListCtrl" style="width:320px;">
+    <div class="setting-content">
+        <div class="form-group row" ng-show="data.showType">
+            <div class="col-sm-12">
+                <label>数据类型:</label>
+            </div>
+            <div class="col-sm-12">
+                <select class="form-control" ng-model="data.category" ng-change="changeCategory()">
+                    <option value="news">新闻</option>
+                    <option value="article">简介</option>
+                    <option value="download">下载</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label> 筛选条件:</label>
+            </div>
+            <div class="col-sm-12">
+                <select class="form-control"
+                        ng-model="data.condition">
+                    <option value="">全部</option>
+                    <option value="ishot">热门</option>
+                    <option value="ishome">推荐</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>选择分类：<span style="color:red;font-weight:normal;">请勿选择多个栏目数据</span></label>
+            </div>
+            <div class="col-sm-12 setting-category-list">
+               <!-- <ul class="content-list" ng-if="data.categories&&data.categories.length">
+                    <li class="checkbox">
+                        <label>
+                            <input type="checkbox" ng-model="data.selectedAll" ng-click="selectAll()" />全选
+                        </label>
+                    </li>
+                    <li class="checkbox" ng-repeat="category in data.categories">
+                        <label>
+                            <input type="checkbox" ng-checked="category.selected" ng-click="selectedCategory(category)" />{{category.title.text}}
+                        </label>
+                        <ul ng-if="category.item">
+                            <li class="checkbox" ng-if="category.item.length" ng-repeat="childItem in category.item">
+                                <label>
+                                    <input type="checkbox" ng-checked="childItem.selected" ng-click="selectedCategory(childItem)" />{{childItem.title.text}}
+                                </label>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>-->
+                <kdo-tree source='data.treeData' single-all="false" useall="true" child-name="item"></kdo-tree>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>是否分页</label>
+            </div>
+            <div class="col-sm-12">
+                <select class="form-control" ng-model="data.isPaged">
+                    <option value="true">是</option>
+                    <option value="false">否</option>
+                </select>
+            </div>
+        </div>
+
+        <div ng-if="data.category !== 'product' && data.category !== 'goods'">
+            <!--<div class="form-group row">
+                <div class="col-sm-12">
+                    <label>是否滚动</label>
+                </div>
+                <div class="col-sm-12">
+                    <select class="form-control" ng-model="data.scrollable" ng-disabled="data.isPaged == 'true'">
+                        <option value="true">是</option>
+                        <option value="false">否</option>
+                    </select>
+                </div>
+            </div>-->
+            <div class="form-group row" ng-show="data.isPaged == 'true'">
+                <div class="col-sm-12">
+                    <label>每页显示个数</label>
+                </div>
+                <div class="col-sm-12">
+                    <input type="number" class="form-control" ng-model="data.pageSize" min="0">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <label>标题字数</label>
+                </div>
+                <div class="col-sm-12">
+                    <input type="number" class="form-control" ng-model="data.titleLength" min="0">
+                </div>
+            </div>
+        </div>
+
+
+
+        <div ng-if="data.category === 'product' || data.category === 'goods'">
+            <div class="form-group row" ng-show="data.isPaged == 'true'">
+                <div class="col-sm-12">
+                    <label>行数</label>
+                </div>
+                <div class="col-sm-12">
+                    <select class="form-control" ng-model="data.row">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <label>列数</label>
+                </div>
+                <div class="col-sm-12">
+                    <select class="form-control" ng-model="data.col">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>打开方式</label>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-6">
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" ng-model="data.target" value="_self">
+                        本页
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <label class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" ng-model="data.target" value="_blank">
+                        新标签页
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <custom-manage type="controls_list_content"></custom-manage>
+            </div>
+        </div>
+    </div>
+
+    <div class="setting-btn">
+        <div class="form-group row lanh-line">
+            <div class="col-sm-12">
+                <location-size-manage></location-size-manage>
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <button class="btn btn-primary" ng-click="btnOK()">确定</button>
+        </div>
+    </div>
+
+</div>

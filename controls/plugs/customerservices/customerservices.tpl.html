@@ -1,0 +1,38 @@
+﻿<div class="customer-services" data-limit="{{data.timeLimit}}" data-allowpush="{{data.allowPush}}">
+    <div style="float:left; text-align:right;padding:31px 0 0 0;margin:0;">
+        <a href="javascript:void(0)" id="lnk_toggle">
+            <img src="/images/kdesign/customerservice/customer_services_on.png" alt="在线客服" />
+        </a>
+    </div>
+    <div class="region" style="padding:0;float:left;">
+        <a href="javascript:void(0)" id="lnk_region">
+            <img src="/images/kdesign/customerservice/customer_services.png" alt="在线客服" />
+        </a>
+    </div>
+    <div style="clear:both;"></div>
+
+    <div id="msg_region" style="display:none;min-width:500px;overflow:hidden;">
+        <div>
+            <div id="msg_tabs">
+                <ul>
+                    <li><a href="#message_text">会话窗口</a></li>
+                </ul>
+                <div id="message_text">
+                    <div>
+                        <div id="txtOldMessage" style="height:285px;overflow:hidden;overflow-y:auto;padding:10px 0 0 5px;"></div>
+                    </div>
+                    <div style="overflow:hidden;">
+                        <script type="text/plain" id="msgEditor" name="msgEditor" style="width:100%;border-top:1px solid #eee;">
+                        </script>
+                    </div>
+                    <div style="min-height:30px;padding-top:5px;">
+                        <button id="btnClear" class="btn btn-default">清空聊天记录</button>
+                        <div class="pull-right">
+                            <button id="btnSend" class="btn btn-primary">发送</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

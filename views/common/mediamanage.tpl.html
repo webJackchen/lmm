@@ -1,0 +1,69 @@
+﻿<div id="win-video" style="width:700px;">
+    <div ng-if="source.dataIsEmpty" style="width:100%;height:400px; text-align:center;">
+        <a style="margin-top: 180px;font-size:20px;" class="btn btn-link" href="{{source.kplusUrl}}" target="_blank">+添加{{caption}}</a>
+    </div>
+    <div ng-if="!source.dataIsEmpty" style="width:100%;height:100%;">
+        <div class="row form-group lanh-line" style="padding: 10px;margin: 0;">
+            <div class="col-sm-3">
+                <a class="btn btn-default" href="{{source.kplusUrl}}" target="_blank">
+                    添加{{caption}}
+                </a>
+            </div>
+            <div class="col-sm-9 text-right col-padding-clear" style="padding-right:30px;">
+                <div class="col-sm-4 col-padding-clear" style="padding-left:5px;">
+                    <select class="form-control" ng-model="queryPara.size" ng-change="loadMediaData()">
+                        <option value="20">显示20个</option>
+                        <option value="40">显示40个</option>
+                        <option value="60">显示60个</option>
+                        <option value="80">显示80个</option>
+                        <option value="100">显示100个</option>
+                    </select>
+                </div>
+                <div class="col-sm-4 col-padding-clear" style="padding-left:5px;">
+                    <select class="form-control" ng-model="queryPara.sortBy" ng-change="loadMediaData()">
+                        <option value="id_desc">时间降序</option>
+                        <option value="id_asc">时间升序</option>
+                    </select>
+                </div>
+                <div class="col-sm-3 col-padding-clear" style="padding-left:5px;">
+                    <input type="text" class="form-control" ng-model="queryPara.keyWords">
+                </div>
+                <div class="col-sm-1 col-padding-clear" style="padding-left:5px;">
+                    <button class="btn btn-default" ng-click="searchVideos();">搜索</button>
+                </div>
+            </div>
+        </div>
+        <div class="setting-content">
+            <div class="row form-group">
+                <ul class="lanh-grid">
+                    <li class="data-item small"
+                        ng-repeat="videoItem in source.data"
+                        ng-class="{selected:currentItem==videoItem}"
+                        ng-click="selectItem(videoItem)"
+                        style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+                        <img ng-if="type==='video'" alt=""
+                             ng-src="{{videoItem.image&&source.kplusHost+videoItem.image.url||'../../images/no_image_220x220.jpg'}}"
+                             style="width:100px;height:100px;" />
+                        <div ng-if="type==='file'" title="{{videoItem.alltitle.text+'.'+videoItem.extension.text}}">
+                            <img ng-if="videoItem.extension&&(videoItem.extension.text==='mp4'||videoItem.extension.text==='mp3'||videoItem.extension.text==='mwv')" alt=""
+                                 ng-src="../../images/logo-video.png" style="width:100px;height:100px;" />
+                            <img ng-if="videoItem.extension&&(videoItem.extension.text==='rar' ||videoItem.extension.text==='zip')" alt=""
+                                 ng-src="../../images/logo-rar.png" style="width:100px;height:100px;" />
+                            <img ng-if="videoItem.extension&&(videoItem.extension.text==='jpg'||videoItem.extension.text!=='png'||videoItem.extension.text!=='jpeg'||videoItem.extension.text!=='bmp')" alt=""
+                                 ng-src="../../images/logo-image.png" style="width:100px;height:100px;" />
+                        </div>
+                        <div ng-if="type==='file'" style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;position: relative;top: -22px;z-index: 10000;font-weight:bold;padding-left:5px;">
+                            {{videoItem.alltitle.text}}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="setting-btn">
+            <div class="form-group text-center">
+                <button class="btn btn-primary" ng-click="btnOk($event)">确定</button>
+            </div>
+        </div>
+    </div>
+</div>

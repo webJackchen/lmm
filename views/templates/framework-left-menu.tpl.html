@@ -1,0 +1,59 @@
+﻿<div class="menu-main" ng-controller="FrameworkLeftMenuCtrl">
+    <ul id="leftMenus">
+        <li ng-if="menu.visible != false && menu.role.indexOf(editorInfo.type) != -1" 
+            class="{{menu.foucs}} {{menu.childs.length > 0 || (!!menu.action &&(!!menu.settingTemplateUrl || !!menu.defaultTemplate)) ? '' : 'disabled'}}" 
+            ng-repeat="menu in model.menus"
+            ng-click="foucsMenuOptions(menu, model.menus, '', $event)">
+            <i class="iconfont {{menu.icon}}"></i>
+            <span class="background"></span>
+            <span>{{menu.name}}</span>
+            <div class="child-menu">
+                <div class="menu-top">
+                    <span>{{menu.name}}</span>
+                    <span class="btn_colse" ng-click="btnClose(model.menus, $event)">x</span>
+                </div>
+                <span class="description">{{menu.desc}}</span>
+                <div class="line"></div>
+                <ul class="menu-body">
+                    <li ng-if="child.visible != false && child.role.indexOf(editorInfo.type) != -1" class="{{child.foucs}}" ng-repeat="child in menu.childs"
+                        ng-mouseover="showLocation($event)" ng-mouseout="hideLocation($event)">
+                        <div ng-click="foucsMenuOptions(child, menu.childs, 'body', $event)">
+                            <a href="javascript:void(0)">
+                                <span class="name full"><i class="iconfont {{child.icon}}"></i>{{child.name}}</span>
+                            </a>
+                        </div>
+                        <!--<div class="location" ng-if="!!child.additional">
+                        <button class="btn btn-link" ng-if="child.additional.indexOf('header') != -1" ng-click="foucsMenuOptions(child, menu.childs, 'header', $event)">头部</button>
+                        <button class="btn btn-link" ng-if="child.additional.indexOf('footer') != -1" ng-click="foucsMenuOptions(child, menu.childs, 'footer', $event)">底部</button>
+                    </div>-->
+                        <div class="child-menu-2" ng-if="child.childs.length > 0">
+                            <div class="menu-top">
+                                <span>{{child.name}}</span>
+                                <span class="btn_colse" ng-click="btnClose(menu.childs, $event)">x</span>
+                            </div>
+                            <div class="line"></div>
+                            <ul class="menu-body">
+                                <li ng-if="_child.visible != false && _child.role.indexOf(editorInfo.type) != -1" ng-repeat="_child in child.childs" ng-mouseover="showLocation($event)" ng-mouseout="hideLocation($event)">
+                                    <div ng-click="foucsMenuOptions(_child, null, 'body', $event)">
+                                        <a href="javascript:void(0)">
+                                            <span class="name full"><i class="iconfont {{_child.icon}}"></i>{{_child.name}}</span>
+                                        </a>
+                                    </div>
+                                    <!--<div class="location" ng-if="!!_child.additional">
+                                    <button class="btn btn-link" ng-if="_child.additional.indexOf('header') != -1" ng-click="foucsMenuOptions(_child, _child.childs, 'header', $event)">头部</button>
+                                    <button class="btn btn-link" ng-if="_child.additional.indexOf('footer') != -1" ng-click="foucsMenuOptions(_child, _child.childs, 'footer', $event)">底部</button>
+                                </div>-->
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li ng-click="openSysManage()" ng-if="editorInfo.type != 'component'">
+            <i class="iconfont icon-backstage-management"></i>
+            <span class="background"></span>
+            <span>后台管理</span>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,124 @@
+﻿<div class="dialog-query-info" style="width: 350px;" ng-hide="isDelete">
+    <div ng-show="seeInfo == true">
+        <div class="form-group row preview-image">
+            <div class="col-sm-12 nopadding">
+                <div class="pull-left">
+                    <label>效果预览图</label>
+                </div>
+                <div class="pull-right" ng-show="componentInfo.prcoessStatus === 'Design' && !componentInfo.isAssignToOther || componentInfo.prcoessStatus ==='CheckFailed' && !componentInfo.isAssignToOther">
+                    <a href="javascript:void(0)" ng-click="uploadImage(componentInfo)" upload-image="uploadImageCallback" style="text-decoration: underline;color: #3ec5df;">上传</a>
+                </div>
+            </div>
+            <div class="col-sm-12 nopadding">
+                <img src="{{ componentInfo.previewImg || '../../images/no_image_220x220.jpg'}}" style="width: 100%; height: 220px;border:1px solid #ddd;" ng-model="template.previewImg">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <div class="pull-left">
+                    <label>基本信息</label>
+                </div>
+                <div class="pull-right" ng-show="componentInfo.prcoessStatus === 'Design' && !componentInfo.isAssignToOther || componentInfo.prcoessStatus ==='CheckFailed' && !componentInfo.isAssignToOther">
+                    <a href="javascript:void(0)" ng-click="isdelete = 'true'" style="text-decoration: underline;color: #3ec5df;">编辑</a>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <div class="pull-left">
+                    组件名：<span ng-show="isdelete == 'false'">{{componentInfo.title}}</span>
+                </div>
+                <div class="pull-left" ng-show="isdelete == 'true'">
+                    <input type="text" class="form-control" ng-model="componentInfo.title" style="height:30px;">
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <div class="pull-left">
+                    终端类型：<span>{{componentInfo.type1}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <div class="pull-left">
+                    组件描述:<span ng-show="isdelete == 'false'">{{componentInfo.description}}</span>
+                </div>
+                <div class="pull-left" ng-show="isdelete == 'true'">
+                    <textarea class="form-control" ng-model="componentInfo.description"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <div class="pull-left">
+                    上次编辑日期：<span>{{componentInfo.lastEditTime|date:'yyyy年MM月dd日'}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <div class="pull-left">
+                    最近上架日期：<span>{{componentInfo.lastUploadTime|date:'yyyy年MM月dd日'}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-hide="seeInfo == true">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>组件名称:</label>
+            </div>
+            <div class="col-sm-12">
+                <input class="form-control" type="text" ng-model="componentInfo.title" maxlength="20" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label> 终端类型:</label>
+            </div>
+            <div class="col-sm-12">
+                <select class="form-control" ng-model="componentInfo.type" ng-disabled="true">
+                    <option value="Web">PC</option>
+                    <!--<option value="WAP">MB</option>-->
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>组件描述:</label>
+            </div>
+            <div class="col-sm-12">
+                <textarea class="form-control" ng-model="componentInfo.description"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="form-group text-center" ng-show="isdelete == 'true' || seeInfo == false">
+        <button class="btn btn-primary btn-blue" ng-click="uploadInfo($event)">确 认</button>
+    </div>
+</div>
+
+
+<!--删除提示框-->
+<div ng-show="isDelete">
+    <div class="setting-content">
+        <div class="form-group row">
+            <div class="col-sm-12 text-center">
+                <label>你确定将此组件移入回收站吗？</label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12 text-center">
+                <textarea class="form-control" ng-model="deleteRemark" style="height: 80px; width:300px;resize: none;" placeholder="此处输入备注(非必填)"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="setting-btn">
+        <div class="form-group text-center">
+            <button class="btn btn-primary btn-blue" ng-click="deleteComponent($event)">确 定</button>
+            <button class="btn btn-primary btn-blue" ng-click="btnClose($event)">取 消</button>
+        </div>
+    </div>
+</div>

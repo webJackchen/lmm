@@ -1,0 +1,78 @@
+﻿<div ng-controller="SettingcomponentCtrl" style="width:860px;height:600px;overflow:hidden;">
+    <div class="form-group row lanh-line" style="padding:10px;">
+        <div class="col-sm-12">
+            <div class="form-inline">
+                <div class="form-group" ng-show="queryPara.isDesigner" style="margin-right:20px;">
+                    <select class="form-control" ng-model="queryPara.isOnlyActive">
+                        <option value="true">系统已上架组件</option>
+                        <option value="false">我的组件</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>终端类型:</label>
+                    <select class="form-control" ng-model="queryPara.deviceType">
+                        <option value="Web">PC</option>
+                        <!--<option value="Wap">手机版</option>-->
+                    </select>
+                </div>
+                <div class="form-group" style="margin-left:20px;">
+                    <label>名称：</label>
+                    <input ng-model="queryPara.title" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary btn-add pull-left" ng-click="refreshList()">
+                        <i class="iconfont icon-search icon-white"></i>查询
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row lanh-line">
+        <div class="col-sm-12" style="margin:0 auto;">
+            <ul class="lanh-grid">
+                <li class="data-item col-padding-clear"
+                    ng-repeat="componentItem in componentData"
+                    ng-class="{selected:currentItem==componentItem}"
+                    ng-click="selectItem(componentItem)">
+                    <img alt="" ng-src="{{componentItem.previewImg&&imageUrl+componentItem.previewImg||'../../images/no_image_220x220.jpg'}}" style="width:200px;height:200px;" />
+                    <div class="overlay"></div>
+                    <div class="float-region">
+                        <div class="row form-group">
+                            <div class="col-sm-12">
+                                <label>组件名称：</label>
+                            </div>
+                            <div class="col-sm-12">
+                                {{componentItem.title}}
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-12">
+                                <label>描述：</label>
+                            </div>
+                            <div class="col-sm-12">
+                                {{componentItem.description}}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="content-page text-center" style="margin-top:5px;">
+                <pagination total-items="paged.total"
+                            ng-model="paged.index"
+                            items-per-page="paged.size"
+                            max-size="5"
+                            class="pagination-sm"
+                            boundary-links="true"
+                            rotate="false"
+                            ng-change="pageChanged()"
+                            previous-text="前一页"
+                            next-text="下一页"
+                            first-text="首页"
+                            last-text="尾页"></pagination>
+            </div>
+        </div>
+    </div>
+    <div class="form-group text-center">
+        <button class="btn btn-primary" ng-click="btnOK()">确定</button>
+    </div>
+</div>

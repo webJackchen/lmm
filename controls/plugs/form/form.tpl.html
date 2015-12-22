@@ -1,0 +1,68 @@
+﻿<div class="kdo-panel" data-key="{{data.form.link.text}}">
+    <div class="kdo-panel-body">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <h3>{{ data.form.allTitle.text }}</h3>
+            </div>
+        </div>
+        <div class="form-group row"
+             ng-repeat="item in data.form.questions.item">
+            <div ng-if="item.type == 'text'">
+                <div class="col-sm-2 col-label"><span ng-if="item.required=='required'" style="color:red">*</span> {{item.question.text}}:</div>
+                <div class="col-sm-8">
+                    <input type="text" data-limit="{{item.limit}}" data-error="{{item.prompt.text}}" data-number="{{item.number}}" class="form-control" ng-class="{isrequired:item.required=='required'}" value="{{item.default.text}}" />
+                </div>
+            </div>
+            <div ng-if="item.type == 'textarea'">
+                <div class="col-sm-2 col-label"><span ng-if="item.required=='required'" style="color:red">*</span> {{item.question.text}}:</div>
+                <div class="col-sm-8">
+                    <textarea class="form-control" data-limit="{{item.limit}}" data-error="{{item.prompt.text}}" data-number="{{item.number}}" ng-class="{isrequired:item.required=='required'}" value="{{item.default.text}}"></textarea>
+                </div>
+            </div>
+            <div ng-if="item.type == 'radio'" data-number="{{item.number}}" ng-class="{radrequired:item.required=='required'}" class="radio-region">
+                <div class="col-sm-2 col-label"><span ng-if="item.required=='required'" style="color:red">*</span> {{item.question.text}}:</div>
+                <div class="col-sm-8">
+                    <div class="pull-left form-col" ng-repeat="col in item.source">
+                        <label class="radio-inline">
+                            <input type="radio" name="{{item.number}}{{col.number}}" value="{{col.text}}" /> {{col.text}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="item.type == 'checkbox'" data-number="{{item.number}}" ng-class="{chkrequired:item.required=='required'}" class="checkbox-region">
+                <div class="col-sm-2 col-label"><span ng-if="item.required=='required'" style="color:red">*</span> {{item.question.text}}:</div>
+                <div class="col-sm-8">
+                    <div class="pull-left form-col" ng-repeat="col in item.source">
+                        <label>
+                            <input type="checkbox" data-number="{{col.number}}" value="{{col.text}}" />{{col.text}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="item.type == 'time'">
+                <div class="col-sm-2 col-label"><span ng-if="item.required=='required'" style="color:red">*</span> {{item.question.text}}:</div>
+                <div class="col-sm-8">
+                    <input type="text" data-limit="{{item.limit}}" data-error="{{item.prompt.text}}" data-number="{{item.number}}" ng-class="{isrequired:item.required=='required'}" class="form-control" id="txtTime" value="{{item.default.text}}" />
+                </div>
+            </div>
+            <div ng-if="item.type == 'date'">
+                <div class="col-sm-2 col-label"><span ng-if="item.required=='required'" style="color:red">*</span> {{item.question.text}}:</div>
+                <div class="col-sm-8">
+                    <input type="text" data-limit="{{item.limit}}" data-error="{{item.prompt.text}}" data-number="{{item.number}}" ng-class="{isrequired:item.required=='required'}" class="form-control" id="txtDate" value="{{item.default.text}}" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group row" ng-if="data.verificationCode==1">
+            <div class="col-sm-2 col-label col-label-inline">验证码:</div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" id="txtValidCode" />
+            </div>
+            <div class="col-sm-3">
+                <div id="validCode"></div>
+            </div>
+        </div>
+    </div>
+    <div class="kdo-panel-footer">
+        <button class="kdo-button" id="btnSubmit">提交</button>
+    </div>
+</div>

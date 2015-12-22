@@ -1,0 +1,156 @@
+﻿<div class="col-sm-12 manuscript" ng-controller="RecyleCtrl">
+    <div class="conditionQuery">
+        <div class="col-sm-12 nopadding">
+            <div class="col-sm-3 pull-left keyword">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="输入稿件编号或稿件名称" ng-model="manusKeyword">
+                    <span class="input-group-addon" ng-click="keyword()"><i class="iconfont icon-search"></i></span>
+                </div>
+            </div>
+            <div class="col-sm-1 pull-left more-condition" style="width: 110px;" ng-click="showMoreCondition()">
+                <span>精简筛选条件</span>
+                <i class="iconfont icon-down-arrow" ng-hide="moreCondition"></i>
+                <i class="iconfont icon-up-arrow" ng-show="moreCondition"></i>
+            </div>
+        </div>
+
+        <div class="pull-right query-more-condition" ng-show="moreCondition">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label>终端筛选：</label>
+                    <select class="form-control" ng-model="manuscriptInfo.webType">
+                        <option value="">全部</option>
+                        <option value="Web">PC</option>
+                        <!--<option value="WAP">MB</option>-->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>稿件类别：</label>
+                    <select class="form-control" ng-model="manuscriptInfo.styleClass">
+                        <option value="">全部</option>
+                        <option value="常规">常规</option>
+                        <option value="形象">形象</option>
+                        <option value="功能">功能</option>
+                        <option value="信息门户">信息门户</option>
+                        <option value="商城">商城</option>
+                        <option value="其它">其它</option>
+                        <!--<option value="时尚">时尚</option>
+                        <option value="经典">经典</option>
+                        <option value="炫酷">炫酷</option>-->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>行业类别：</label>
+                    <select class="form-control" ng-model="manuscriptInfo.industry"
+                            ng-options="industryItem as industryItem.text for industryItem in industryList">
+                        <option value="">全部</option>
+                    </select>
+                </div>
+                <div class="form-group pull-right nomargin">
+                    <label>模板颜色：</label>
+                    <select class="form-control" ng-model="manuscriptInfo.color">
+                        <option value="">全部</option>
+                        <option value="红色">红色</option>
+                        <option value="橙色">橙色</option>
+                        <option value="黄色">黄色</option>
+                        <option value="绿色">绿色</option>
+                        <option value="青色">青色</option>
+                        <option value="蓝色">蓝色</option>
+                        <option value="紫色">紫色</option>
+                        <option value="粉红色">粉红色</option>
+                        <option value="白色">白色</option>
+                        <option value="灰色">灰色</option>
+                        <option value="黑色">黑色</option>
+                        <option value="棕色">棕色</option>
+                        <option value="黑白">黑白</option>
+                        <option value="杂色">杂色</option>
+                        <!--<option value="其它">其它</option>-->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>稿件状态：</label>
+                    <select class="form-control" ng-model="manuscriptInfo.status">
+                        <option value="">全部</option>
+                        <option value="Design">设计中</option>
+                        <option value="Check">审核中</option>
+                        <option value="CheckFailed">未通过</option>
+                        <option value="Active">已上架</option>
+                        <option value="Deactive">已下架</option>
+                        <option value="Removed">已移出</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>编辑日期：</label>
+                    <div class="form-control datetimepicker">
+                        <input type="text" id="datetimepickerMauscript" ng-model="manuscriptInfo.lastEditTime" value="" style="width: 180px;">
+                        <span class="add-on" ng-click="removeDate($event)"><i class="iconfont icon-close"></i></span>
+                    </div>
+                </div>
+                <div class="form-group pull-right nomargin">
+                    <button class="btn btn-primary btn-add pull-left" ng-click="queryList()">搜 索</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 template-list">
+        <div class="form-group pull-left nomargin">
+            <button class="btn btn-copy btn-add pull-left" ng-click="batchDelet()">批量删除</button>
+            <button class="btn btn-copy pull-left" ng-click="batchReduction()">批量还原</button>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" ng-checked="selected" ng-click="selectAll()"></th>
+                    <th>编号</th>
+                    <th>名称</th>
+                    <th>预览</th>
+                    <th>来源</th>
+                    <th>上次编辑时间</th>
+                    <th>状态</th>
+                    <th>备注</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="{{ template.id }}" ng-repeat="template in templateRecycleList">
+                    <th><input type="checkbox" ng-checked="template.selected" ng-click="selectInfo(template)"></th>
+                    <td>{{ template.number }}</td>
+                    <td>{{template.title}}</td>
+                    <td style="overflow: visible;position:relative;width:64px;">
+                        <i class="iconfont icon-pic-background pull-right" title="预览" ng-mouseenter="showImage($event)" ng-mouseleave="hideImage($event)"></i>
+                        <img ng-class="{'preview-template-top':$index>5}" class="preview-template" src="{{host}}{{ template.previewImg }}" />
+                    </td>
+                    <td>{{ template.creator }}</td>
+                    <td>{{template.updateTime|date:'yyyy年MM月dd日 HH:mm:ss'}}</td>
+                    <td>
+                        <span ng-if="template.prcoessStatus=='Design'">设计中</span>
+                        <span ng-if="template.prcoessStatus=='Check'">审核中</span>
+                        <span ng-if="template.prcoessStatus=='CheckFailed'">未通过</span>
+                        <span ng-if="template.prcoessStatus=='Active'">已上架</span>
+                        <span ng-if="template.prcoessStatus=='Deactive'">已下架</span>
+                    </td>
+                    <td title="{{template.deleteRemark}}">{{template.deleteRemark}}</td>
+                    <td>
+                        <i class="iconfont icon-reduction" title="还原" ng-click="reductionTemplate(template)"></i>
+                        <i class="iconfont  icon-delete" title="删除" ng-click="throughDeleteTemplate(template)"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="content-page text-right" id="content-page">
+        <pagination total-items="templatePage.total"
+                    ng-model="templatePage.pageIndex"
+                    items-per-page="templatePage.pageSize"
+                    max-size="5"
+                    class="pagination-sm"
+                    boundary-links="true"
+                    rotate="false"
+                    ng-change="pageTemplateChanged()"
+                    previous-text="前一页"
+                    next-text="下一页"
+                    first-text="首页"
+                    last-text="尾页"></pagination>
+    </div>
+</div>

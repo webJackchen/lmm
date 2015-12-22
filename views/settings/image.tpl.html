@@ -1,0 +1,51 @@
+﻿<div ng-controller="SettingImageCtrl" style="width:320px;">
+    <div class="setting-content">
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <img ng-src="{{data.src}}" style="width:128px; height:128px;" />
+            </div>
+            <div class="col-sm-6 text-center" style="padding-top: 93px;">
+                <image-manage callback="selectedImage"></image-manage>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>点击图片时:</label>
+            </div>
+            <div class="col-sm-12">
+                <select class="form-control" ng-model="data.target">
+                    <option value="none">不操作</option>
+                    <option value="_self">当前页面打开</option>
+                    <option value="_blank">打开新页面</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row" ng-show="data.target != 'none'">
+            <div class="col-sm-12">
+                <label>链接:</label>
+            </div>
+            <div class="col-sm-12">
+                <div class="input-group">
+                    <input class="form-control" type="text" ng-model="_hrefName" ng-disabled="true" />
+                    <div class="input-group-addon" link-manage="linkCallback"><i class="iconfont icon-link"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <custom-manage type="controls_image"></custom-manage>
+            </div>
+        </div>
+    </div>
+
+    <div class="setting-btn">
+        <div class="form-group row lanh-line">
+            <div class="col-sm-12">
+                <location-size-manage></location-size-manage>
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <button class="btn btn-primary" ng-click="btnOK()">确定</button>
+        </div>
+    </div>
+</div>

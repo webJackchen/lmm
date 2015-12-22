@@ -1,0 +1,25 @@
+﻿<div class="setting-content" style="max-height: 500px;overflow: hidden;">
+    <div class=" col-sm-12 ad-manage">
+        <div class="col-sm-12 col-padding-clear ad-manage-toolbar">
+            <a class="btn link btn-primary" style="color:#fff;" target="_blank" href="{{ tpl_status.kPlusPath }}">管理图库</a>
+            <button class="btn btn-primary pull-right" ng-click="btnRefresh()">刷新</button>
+        </div>
+        <div class="col-sm-12 col-padding-clear ad-manage-content">
+            <!-- Tree -->
+            <div id="adTree" class="col-sm-4 col-padding-clear ad-tree">
+                <div></div>
+            </div>
+            <!-- library -->
+            <div class="col-sm-8 col-padding-clear image-library">
+                <div class="col-sm-4 col-padding-clear image-column" ng-repeat="item in currentNode.data">
+                    <img ng-src="{{ item.image.url }}" style="width: 100%; height: 110px; opacity:1;" title="{{ item.allTitle.text }}" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="setting-btn">
+    <div class="form-group text-center">
+        <button class="btn btn-primary" ng-click="btnSave($event)">保存</button>
+    </div>
+</div>

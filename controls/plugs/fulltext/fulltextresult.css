@@ -1,0 +1,94 @@
+﻿#_panelId_ .result-list {
+}
+
+#_panelId_ .result-item {
+    padding-top: 20px;
+}
+
+    #_panelId_ .result-item:hover {
+        background-color: #eee;
+        opacity: 0.95;
+    }
+
+#_panelId_ .result-detail {
+    float: left;
+}
+
+#_panelId_ .title {
+    margin-bottom: 10px;
+    cursor: pointer;
+    color: #000;
+}
+
+    #_panelId_ .title,
+    #_panelId_ .title a {
+        font-size: 16px;
+    }
+
+#_panelId_ .description {
+    height: 40px;
+    /*overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;*/
+}
+
+
+#_panelId_ .thumbnails {
+    width: 20%;
+}
+
+#_panelId_ .content {
+    color: #aaa;
+    width: 80%;
+}
+
+#_panelId_ .search-input-region,
+#_panelId_ .search-list-region,
+#_panelId_ .search-list-no,
+#_panelId_ #content-page {
+    display: none;
+}
+
+#_panelId_ .result-total-text {
+    color: #808080;
+}
+
+/*分页控件*/
+#_panelId_ .pagination {
+    font-size: 12px;
+    margin: 0;
+    vertical-align: middle;
+}
+
+    #_panelId_ .pagination li a {
+        color: #606060;
+        border-color: #cfcfcf;
+        margin: 0px 3px;
+    }
+
+#_panelId_ ul.page_skp {
+    font-size: 12px;
+    padding: 0;
+    color: #707070;
+    display: inline-block;
+    margin: 0;
+    ertical-align: middle;
+}
+
+    #_panelId_ ul.page_skp li {
+        display: inline-block;
+        vertical-align: middle;
+        padding-left: 5px;
+    }
+
+        #_panelId_ ul.page_skp li .page_skip {
+            color: #606060;
+            width: 34px;
+            padding: 6px 0;
+        }
+
+#_panelId_ .pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus {
+    color: #fff;
+    background-color: #c2c2c2;
+    border-color: #c2c2c2;
+}

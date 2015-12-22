@@ -1,0 +1,64 @@
+﻿<div class="lanh-control-toolbar" attachcontrol="{{controls[0].controlId}}" oncontextmenu="return false;">
+    <div class="pull-left {{ btnModels.lock.class }}" ng-click="btnEvents(btnModels.lock.type)">
+        <i class="iconfont {{ btnModels.lock.icon }}" title="{{ btnModels.lock.title }}"></i>
+    </div>
+    <div class="pull-left {{ btnModels.setting.class }}" ng-click="btnEvents(btnModels.setting.type)">
+        <i class="iconfont {{ btnModels.setting.icon }}" title="{{ btnModels.setting.title }}"></i>
+    </div>
+    <div class="pull-left {{ btnModels.style.class }}" ng-click="btnEvents(btnModels.style.type)">
+        <i class="iconfont {{ btnModels.style.icon }}" title="{{ btnModels.style.title }}"></i>
+    </div>
+    <div class="pull-left {{ btnModels.scale.class }}" ng-if="btnModels.scale.show" ng-click="btnEvents(btnModels.scale.type)">
+        <i class="iconfont {{ btnModels.scale.icon }}" title="{{ btnModels.scale.title }}"></i>
+    </div>
+    <div class="pull-left {{ btnModels.createStyle.class }}" ng-if="btnModels.createStyle.show" ng-click="btnEvents(btnModels.createStyle.type)">
+        <i class="iconfont {{ btnModels.createStyle.icon }}" title="{{ btnModels.createStyle.title }}"></i>
+    </div>
+    <div class="pull-left {{ btnModels.createComponent.class }}" ng-if="btnModels.createComponent.show" ng-click="btnEvents(btnModels.createComponent.type)">
+        <i class="iconfont {{ btnModels.createComponent.icon }}" title="{{ btnModels.createComponent.title }}"></i>
+    </div>
+    <div class="pull-left {{ btnModels.copy.class }}" ng-click="btnEvents(btnModels.copy.type)">
+        <i class="iconfont {{ btnModels.copy.icon }}" title="{{ btnModels.copy.title }}"></i>
+    </div>
+    <div class="pull-left {{ btnModels.patse.class }}" ng-click="btnEvents(btnModels.patse.type)">
+        <i class="iconfont {{ btnModels.patse.icon }}" title="{{ btnModels.patse.title }}"></i>
+    </div>
+    <div class="pull-left {{ btnModels.fullWidth.class }}" ng-if="btnModels.fullWidth.show" ng-click="btnEvents(btnModels.fullWidth.type)">
+        <i class="iconfont {{ btnModels.fullWidth.icon }}" title="{{ btnModels.fullWidth.title }}"></i>
+    </div>
+    <div class="pull-left {{ btnModels.indexUp.class }}" ng-click="btnEvents(btnModels.indexUp.type)">
+        <i class="iconfont {{ btnModels.indexUp.icon }}" title="{{ btnModels.indexUp.title }}"></i>
+    </div>
+    <div class="pull-left {{ btnModels.indexDown.class }}" ng-click="btnEvents(btnModels.indexDown.type)">
+        <i class="iconfont {{ btnModels.indexDown.icon }}" title="{{ btnModels.indexDown.title }}"></i>
+    </div>
+    <div class="pull-left {{ btnModels.indexTop.class }}" ng-click="btnEvents(btnModels.indexTop.type)">
+        <i class="iconfont {{ btnModels.indexTop.icon }}" title="{{ btnModels.indexTop.title }}"></i>
+    </div>
+    <div class="pull-left {{ btnModels.indexBottom.class }}" ng-click="btnEvents(btnModels.indexBottom.type)">
+        <i class="iconfont {{ btnModels.indexBottom.icon }}" title="{{ btnModels.indexBottom.title }}"></i>
+    </div>
+    <div class="pull-left {{ btnModels.delete.class }}" ng-click="btnEvents(btnModels.delete.type)">
+        <i class="iconfont {{ btnModels.delete.icon }}" title="{{ btnModels.delete.title }}"></i>
+    </div>
+</div>
+
+<!-- mousedown right menu-->
+<div class="lanh-control-toolbar-rightmenu" oncontextmenu="return false;">
+    <div class="text-center clearfix feature {{ btnModels.lock.class }}" ng-show="btnModels.lock.show" ng-click="btnEvents(btnModels.lock.type)"><span class="pull-left title">{{ btnModels.lock.title }}</span><span class="pull-right desc">{{ btnModels.lock.desc }}</span></div>
+    <div class="text-center clearfix feature {{ btnModels.setting.class }}" ng-show="btnModels.setting.show" ng-click="btnEvents(btnModels.setting.type)"><span class="pull-left title">{{ btnModels.setting.title }}</span><span class="pull-right desc">{{ btnModels.setting.desc }}</span></div>
+    <div class="text-center clearfix feature {{ btnModels.style.class }}" ng-show="btnModels.style.show" ng-click="btnEvents(btnModels.style.type)"><span class="pull-left title">{{ btnModels.style.title }}</span><span class="pull-right desc">{{ btnModels.style.desc }}</span></div>
+    <div class="text-center clearfix feature {{ btnModels.scale.class }}" ng-show="btnModels.scale.show" ng-click="btnEvents(btnModels.scale.type)"><span class="pull-left title">{{ btnModels.scale.title }}</span><span class="pull-right desc">{{ btnModels.scale.desc }}</span></div>
+    <div class="text-center clearfix feature {{ btnModels.createStyle.class }}" ng-show="btnModels.createStyle.show" ng-click="btnEvents(btnModels.createStyle.type)"><span class="pull-left title">{{ btnModels.createStyle.title }}</span><span class="pull-right desc">{{ btnModels.createStyle.desc }}</span></div>
+    <div class="text-center clearfix feature {{ btnModels.createComponent.class }}" ng-show="btnModels.createComponent.show" ng-click="btnEvents(btnModels.createComponent.type)"><span class="pull-left title">{{ btnModels.createComponent.title }}</span><span class="pull-right desc">{{ btnModels.createComponent.desc }}</span></div>
+    <div class="text-center clearfix feature {{ btnModels.copy.class }}" ng-show="btnModels.copy.show" ng-click="btnEvents(btnModels.copy.type)"><span class="pull-left title">{{ btnModels.copy.title }}</span><span class="pull-right desc">{{ btnModels.copy.desc }}</span></div>
+    <div class="text-center clearfix feature {{ btnModels.patse.class }}" ng-show="btnModels.patse.show" ng-click="btnEvents(btnModels.patse.type)"><span class="pull-left title">{{ btnModels.patse.title }}</span><span class="pull-right desc">{{ btnModels.patse.desc }}</span></div>
+    <div class="text-center clearfix feature {{ btnModels.fullWidth.class }}" ng-show="btnModels.fullWidth.show" ng-click="btnEvents(btnModels.fullWidth.type)"><span class="pull-left title">{{ btnModels.fullWidth.title }}</span><span class="pull-right desc">{{ btnModels.fullWidth.desc }}</span></div>
+    <div class="text-center clearfix feature {{ btnModels.indexUp.class }}" ng-show="btnModels.indexUp.show" ng-click="btnEvents(btnModels.indexUp.type)"><span class="pull-left title">{{ btnModels.indexUp.title }}</span><span class="pull-right desc">{{ btnModels.indexUp.desc }}</span></div>
+    <div class="text-center clearfix feature {{ btnModels.indexDown.class }}" ng-show="btnModels.indexDown.show" ng-click="btnEvents(btnModels.indexDown.type)"><span class="pull-left title">{{ btnModels.indexDown.title }}</span><span class="pull-right desc">{{ btnModels.indexDown.desc }}</span></div>
+    <div class="text-center clearfix feature {{ btnModels.indexTop.class }}" ng-show="btnModels.indexTop.show" ng-click="btnEvents(btnModels.indexTop.type)"><span class="pull-left title">{{ btnModels.indexTop.title }}</span><span class="pull-right desc">{{ btnModels.indexTop.desc }}</span></div>
+    <div class="text-center clearfix feature {{ btnModels.indexBottom.class }}" ng-show="btnModels.indexBottom.show" ng-click="btnEvents(btnModels.indexBottom.type)"><span class="pull-left title">{{ btnModels.indexBottom.title }}</span><span class="pull-right desc">{{ btnModels.indexBottom.desc }}</span></div>
+    <div class="text-center clearfix feature {{ btnModels.delete.class }}" ng-show="btnModels.delete.show" ng-click="btnEvents(btnModels.delete.type)"><span class="pull-left title">{{ btnModels.delete.title }}</span><span class="pull-right desc">{{ btnModels.delete.desc }}</span></div>
+    <div class="text-center clearfix feature {{ btnModels.settingHeader.class }}" ng-show="btnModels.settingHeader.show" ng-click="btnEvents(btnModels.settingHeader.type)"><span class="pull-left title">{{ btnModels.settingHeader.title }}</span><span class="pull-right desc">{{ btnModels.settingHeader.desc }}</span></div>
+    <div class="text-center clearfix feature {{ btnModels.settingFooter.class }}" ng-show="btnModels.settingFooter.show" ng-click="btnEvents(btnModels.settingFooter.type)"><span class="pull-left title">{{ btnModels.settingFooter.title }}</span><span class="pull-right desc">{{ btnModels.settingFooter.desc }}</span></div>
+</div>

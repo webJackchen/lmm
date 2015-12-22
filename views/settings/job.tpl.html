@@ -1,0 +1,72 @@
+﻿<div ng-controller="SettingJobCtrl" class="setting-job">
+    <div class="setting-content">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>按钮文字:</label>
+            </div>
+            <div class="col-sm-12">
+                <input class="form-control" ng-model="data.btntext" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>岗位要求:</label>
+            </div>
+            <div class="col-sm-12">
+                <div class="col-sm-6">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" ng-model="data.wage"> 薪资待遇
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" ng-model="data.sex"> 性别要求
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" ng-model="data.date"> 有效日期
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" ng-model="data.record"> 学历要求
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" ng-model="data.experience"> 工作经验
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" ng-model="data.address"> 工作地点
+                    </label>
+                </div>
+                <div class="col-sm-6">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" ng-model="data.number"> 招聘人数
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <custom-manage type="controls_job_detail"></custom-manage>
+            </div>
+        </div>
+    </div>
+
+    <div class="setting-btn">
+        <div class="form-group row lanh-line">
+            <div class="col-sm-12">
+                <location-size-manage></location-size-manage>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-12 text-center">
+                <button class="btn btn-primary" ng-click="btnOK();">确定</button>
+            </div>
+        </div>
+    </div>
+</div>

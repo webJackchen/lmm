@@ -1,0 +1,42 @@
+﻿<div class="framework">
+    <!-- Header -->
+    <div class="col-sm-12 header">
+        <!-- Logo -->
+        <div ng-include="'/views/templates/logo.tpl.html'"></div>
+        <!-- Platform -->
+        <div class="col pull-left" ng-if="userInfo.isKplusUser == 'true' && editorInfo.type == 'web'">
+            <dl class="platform">
+                <dd class="on">
+                    <i class="iconfont icon-computer"></i>
+                </dd>
+                <dd ng-if="false">
+                    <i class="iconfont icon-iphone-0"></i>
+                </dd>
+            </dl>
+        </div>
+        <div ng-controller="FrameworkHeaderCtrl">
+            <!-- Pages -->
+            <div class="col pull-left" ng-show="editorInfo.type == 'web'">
+                <select class="form-control page-dropdownlist"
+                        ng-options="pageItem.key as pageItem.text group by pageItem.parentName for pageItem in source.groupPages "
+                        ng-model="selectPage" ng-change="togglePage()">
+                </select>
+            </div>
+            <!-- Buttons -->
+            <div class="col pull-right" ng-include="'/views/templates/framework-header-buttons.tpl.html'"></div>
+            <!-- Features Tools -->
+            <div class="col pull-right" ng-include="'/views/templates/framework-header-features.tpl.html'"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="clearfix"></div>
+
+    <!-- Left Menu -->
+    <div class="left-menu" ng-include="'/views/templates/framework-left-menu.tpl.html'"></div>
+
+    <!-- Rigt Editor -->
+    <div class="pageeditor" ng-include="'/views/templates/framework-page-editor.tpl.html'"></div>
+
+    <!-- global control toolbar-->
+    <ng-include src="'/views/templates/framework-page-editor-features-toolbar.tpl.html'" />
+</div>

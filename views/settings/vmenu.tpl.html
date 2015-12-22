@@ -1,0 +1,38 @@
+﻿<div ng-controller="SettingMenuCtrl" style="width:320px;">
+    <div class="setting-content">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <div class="pull-left">菜单管理:</div>
+                <div class="pull-right"><button ng-click="addMenus($event)" class="btn btn-primary">添加栏目</button></div>
+            </div>
+            <div class="col-sm-12 setting-menu-content border-menu">
+                <ul class="menu-content sortable">
+                    <li ng-repeat="menu in data.selectMenus" data-key="{{menu.key}}" ng-show="menu.show">
+                        <i class="iconfont icon-move"></i><span>{{menu.text}}</span>
+                        <ul ng-if="menu.childs&&menu.childs.length">
+                            <li ng-repeat="childMenu in menu.childs" ng-class="{'no-top-border':$index==0}">
+                                <span>{{childMenu.text}}</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <custom-manage type="controls_base_vmenu"></custom-manage>
+            </div>
+        </div>
+    </div>
+
+    <div class="setting-btn">
+        <div class="form-group row lanh-line">
+            <div class="col-sm-12">
+                <location-size-manage></location-size-manage>
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <button class="btn btn-primary" ng-click="btnOK()">确定</button>
+        </div>
+    </div>
+</div>

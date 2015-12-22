@@ -1,0 +1,13 @@
+﻿<div class="management-content">
+    <!-- Recycle Body -->
+    <div class="col-sm-12 manuscript ">
+        <ul class="col-sm-12 nav nav-tabs management-content-bar nopadding">
+            <li class="{{recycle_status.mode == 'recycleTemplate' ? 'active' : ''}}" ng-click="switchRecycleManuscript('recycleTemplate')"><a href="javascript:void(0);">稿件库<s class="active" ng-show="recycle_status.mode == 'recycleTemplate'"><i></i></s></a></li>
+            <li class="{{recycle_status.mode == 'recycleStyle' ? 'active' : ''}}" ng-click="switchRecycleStyle('recycleStyle')"><a href="javascript:void(0);">样式库<s class="active" ng-show="recycle_status.mode == 'recycleStyle'"><i></i></s></a></li>
+            <li class="{{recycle_status.mode == 'recycleComponent' ? 'active' : ''}}" ng-click="switchRecycleComponent('recycleComponent')"><a href="javascript:void(0);">组件库<s class="active" ng-show="recycle_status.mode == 'recycleComponent'"><i></i></s></a></li>
+        </ul>
+        <div ng-include="'/views/templates/management-recycle-template.tpl.html'" ng-show="recycle_status.mode == 'recycleTemplate'"></div>
+        <div ng-include="'/views/templates/management-recycle-style.tpl.html'" ng-show="recycle_status.mode == 'recycleStyle'"></div>
+        <div ng-include="'/views/templates/management-recycle-component.tpl.html'" ng-show="recycle_status.mode == 'recycleComponent'"></div>
+    </div>
+</div>

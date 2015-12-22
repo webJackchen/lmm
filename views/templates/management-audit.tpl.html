@@ -1,0 +1,64 @@
+﻿<div style="width:250px;" ng-show="process === 'unshelve'">
+    <div class="setting-content">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <select class="form-control" ng-model="componentInfo.unShelveRemark">
+                    <option value="0">直接下架</option>
+                    <option value="1">返回设计师优化</option>
+                    <option value="2">指定设计师修改</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row" ng-show="componentInfo.unShelveRemark === '2'">
+            <div class="col-sm-12">
+                <select class="form-control" ng-model="componentInfo.editor">
+                    <option ng-repeat="user in userInfo" value="{{user.loginName}}">{{user.name}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="setting-btn">
+        <div class="form-group text-center">
+            <button class="btn btn-primary btn-blue" ng-click="btnUnShelve($event)">确 定</button>
+        </div>
+    </div>
+</div>
+<div class="manuscript" style="width:300px;" ng-show="process === 'failure'">
+    <div class="setting-content">
+        <div class="form-group row">
+            <div class="col-sm-12"><label>你确认审核不通过吗？</label></div>
+        </div>
+        <div class="form-group row opinion">
+            <div class="col-sm-12">
+                <textarea class="form-control" ng-model="opinion" style="height: 80px; width:280px;resize: none;" placeholder="请输入修改意见(必填)"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="setting-btn">
+        <div class="form-group text-center">
+            <button class="btn btn-primary btn-blue" ng-click="btnOpinion($event)">确 定</button>
+            <button class="btn btn btn-cancel" ng-click="btnClose($event)">取 消</button>
+        </div>
+    </div>
+</div>
+
+<div ng-show="process === 'isDelete'">
+    <div class="setting-content">
+        <div class="form-group row">
+            <div class="col-sm-12 text-center">
+                <label>你确定移入回收站吗？</label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12 text-center">
+                <textarea class="form-control" ng-model="remark" style="height: 80px; width:300px;resize: none;" placeholder="此处输入备注(非必填)"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="setting-btn">
+        <div class="form-group text-center manuscript">
+            <button class="btn btn-primary btn-blue" ng-click="btnDeleteManus($event)">确 定</button>
+            <button class="btn btn btn-cancel" ng-click="btnClose($event)">取 消</button>
+        </div>
+    </div>
+</div>

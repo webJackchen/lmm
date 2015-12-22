@@ -1,0 +1,35 @@
+﻿<div>
+    <!-- Header -->
+    <div class="col-sm-12 header">
+        <!-- Logo -->
+        <div ng-include="'/views/templates/logo.tpl.html'"></div>
+        <div class="col pull-right buttons">
+            <button class="btn btn-link" ng-click="btnExit()"><i class="iconfont">&#xe672;</i></button>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+    <!-- Design Body -->
+    <div class="col-sm-12 management" ng-if="!tpl_status.isKplusUser">
+        <ul class="col-sm-12 nav nav-tabs" style="margin-bottom: 10px;">
+            <li role="presentation" class="{{tpl_status.mode == 'manuscript' ? 'active' : ''}}" ng-click="switchManuscript('manuscript')"><a href="javascript:void(0);">稿件库</a></li>
+            <li role="presentation" class="{{tpl_status.mode == 'style' ? 'active' : ''}}" ng-click="switchStyle('style')"><a href="javascript:void(0);">样式库</a></li>
+            <li role="presentation" class="{{tpl_status.mode == 'component' ? 'active' : ''}}" ng-click="switchComponent('component')"><a href="javascript:void(0);">组件库</a></li>
+            <li role="presentation" class="{{tpl_status.mode == 'recycle' ? 'active' : ''}}" ng-click="switchRecycle('recycle')"><a href="javascript:void(0);">回收站</a></li>
+        </ul>
+        <div ng-include="'/views/templates/management-manuscript.tpl.html'" ng-show="tpl_status.mode == 'manuscript'"></div>
+        <div ng-include="'/views/templates/management-style.tpl.html'" ng-show="tpl_status.mode == 'style'"></div>
+        <div ng-include="'/views/templates/management-component.tpl.html'" ng-show="tpl_status.mode == 'component'"></div>
+        <div ng-include="'/views/templates/management-recycle.tpl.html'" ng-show="tpl_status.mode == 'recycle'"></div>
+    </div>
+
+    <!-- Editor Body -->
+    <div class="col-sm-12 management" ng-if="!!tpl_status.isKplusUser">
+        <ul class="col-sm-12 nav nav-tabs" style="margin-bottom: 10px;">
+            <li role="presentation" class="{{tpl_status.mode == 'editor' ? 'active' : ''}}" ng- ng-click="tpl_status.mode = 'editor'"><a href="javascript:void(0);">编辑</a></li>
+            <li role="presentation" class="{{tpl_status.mode == 'template' ? 'active' : ''}}" ng-click="tpl_status.mode = 'template'"><a href="javascript:void(0);">模板库</a></li>
+        </ul>
+        <div ng-include="'/views/templates/management-editor.tpl.html'" ng-show="tpl_status.mode == 'editor'"></div>
+        <div ng-include="'/views/templates/management-template.tpl.html'" ng-show="tpl_status.mode == 'template'"></div>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+﻿<div ng-controller="SettingfulltextCtrl" style="min-width:320px;">
+    <div class="setting-content">
+        <div class="form-group row lanh-line">
+            <div class="col-sm-12">
+                <label>提示文字:</label>
+            </div>
+            <div class="col-sm-12">
+                <input type="text" class="form-control" ng-model="data.emptyText" />
+            </div>
+        </div>
+        <div class="form-group row lanh-line">
+            <div class="col-sm-12">
+                <custom-manage type="plug_fulltext"></custom-manage>
+            </div>
+        </div>
+        <div class="form-group row lanh-line">
+            <div class="col-sm-12">
+                <location-size-manage></location-size-manage>
+            </div>
+        </div>
+        <div class="setting-btn">
+            <div class="form-group text-center">
+                <button class="btn btn-primary" ng-click="applySetting()">确定</button>
+            </div>
+        </div>
+    </div>
+</div>

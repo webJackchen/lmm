@@ -1,0 +1,177 @@
+﻿#_panelId_ .carousel-container {
+    display: none;
+    position: relative;
+    margin: 0 auto;
+    top: 0;
+    left: 0;
+    width: 1200px;
+    height: 500px;
+    overflow: hidden;
+}
+
+#_panelId_ .carousel-region {
+    cursor: move;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+/* navigator theme begin*/
+#_panelId_ .carousel-container .carousel-navigator {
+    position: absolute;
+}
+    /*b21*/
+    #_panelId_ .carousel-container .carousel-navigator.b21 {
+        bottom: 26px;
+        right: 6px;
+    }
+
+        #_panelId_ .carousel-container .carousel-navigator.b21 div,
+        #_panelId_ .carousel-container .carousel-navigator.b21 div:hover,
+        #_panelId_ .carousel-container .carousel-navigator.b21 .av {
+            width: 19px;
+            height: 19px;
+            text-align: center;
+            line-height: 19px;
+            color: white;
+            font-size: 12px;
+            background: url(/images/kdesign/carousel/b21.png) no-repeat;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        #_panelId_ .carousel-container .carousel-navigator.b21 div {
+            background-position: -5px -5px;
+        }
+
+            #_panelId_ .carousel-container .carousel-navigator.b21 div:hover,
+            .carousel-container .carousel-navigator.b21 .av:hover {
+                background-position: -35px -5px;
+            }
+
+        #_panelId_ .carousel-container .carousel-navigator.b21 .av {
+            background-position: -65px -5px;
+        }
+
+        #_panelId_ .carousel-container .carousel-navigator.b21 .dn,
+        #_panelId_ .carousel-container .carousel-navigator.b21 .dn:hover {
+            background-position: -95px -5px;
+        }
+
+    /*a21*/
+    #_panelId_ .carousel-container .carousel-navigator.a21.left,
+    #_panelId_ .carousel-container .carousel-navigator.a21.right {
+        display: block;
+        /* size of arrow element */
+        width: 55px;
+        height: 55px;
+        cursor: pointer;
+        background: url(/images/kdesign/carousel/a21.png) center center no-repeat;
+        overflow: hidden;
+    }
+
+    #_panelId_ .carousel-container .carousel-navigator.a21.left {
+        background-position: -3px -33px;
+        top: 123px;
+        left: 8px;
+    }
+
+        #_panelId_ .carousel-container .carousel-navigator.a21.left:hover {
+            background-position: -123px -33px;
+        }
+
+        #_panelId_ .carousel-container .carousel-navigator.a21.left.carousel-navigatordn {
+            background-position: -243px -33px;
+        }
+
+    #_panelId_ .carousel-container .carousel-navigator.a21.right {
+        background-position: -63px -33px;
+        top: 123px;
+        right: 8px;
+    }
+
+        #_panelId_ .carousel-container .carousel-navigator.a21.right:hover {
+            background-position: -183px -33px;
+        }
+
+        #_panelId_ .carousel-container .carousel-navigator.a21.right.carousel-navigatordn {
+            background-position: -303px -33px;
+        }
+
+    /*b05*/
+    #_panelId_ .carousel-container .carousel-navigator.b05 {
+        bottom: 16px;
+        right: 6px;
+    }
+
+        #_panelId_ .carousel-container .carousel-navigator.b05 div,
+        #_panelId_ .carousel-container .carousel-navigator.b05 div:hover,
+        #_panelId_ .carousel-container .carousel-navigator.b05 .av {
+            width: 16px;
+            height: 16px;
+            background: url(/images/kdesign/carousel/b05.png) no-repeat;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        #_panelId_ .carousel-container .carousel-navigator.b05 div {
+            background-position: -7px -7px;
+        }
+
+            #_panelId_ .carousel-container .carousel-navigator.b05 div:hover,
+            #_panelId_ .carousel-container .carousel-navigator.b05 .av:hover {
+                background-position: -37px -7px;
+            }
+
+        #_panelId_ .carousel-container .carousel-navigator.b05 .av {
+            background-position: -67px -7px;
+        }
+
+        #_panelId_ .carousel-container .carousel-navigator.b05 .dn,
+        #_panelId_ .carousel-container .carousel-navigator.b05 .dn:hover {
+            background-position: -97px -7px;
+        }
+
+    /*b12*/
+    #_panelId_ .carousel-container .carousel-navigator.a12.left,
+    #_panelId_ .carousel-container .carousel-navigator.a12.right {
+        display: block;
+        /* size of arrow element */
+        width: 30px;
+        height: 46px;
+        cursor: pointer;
+        background: url(/images/kdesign/carousel/a12.png) no-repeat;
+        overflow: hidden;
+    }
+
+    #_panelId_ .carousel-container .carousel-navigator.a12.left {
+        background-position: -16px -37px;
+        top: 123px;
+        left: 0;
+    }
+
+        #_panelId_ .carousel-container .carousel-navigator.a12.left:hover {
+            background-position: -136px -37px;
+        }
+
+        #_panelId_ .carousel-container .carousel-navigator.a12.left.carousel-navigatordn {
+            background-position: -256px -37px;
+        }
+
+    #_panelId_ .carousel-container .carousel-navigator.a12.right {
+        background-position: -75px -37px;
+        top: 123px;
+        right: 0;
+    }
+
+        #_panelId_ .carousel-container .carousel-navigator.a12.right:hover {
+            background-position: -195px -37px;
+        }
+
+        #_panelId_ .carousel-container .carousel-navigator.a12.right.carousel-navigatordn {
+            background-position: -315px -37px;
+        }
+
+/* navigator theme end*/

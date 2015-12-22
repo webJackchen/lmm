@@ -1,0 +1,12 @@
+﻿<div>
+    <ul class="menu-nav v-menu">
+        <li ng-repeat="menu in data.selectMenus" ng-show="menu.show">
+            <a target="_self" title="{{menu.text}}" href="{{menu.href}}">{{menu.text}}</a>
+            <ul ng-if="menu.childs&&menu.childs.length" class="children-menu">
+                <li ng-repeat="childMenu in menu.childs">
+                    <a href="{{childMenu.href}}">{{childMenu.text}}</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

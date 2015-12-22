@@ -1,0 +1,137 @@
+﻿
+/**login切换背景**/
+.bl_menu_logo{
+background:url(../../images/logo_bl.png) 15px 5px no-repeat;
+}
+
+/** 导航开始 **/
+
+.bl_menu_left dl dd a {
+  color: #fff;
+}
+.bl_menu_left dl dd.on {
+  background: #0ba78f;
+}
+.bl_menu_left dl dd:hover {
+  background: #0ba78f;
+}
+.bl_menu_left dl dd.end select {
+  background: #e3e3e3;
+}
+.bl_menu_r_txt a {
+  color: #fff;
+}
+.bl_menu_r_txt span {
+  color: #fff;
+}
+.bl_menu_r_txt a:hover {
+  background: #7f7f7f;
+}
+.bl_block_list dl dd.one a .bl_edite {
+  color: #0ba78f;
+}
+.bl_block_list dl dd.bl_dd_sz:hover .iconfont {
+  color: #0ba78f;
+}
+.bl_block_list dl dd a .iconfont:hover {
+  color: #0ba78f;
+}
+.bl_cout_menulist ul li .bl_tb a {
+  color: #0ba78f;
+}
+.bl_menu_r_pic ul li a {
+  color: #fff;
+}
+.bl_menu_r_pic ul li.on {
+  background: #808080;
+}
+.bl_menu_r_pic ul li.on a {
+  color: #fff;
+}
+.bl_menu_r_pic_x {
+  background: #808080;
+}
+.bl_menu_r_pic ul li:hover {
+  background: #808080;
+}
+.bl_menu_r_pic ul li:hover a {
+  color: #fff;
+}
+.bl_menu2 {
+  background: #333333;
+}
+/**首页主体开始**/
+.bl_container {
+  background: #FFF;
+}
+/**
+@media (min-width:900px) {
+  .bl_container {
+    width:68%;
+  }
+}
+@media (min-width:1000px) {
+  .bl_container {
+    width:72%;
+  }
+}
+@media (min-width:1080px) {
+  .bl_container {
+      width:75%;
+  }
+}
+@media (min-width: 1200px) {
+  .bl_container {
+    width:78%;
+  }
+}
+**/
+
+
+.bl_cout_menulist ul li a.on {
+  background:url(../../images/_onimg.png) no-repeat;
+     border:none ;
+}
+
+ .bl_cout_menulist ul li:hover a.on{
+   border-radius:10px 0 0 0; 	 
+   background:url(../../images/_onimg.png) no-repeat;
+    border:none ;
+ } 
+
+.bl_span_gx {
+  background:url(../../images/_jk.png) no-repeat;
+}
+.bl_block_txt {
+  border-left: 5px solid #22baa1;
+  background: #fff;
+}
+.bl_block_wen {
+  color: #8d8b8c;
+}
+.bl_nw_con1 {
+  background: #fff;
+}
+
+.bl_add_page a{
+ background:#0fbca0;
+}
+
+/*删除弹出层**/
+#dvMsgBox {
+  border: 1px solid #0ba78f;
+}
+#dvMsgBox .top {
+  background: #0ba78f;
+  color: #fff;
+}
+#dvMsgBox .body {
+  background: #fff;
+}
+input.btn2 {
+  background: #0ba78f;
+}
+input.btnfocus {
+  background: #cc3b33;
+}
+/*# sourceMappingURL=black.css.map */

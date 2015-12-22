@@ -1,0 +1,19 @@
+﻿<div ng-controller="SettingMenuCtrl">
+    <div class="setting-content">
+        <ul class="categogry-list text-left setting-links">
+            <li class="checkbox" ng-repeat="link in links">
+                <a href="javascript:void(0)">
+                    <label>
+                        <input type="checkbox" ng-checked="link.selected" ng-click="selectedLink(link)">{{link.title.text}}
+                    </label>
+                </a>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="setting-btn">
+        <div class="form-group text-center">
+            <button class="btn btn-primary" ng-click="closeLink($event)">确定</button>
+        </div>
+    </div>
+</div>

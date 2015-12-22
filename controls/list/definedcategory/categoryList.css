@@ -1,0 +1,29 @@
+﻿#_panelId_ div.category-list h4, div.content-list h4 {
+    font-weight: bolder;
+    font-size: 16px;
+    border-bottom: 1px solid #cccccc;
+    padding: 10px 0;
+}
+
+#_panelId_ ul.category-list{
+    border: 1px solid #ddd;
+    border-bottom: none;
+}
+#_panelId_ ul.category-list li {
+    width: 100%;
+    line-height: 35px;
+    text-align: center;
+    padding: 10px 0px;
+    border-bottom: 1px solid #ddd;    
+}
+    #_panelId_ ul.category-list li a:hover {
+        text-decoration:none;
+        color:#000;
+    }
+#_panelId_ .category-setting {
+    width:300px;
+      padding: 10px;
+}
+#_panelId_ .category-setting label {
+    font-weight:normal;
+}

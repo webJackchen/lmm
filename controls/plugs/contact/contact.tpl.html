@@ -1,0 +1,13 @@
+﻿<div class="contact" data-areakey="{{data.areaKey}}">
+    <table class="kdo-table">
+        <tbody>
+            <tr class="kdo-table-title" ng-if="data.hideTitle==false">
+                <th colspan="2">{{data.title}}</th>
+            </tr>
+            <tr ng-repeat="fieldItem in data.displayFields">
+                <td class="kdo-table-label">{{fieldItem.name}}</td>
+                <td class="kdo-table-text" id="field_{{fieldItem.key}}">{{fieldItem.text}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

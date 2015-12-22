@@ -1,0 +1,32 @@
+
+.btn-add {
+    margin-right: 20px;
+}
+
+.form-panel {
+    padding-left: 20px;
+}
+
+.form-radio {
+    float: left;
+    margin-right: 50px;
+}
+
+.a-update {
+    text-decoration: underline;
+    color: #3ec5df;
+}
+
+.columnTitle {
+    padding: 15px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ddd;
+}
+
+form .error {
+    color: red;
+}
+
+#index-account a {
+    color:#3e3d3d;
+}

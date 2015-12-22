@@ -1,0 +1,109 @@
+﻿#_panelId_ * {
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+#_panelId_ .breadcrumbs,
+#_panelId_ .breadcrumbs > ul {
+    height: 40px;
+}
+
+    #_panelId_ .breadcrumbs > ul {
+        border-radius: 3px;
+        list-style: none;
+        -webkit-padding-start: 0;
+        padding-start: 0;
+    }
+
+        #_panelId_ .breadcrumbs > ul::after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        #_panelId_ .breadcrumbs > ul > li {
+            padding: 10px 0;
+            float: left;
+        }
+
+            #_panelId_ .breadcrumbs > ul > li.title {
+                width: auto;
+                padding-left: 10px;
+            }
+
+            #_panelId_ .breadcrumbs > ul > li.crumbs {
+                width: 100px;
+                text-align: center;
+            }
+
+                #_panelId_ .breadcrumbs > ul > li.crumbs div {
+                    float: left;
+                }
+
+                #_panelId_ .breadcrumbs > ul > li.crumbs .text {
+                    width: 80px;
+                }
+
+                #_panelId_ .breadcrumbs > ul > li.crumbs .delimiter {
+                    width: 20px;
+                }
+
+                #_panelId_ .breadcrumbs > ul > li.crumbs:last-child .text {
+                    padding-left: 10px;
+                    width: auto;
+                }
+
+                #_panelId_ .breadcrumbs > ul > li.crumbs:last-child .delimiter {
+                    display: none;
+                }
+
+                #_panelId_ .breadcrumbs > ul > li.crumbs:hover a {
+                    color: #efcbcb;
+                }
+
+                #_panelId_ .breadcrumbs > ul > li.crumbs:last-child a:hover {
+                    cursor: default;
+                }
+
+                #_panelId_ .breadcrumbs > ul > li.crumbs:last-child:hover a {
+                    color: #000;
+                }
+
+/*#_panelId_ .breadcrumbs > ul > li > .delimiter:before {
+                z-index: 1;
+                position: absolute;
+                top: 0;
+                left: 0;
+                content: '';
+                display: block;
+                width: 0;
+                height: 0;
+                border-width: 20px;
+                border-style: solid;
+                border-color: #aaa transparent transparent transparent;
+                -moz-transform: rotate(-90deg);
+                -ms-transform: rotate(-90deg);
+                -o-transform: rotate(-90deg);
+                -webkit-transform: rotate(-90deg);
+                transform: rotate(-90deg);
+            }
+
+            #_panelId_ .breadcrumbs > ul > li > .delimiter:after {
+                z-index: 2;
+                position: absolute;
+                top: 0;
+                left: -1px;
+                content: '';
+                width: 0;
+                height: 0;
+                display: block;
+                border-width: 20px;
+                border-style: solid;
+                border-color: #fff transparent transparent transparent;
+                -moz-transform: rotate(-90deg);
+                -ms-transform: rotate(-90deg);
+                -o-transform: rotate(-90deg);
+                -webkit-transform: rotate(-90deg);
+                transform: rotate(-90deg);
+            }*/

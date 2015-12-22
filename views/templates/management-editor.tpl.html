@@ -1,0 +1,16 @@
+﻿<div class="col-sm-12 editor" ng-controller="ManagementEditorCtrl">
+    <div class="computer">
+        <div class="col-sm-12 col-padding-clear toolbar">
+            <div class="input-group">
+                <div class="input-group-addon"><i class="iconfont icon-internet"></i></div>
+                <input type="text" class="form-control" ng-model="currentTemplate.previewUrl" placeholder="没有已安装的模板" />
+            </div>
+        </div>
+        <div class="content" style="background-image: url({{ currentTemplate.previewImg || '../../images/no_image_220x220.jpg' }});">
+            <div class="hover-btn">
+                <button class="btn btn-primary" ng-click="btnEdit()" ng-show="!!currentTemplate">编辑</button>
+                <button class="btn btn-primary" ng-click="btnInstall()" ng-show="!currentTemplate">安装模板</button>
+            </div>
+        </div>
+    </div>
+</div>

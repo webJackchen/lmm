@@ -1,0 +1,47 @@
+﻿<div class="detail-content">
+    <div class="detail-top">
+        <h2>{{data.$title$.text}}</h2>
+        <p>
+            <span>时间：{{data.$pubdate$.text}}</span>
+            <span>点击量：{{data.$visitcount$.text}}</span>
+        </p>
+        <div>
+            <span style="float: left; margin-top: 5px;">分享到：</span>
+            <div class="bdshare-button-style0-16 bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <div class="content" bind-html-unsafe-new="data.$content$.text"></div>
+    <div id="commentDiv">
+        <div class="common" ng-hide="data.common === 'false'">
+            <p>评论</p>
+            <ul class="common-content">
+            </ul>
+
+            <div class="add-common">
+                <div class="add-common-content">
+                    <textarea onblur="promptHide()" onkeyup="words_deal()"></textarea>
+                    <label id="wordVerify" for="text" generated="true" style="font-weight: normal;">(150/150)</label>
+                    <label id="textVerify" style="display: none;" for="text" generated="true" class="error"></label>
+                    <div>
+                        <div style="float:left;">
+                            <span style="color: red;" class="control-label">*</span>
+                            <label class="control-label">验证码：</label>
+                            <input type="text" class="" id="txtVerifyCode" name="txtVerifyCode" onblur=' promptHide("codeVerify")'>
+                            <label id="codeVerify" style="display: none;" for="txtVerifyCode" generated="true" class="error"></label>
+                        </div>
+                        <div class="col-sm-5 verify">
+                            <img id="imgVerifyCode" src="#" style="width: 70px;" />
+                            <span class="ml10">看不清？</span>
+                            <a class="aVerifyCode" href="javascript:void(0);" onclick="verifyCode()">换一张</a>
+                        </div>
+                    </div>
+                    <div class="add-common-content-button  pull-right">
+                        <a class="" href="javascript:void(0)" onclick="doSubmitComment()">发表</a>
+                        <a class="" href="javascript:void(0)" onclick="clearText()">清空</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

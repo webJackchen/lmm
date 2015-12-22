@@ -1,0 +1,15 @@
+﻿<div class="breadcrumbs">
+    <ul>
+        <li class="title">
+            <span bind-html-unsafe="data.title">{{data.title}}</span>
+        </li>
+        <li class="crumbs" ng-repeat="crumbItem in data.source">
+            <div class="text">
+                <a title="{{crumbItem.text}}" style="{{data.settingStyle}}" href="{{crumbItem.url}}">{{crumbItem.text}}</a>
+            </div>
+            <div class="delimiter">
+                {{data.delimiter}}
+            </div>
+        </li>
+    </ul>
+</div>

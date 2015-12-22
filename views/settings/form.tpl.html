@@ -1,0 +1,41 @@
+﻿<div ng-controller="SettingFormCtrl" >
+    <div class="setting-content">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>表单主题:</label>
+            </div>
+            <div class="col-sm-12">
+                <select class="form-control" ng-model="data.link" ng-options="form.link.text as form.allTitle.text for form in formList"></select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>验证码:</label>
+            </div>
+            <div class="col-sm-12">
+                <label class="radio-inline">
+                    <input type="radio" ng-model="data.verificationCode" value="1"> 开启
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="data.verificationCode" value="0"> 关闭
+                </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <custom-manage type="plug_form"></custom-manage>
+            </div>
+        </div>
+    </div>
+
+    <div class="setting-btn">
+        <div class="form-group row lanh-line">
+            <div class="col-sm-12">
+                <location-size-manage></location-size-manage>
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <button class="btn btn-primary" ng-click="btnOK()">确定</button>
+        </div>
+    </div>
+</div>

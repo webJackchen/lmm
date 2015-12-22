@@ -1,0 +1,265 @@
+﻿#_panelId_ .nopadding {
+    padding: 0;
+}
+
+#_panelId_ .content-detail {
+    font-size: 13px;
+}
+
+    #_panelId_ .content-detail .detail-top {
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+    }
+
+#_panelId_ .detail-top .pull-left {
+    width: 40%;
+}
+
+#_panelId_ .detail-top .pull-right {
+    width: 58%;
+}
+
+#_panelId_ .detail-top .pull-left > img {
+    height: 360px;
+    width: 100%;
+}
+
+#_panelId_ .detail-top .pull-left ul.perview-img {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    overflow: hidden;
+    list-style: none;
+    margin-top: 5px;
+}
+
+    #_panelId_ .detail-top .pull-left ul.perview-img li {
+        width: 20%;
+        height: 72px;
+        float: left;
+        cursor: pointer;
+        margin-right: 5px;
+    }
+
+        #_panelId_ .detail-top .pull-left ul.perview-img li.active {
+            border: 2px solid red;
+        }
+
+        #_panelId_ .detail-top .pull-left ul.perview-img li img {
+            width: 100%;
+            height: 100%;
+        }
+
+#_panelId_ .detail-top .pull-left .perivew-count {
+    line-height: 40px;
+    color: #B5B2B2;
+}
+
+#_panelId_ .detail-top .pull-right h4 {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#_panelId_ .detail-top .pull-right h5 {
+    color: red;
+}
+
+#_panelId_ .detail-top .pull-right .price {
+    width: 100%;
+    padding: 10px;
+    background-color: #C1C0C0;
+}
+
+    #_panelId_ .detail-top .pull-right .price span {
+        display: block;
+    }
+
+    #_panelId_ .detail-top .pull-right .price .VIP-price span, #_panelId_ .detail-top .pull-right .price .VIP-price h4 {
+        display: inline-block;
+    }
+
+    #_panelId_ .detail-top .pull-right .price .VIP-price h4 {
+        color: #EC2424;
+        font-size: 25px;
+    }
+
+#_panelId_ .detail-top .pull-right .detail-attribute {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+    #_panelId_ .detail-top .pull-right .detail-attribute .title {
+        color: #B5B2B2;
+        width: 10%;
+        text-align: left;
+    }
+
+    #_panelId_ .detail-top .pull-right .detail-attribute .value {
+        width: 80%;
+    }
+
+        #_panelId_ .detail-top .pull-right .detail-attribute .value input.stock {
+            width: 50px;
+            height: 43px;
+            display: inline-block;
+            vertical-align: top;
+            text-align: center;
+            margin-right: 5px;
+        }
+
+        #_panelId_ .detail-top .pull-right .detail-attribute .value .count-stock {
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        #_panelId_ .detail-top .pull-right .detail-attribute .value span {
+            width: 20px;
+            height: 20px;
+            display: block;
+            border: 1px solid #B5B2B2;
+            margin-bottom: 3px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        #_panelId_ .detail-top .pull-right .detail-attribute .value div.stock {
+            display: inline-block;
+            margin-left: 30px;
+        }
+
+#_panelId_ .detail-top .pull-right .btn-buy {
+    width: 150px;
+    border: 1px solid #6D6868;
+    border-radius: 0px;
+    margin-top: 30px;
+    margin-left: 100px;
+}
+
+#_panelId_ .detail-top .pull-right .detail-attribute .value .count-stock s {
+    position: absolute;
+    top: 1px;
+    left: 3px;
+    display: block;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    border-color: transparent transparent #B5B2B2 transparent;
+    border-style: dashed dashed solid dashed;
+    border-width: 6px;
+}
+
+    #_panelId_ .detail-top .pull-right .detail-attribute .value .count-stock s.subtract {
+        position: absolute;
+        top: 6px;
+        left: 3px;
+        display: block;
+        height: 0;
+        width: 0;
+        font-size: 0;
+        line-height: 0;
+        border-color: #B5B2B2 transparent transparent transparent;
+        border-style: dashed dashed solid dashed;
+        border-width: 6px;
+    }
+
+#_panelId_ .detail-descript .tab-pane {
+    padding: 20px;
+    margin: 0;
+    border: 1px solid #ddd;
+    border-top: none;
+}
+
+#_panelId_ .detail-descript .detail-attribute {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+    #_panelId_ .detail-descript .detail-attribute .detail-attribute-title {
+        font-weight: normal;
+        font-size: 12px;
+        display: inline-block;
+        vertical-align: top;
+    }
+
+        #_panelId_ .detail-descript .detail-attribute .detail-attribute-title.parameter {
+            color: #DEA826;
+        }
+
+    #_panelId_ .detail-descript .detail-attribute .detail-attribute-content {
+        font-size: 12px;
+        display: inline-block;
+        border-left: 1px solid #BBB8B8;
+        padding: 3px;
+        padding-left: 10px;
+        margin-left: 10px;
+        color: #B5B2B2;
+    }
+
+        #_panelId_ .detail-descript .detail-attribute .detail-attribute-content span {
+            margin-right: 50px;
+        }
+
+        #_panelId_ .detail-descript .detail-attribute .detail-attribute-content.blue {
+            color: #78b0e5;
+            border-left: none;
+            padding: 0;
+        }
+
+#_panelId_ span.text-decoration {
+    text-decoration: line-through;
+}
+
+#_panelId_ .detail-descript .nav-tabs li {
+    cursor: pointer;
+}
+
+#_panelId_ .evaluation-content {
+    border-bottom: 1px solid #ccc;
+}
+
+    #_panelId_ .evaluation-content, #_panelId_ .evaluation-content .evaluation, #_panelId_ .evaluation-content .repaly {
+        overflow: hidden;
+        width: 100%;
+        clear: both;
+        margin-bottom: 20px;
+    }
+
+        #_panelId_ .evaluation-content .evaluation-title {
+            width: 15%;
+            float: left;
+        }
+
+            #_panelId_ .evaluation-content .evaluation-title span.title {
+                font-size: 18px;
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            #_panelId_ .evaluation-content .evaluation-title span.time {
+                font-size: 12px;
+                display: block;
+            }
+
+        #_panelId_ .evaluation-content .evaluation-detail {
+            width: 80%;
+            float: left;
+            padding-left: 20px;
+            text-align: left;
+            color: #000;
+        }
+
+#_panelId_ .detail-attribute .attribute {
+        border: 1px solid #ccc;
+    padding: 5px;
+    min-width: 40px;
+    text-align: center;
+    width: auto;
+}

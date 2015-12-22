@@ -1,0 +1,93 @@
+﻿<div style="width:300px;">
+    <div class="setting-content">
+        <div class="form-group row">
+            <div class="col-sm-12">分类名称：</div>
+            <div class="col-sm-12">
+                <input type="text" class="form-control" ng-model="category.title.text">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">功能选择：</div>
+            <div class="col-sm-12">
+                <select class="form-control" ng-model="type" ng-change="changeData()">
+                    <option value="0">指定一项后台分类</option>
+                    <option value="1">指定一条后台数据</option>
+                    <option value="2">外链</option>
+                </select>
+            </div>
+        </div>
+        <!--指定一条后台数据-->
+        <div ng-show="type!=='2'">
+            <div class="form-group row">
+                <div class="col-sm-12">选择数据：</div>
+                <div class="col-sm-12">
+                    <select class="form-control" ng-model="category.type" ng-change="changeType()">
+                        <option value="">文章</option>
+                        <option value="product">产品</option>
+                        <option value="job">招聘</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row" ng-show="category.type ===''">
+                <div class="col-sm-4 nopadding text-right">文章类型：</div>
+                <div class="col-sm-8 text-left">
+                    <select class="form-control" ng-model="category.type1" ng-change="changeType()">
+                        <option value="news">新闻</option>
+                        <option value="article">简介</option>
+                        <option value="download">下载</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row" ng-hide="type==='0'">
+                <div class="col-sm-4 nopadding text-right">
+                    <span ng-show="category.type ===''">文章分类：</span>
+                    <span ng-show="category.type ==='product'">产品分类：</span>
+                    <span ng-show="category.type ==='job'">招聘分类：</span>
+
+                </div>
+                <div class="col-sm-8 text-left">
+                    <select class="form-control" ng-model="category.category" ng-change="changeCategory()">
+                        {{category.category}}
+                        <option ng-repeat="category in categorys" value="{{category.link}}">{{category.title.text}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4 nopadding text-right">
+                    <span ng-show="category.type ===''">文章筛选：</span>
+                    <span ng-show="category.type ==='product'">产品筛选：</span>
+                    <span ng-show="category.type ==='job'">招聘筛选：</span>
+                </div>
+                <div class="col-sm-8 text-left">
+                    <input class="form-control" ng-model="category.condition">
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4 nopadding text-right">
+                    <span ng-show="category.type ===''">文章选择：</span>
+                    <span ng-show="category.type ==='product'">产品选择：</span>
+                    <span ng-show="category.type ==='job'">招聘选择：</span>
+                </div>
+                <div class="col-sm-8 text-left list">
+                    <ul class="list-group" style="height:200px;overflow:hidden;overflow-y:auto;">
+                        <li class="list-group-item ng-binding" ng-repeat="list in contentList | filter:category.condition" ng-click="getHref(list,$event)">{{list.title.text}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--外链-->
+        <div class="form-group row" ng-show="type=='2'">
+            <div class="col-sm-12">输入外链：</div>
+            <div class="col-sm-12">
+                <input class="form-control" ng-model="category.url">
+                <span style="color: #9E9696;font-size: 13px;">以http://或者https:// 开头</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="setting-btn">
+        <div class="form-group text-center">
+            <button class="btn btn-primary" ng-click="addDefinedCategory($event)">确定</button>
+        </div>
+    </div>
+</div>

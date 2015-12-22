@@ -1,0 +1,19 @@
+﻿<ul class="features">
+    <li class="{{$root._history.array[$root._history.index] == null || $root._history.index == 0 ? 'disabled' : 'enabled' }}" ng-click="historyPrev()"><i class="iconfont icon-undo" title="撤销"></i></li>
+    <li class="{{$root._history.array[$root._history.index+1] == null ? 'disabled' : 'enabled' }}" ng-click="historyNext()"><i class="iconfont icon-redo" title="重做"></i></li>
+    <!--<li class="enabled"><i class="iconfont icon-staff" title="标尺"></i></li>-->
+    <li class="enabled">
+        <i class="iconfont icon-bottom-align" title="对齐方式"></i>
+        <div id="alignMenu" class="menu">
+            <ul>
+                <li><i class="iconfont icon-top-align" ng-click="btnAlign('top')" title="顶部对齐"></i></li>
+                <li><i class="iconfont icon-center-align" ng-click="btnAlign('middle')" title="上下居中"></i></li>
+                <li><i class="iconfont icon-bottom-align" ng-click="btnAlign('bottom')" title="底部对齐"></i></li>
+                <li><i class="iconfont icon-left-alignment" ng-click="btnAlign('left')" title="左对齐"></i></li>
+                <li><i class="iconfont icon-centering-alignment" ng-click="btnAlign('center')" title="左右居中"></i></li>
+                <li><i class="iconfont icon-right-align" ng-click="btnAlign('right')" title="右对齐"></i></li>
+            </ul>
+        </div>
+    </li>
+    <li class="enabled" ng-click="btnAlignSize()"><i class="iconfont icon-align-size" title="对齐大小"></i></li>
+</ul>

@@ -1,0 +1,74 @@
+﻿<div ng-controller="SettingcustomerservicesCtrl" style="width:300px;">
+    <div class="setting-content">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label class="control-label">身份ID分配方式：</label>
+                <div>
+                    <div class="radio-inline">
+                        <label style="width:130px;">
+                            <input type="radio" ng-model="data.allowPush" value="true" /> 访问网站
+                        </label>
+                        <label>
+                            <input type="radio" ng-model="data.allowPush" value="false" /> 使用客服插件
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label class="control-label">消息发送时间间隔设置：</label>
+                <div>
+                    <select class="form-control" ng-model="data.timeLimit">
+                        <option value="0">无</option>
+                        <option value="3">3秒</option>
+                        <option value="5">5秒</option>
+                        <option value="10">10秒</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label class="control-label">显示工作时间</label>
+                <div>
+                    <div class="radio-inline">
+                        <label style="width:130px;">
+                            <input type="radio" ng-model="data.showWorktime" value="true" /> 是
+                        </label>
+                        <label>
+                            <input type="radio" ng-model="data.showWorktime" value="false" /> 否
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label class="control-label">显示联系方式</label>
+                <div>
+                    <div class="radio-inline">
+                        <label style="width:130px;">
+                            <input type="radio" ng-model="data.showContact" value="true" /> 是
+                        </label>
+                        <label>
+                            <input type="radio" ng-model="data.showContact" value="false" /> 否
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <custom-manage type="plug_customer_services"></custom-manage>
+            </div>
+        </div>
+    </div>
+
+    <div class="setting-btn">
+        <div class="col-sm-12 text-center">
+            <button class="btn btn-primary" ng-click="applySetting();">确定</button>
+        </div>
+    </div>
+</div>

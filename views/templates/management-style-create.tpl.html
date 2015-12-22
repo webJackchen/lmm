@@ -1,0 +1,21 @@
+﻿<div class="col-sm-12 custommanage-grid">
+    <div class="col-sm-12 col-padding-clear lanh-line">
+        <form class="form-inline">
+            <div class="form-group col-sm-5">
+                <label>模块类型:</label>
+                <select class="form-control" ng-model="tpl_status.sltModule" ng-change="selectModule()"
+                        ng-options="_module.key as _module.title for _module in tpl_status.sltModuleList"></select>
+            </div>
+        </form>
+    </div>
+    <!-- Select Grid -->
+    <div class="col-sm-12 col-padding-clear custom-grid style-content">
+        <div id="{{ template.key }}" class="col-sm-4 custom-column {{ template.focus }}" ng-repeat="template in tpl_status.templateList" ng-click="btnSelected(template, $event)">
+            <img title="{{ template.name }}" ng-src="{{ template.defaultTemplate.previewImg || '../../images/no_image_220x220.jpg' }}" />
+            <input type="text" id="templateStyleTitle"  placeholder="请输入样式名称" class="form-control" ng-show="template.focus" />
+        </div>
+    </div>
+    <div class="col-sm-12 col-padding-clear form-group text-center">
+        <button class="btn btn-primary" ng-click="btnSelect($event)">选择</button>
+    </div>
+</div>

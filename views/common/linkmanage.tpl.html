@@ -1,0 +1,119 @@
+﻿<div class="col-sm-12" style="width:420px;padding:0;">
+    <div class="setting-content">
+        <div class="form-group row" ng-if="!!isEditor">
+            <div class="col-sm-5" style="width:140px;padding-right:0px;">
+                <label>在新的窗口打开:</label>
+            </div>
+            <div class="col-sm-6" style="padding-left:0;">
+                <input type="checkbox" ng-model="data.isNewWindow" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>链接到:</label>
+            </div>
+            <div class="col-sm-12">
+                <label class="radio-inline">
+                    <input type="radio" ng-model="data.type" value="page" ng-change="changeType()">
+                    页面
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="data.type" value="flink" ng-change="changeType()">
+                    外链
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="data.type" value="file" ng-change="changeType()">
+                    文件
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="data.type" value="mail" ng-change="changeType()">
+                    邮箱
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="data.type" value="article" ng-change="changeType()">
+                    文章
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="data.type" value="product" ng-change="changeType()">
+                    产品
+                </label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <!-- 页面 -->
+                <select class="form-control" ng-if="data.type == 'page'"
+                        ng-options="pageItem.url as pageItem.text group by pageItem.parentName for pageItem in pageSource.groupPages "
+                        ng-model="data.value"></select>
+                <!-- 外链 -->
+                <input class="form-control" type="text" ng-model="data.value" ng-if="data.type == 'flink' || data.type == 'mail'" />
+            </div>
+        </div>
+        <div ng-if="data.type == 'file'">
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <media-manage caption="文件" on-selected="mediaSelected" type="file" src="data.value" video-key="data.id"></media-manage>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="data.type == 'article'||data.type == 'product'">
+            <div class="form-group row" ng-if="data.type == 'article'">
+                <div class="col-sm-4 text-right" style="padding-top:6px;">
+                    <label>文章类型：</label>
+                </div>
+                <div class="col-sm-8">
+                    <select class="form-control"
+                            ng-model="query.contentType"
+                            ng-options="categoryItem.key as categoryItem.text for categoryItem in source.categories"
+                            ng-change="changeCategory()"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4 text-right" style="padding-top:6px;">
+                    <label ng-if="data.type == 'article'">文章分类：</label>
+                    <label ng-if="data.type == 'product'">产品分类：</label>
+                </div>
+                <div class="col-sm-8">
+                    <select class="form-control"
+                            ng-model="query.category"
+                            ng-options="childItem.link as childItem.allTitle.text for childItem in source.childCategories"
+                            ng-change="loadData()"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4 text-right" style="padding-top:6px;">
+                    <label ng-if="data.type == 'article'">文章筛选：</label>
+                    <label ng-if="data.type == 'product'">产品筛选：</label>
+                </div>
+                <div class="col-sm-8">
+                    <input ng-model="query.keyWord" type="text" class="form-control" placeholder="请输入关键字" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-4 text-right" style="padding-top:6px;">
+                    <label ng-if="data.type == 'article'">文章选择：</label>
+                    <label ng-if="data.type == 'product'">产品选择：</label>
+                </div>
+                <div class="col-sm-8 list">
+                    <ul class="list-group">
+                        <div style="height:300px;overflow:hidden;overflow-y:auto;">
+                            <li class="list-group-item"
+                                ng-class="{active:currentItem.link==dataItem.link}"
+                                ng-repeat="dataItem in source.dataList | filter:query.keyWord"
+                                ng-click="selectItem(dataItem)">
+                                {{dataItem.allTitle.text}}
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="setting-btn">
+        <div class="form-group text-center">
+            <button class="btn btn-primary" ng-click="btnOK($event)">确定</button>
+        </div>
+    </div>
+</div>

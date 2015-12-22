@@ -1,0 +1,13 @@
+﻿#_panelId_{
+    overflow:hidden;
+}
+
+#_panelId_ .grid-image-item {
+    float: left;
+}
+
+#_panelId_ .grid-container:after {
+    display: block;
+    content: ' ';
+    clear: both;
+}

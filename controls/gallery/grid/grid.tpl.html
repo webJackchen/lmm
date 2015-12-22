@@ -1,0 +1,7 @@
+﻿<div class="grid-container" data-col="{{data.attrs.col}}" data-row="{{data.attrs.row}}" style="margin: 0 auto;">
+    <div style="width:{{ 100 / data.attrs.col  }}%;" class="grid-image-item" ng-repeat="imageItem in data.$item$">
+        <a target="_blank" href="{{ imageItem.hyperLink.text }}">
+            <img style="width:100%;height:100%;" src="{{imageItem.image.url}}" alt="{{imageItem.allTitle.text}}" />
+        </a>
+    </div>
+</div>

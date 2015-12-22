@@ -1,0 +1,50 @@
+﻿<div class="contentList" data-col="{{data.col}}" data-row="{{data.row}}" data-page="{{data.isPaged}}">
+    <div class="content_list">
+        <ul class="content-list news" ng-if="data.category !== 'product'">
+            <li class="title" style="display:none">
+                <h4></h4>
+            </li>
+            <li ng-repeat="dataItem in data.$item$">
+                <a href="{{dataItem.url}}" title="{{dataItem.title.text}}" target="{{data.target}}">
+                    <span class="title">{{dataItem.title.text}}</span>
+                    <span class="time">[{{dataItem.pubDate.text}}]</span>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="content-list product " ng-if="data.category === 'product'">
+            <li class="title" style="display:none">
+                <h4></h4>
+            </li>
+            <li class="product-images" ng-repeat="dataItem in data.$item$" style="width:{{data.width}}%">
+                <a href="{{dataItem.url}}" title="{{dataItem.title.text}}" target="{{data.target}}">
+                    <div>
+                        <img src="{{dataItem.image.url}}">
+                        <span>市场价：￥{{dataItem.moduleInfo.sale.text}}</span>
+                        <div class="VIP-price"><span>VIP：</span><h4>￥{{dataItem.moduleInfo.sale.text}}</h4></div>
+                        <span class="title">{{dataItem.title.text}}</span>
+                    </div>
+                    <span class="view">已查看：{{dataItem.visitCount.text}}次</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="kpluspaging">
+        <div class="content-page text-right" id="content-page" ng-show="data.isPaged === 'true'">
+            <ul class="pagination">
+                <li ng-class="active"><a href="javascript:void(0)">首页</a></li>
+                <li><a href="javascript:void(0);">上一页</a></li>
+                <li><a href="javascript:void(0);">1</a></li>
+                <li><a href="javascript:void(0);">下一页</a></li>
+                <li><a href="javascript:void(0)">末页</a></li>
+            </ul>
+            <ul class="page_skp">
+                <li>共{{totalPage}}页</li>
+                <li>跳转到第</li>
+                <li><input class="form-control text-center page_skip" id="goPage" type="text" ng-model="pageNumber"></li>
+                <li>页</li>
+            </ul>
+        </div>
+    </div>
+</div>

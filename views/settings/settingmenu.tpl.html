@@ -1,0 +1,40 @@
+﻿<div ng-controller="SettingMenuCtrl" style="width:350px;">
+    <div class="setting-content">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>添加栏目:</label>
+            </div>
+            <div class="col-sm-12 setting-menu-content">
+                <ul class="setting-menu text-left">
+                    <li class="checkbox" ng-repeat="menuItem in menus">
+                        <a href="javascript:void(0)" class="border-bottom">
+                            <label>
+                                <input type="checkbox" ng-checked="menuItem.checked" ng-click="selectedMenu($event, menuItem)" />{{menuItem.text}}
+                                <span ng-if="menuItem.childs" ng-show="menuItem.count>0" class="badge" ng-model="count">{{menuItem.count+1}}</span>
+                            </label>
+                            <span ng-if="menuItem.childs&&menuItem.childs.length">
+                                <i class="iconfont icon-down-arrow" ng-click="toggleChilds($event)"></i>
+                                <i class="iconfont icon-up-arrow" style="display:none" ng-click="toggleChilds($event)"></i>
+                            </span>
+                        </a>
+                        <ul ng-if="menuItem.childs&&menuItem.childs.length">
+                            <li class="checkbox" ng-repeat="childItem in menuItem.childs">
+                                <a href="javascript:void(0)">
+                                    <label>
+                                        <input type="checkbox" ng-checked="childItem.checked" ng-click="selectedChildMenu($event, childItem, menuItem)">{{childItem.text}}
+                                    </label>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="setting-btn">
+        <div class="form-group text-center">
+            <button class="btn btn-primary" ng-click="btnOK()">确定</button>
+        </div>
+    </div>
+</div>

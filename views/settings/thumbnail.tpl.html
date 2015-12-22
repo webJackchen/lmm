@@ -1,0 +1,56 @@
+﻿<div ng-controller="SettingthumbnailCtrl" style="min-width:300px;">
+    <div class="setting-content">
+        <div class="form-group row">
+            <div class="col-sm-12 text-center">
+                <ad-manage title="图片管理" callback="adCallback" value="{{data.$dataconfig}}"></ad-manage>
+                <!--<a class="btn btn-default" href="javascript:void(0)" ng-click="imagesFile()">图片管理</a>-->
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <label class="control-label">自动切换</label>
+                <select class="form-control" ng-model="data.attrs.autoPlay">
+                    <option value="true">是</option>
+                    <option value="false">否</option>
+                </select>
+            </div>
+            <div class="col-sm-6">
+                <label class="control-label">时间间隔</label>
+                <select class="form-control" ng-model="data.attrs.autoPlayInterval" ng-disabled="data.attrs.autoPlay=='false'">
+                    <option value="1000">1秒</option>
+                    <option value="2000">2秒</option>
+                    <option value="3000">3秒</option>
+                    <option value="4000">4秒</option>
+                    <option value="5000">5秒</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label class="control-label">鼠标事件方式：</label>
+                <select class="form-control" ng-model="data.attrs.event">
+                    <option value="click">点击</option>
+                    <option value="hover">悬停</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <custom-manage type="controls_gallery_thumbnail"></custom-manage>
+            </div>
+        </div>
+    </div>
+
+    <div class="setting-btn">
+        <div class="form-group row lanh-line">
+            <div class="col-sm-12">
+                <location-size-manage></location-size-manage>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12 text-center">
+                <button class="btn btn-primary" ng-click="applySetting();">确定</button>
+            </div>
+        </div>
+    </div>
+</div>

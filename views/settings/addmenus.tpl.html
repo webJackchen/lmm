@@ -1,0 +1,59 @@
+﻿<div style="width:300px;">
+    <div class="setting-content">
+        <div class="form-group row" style="padding: 0 10px;">
+            <div class="col-sm-12  setting-menu-content setting-category-list">
+                <ul class="categogry-list">
+                    <li class="checkbox" ng-repeat="menu in data.menus">
+                        <label>
+                            <input type="checkbox" ng-click="selectedMenu($event, menu)" ng-checked="menu.selected" />{{menu.text}}
+                        </label>
+                        <ul ng-if="menu.childs&&menu.childs.length">
+                            <li class="checkbox" ng-repeat="menuChild in menu.childs">
+                                <label>
+                                    <input type="checkbox" ng-click="selectedChildMenu($event, menuChild, menu)" ng-checked="menuChild.selected" />{{menuChild.text}}
+                                </label>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="form-group row" style="padding: 0 10px;">
+            <div class="col-sm-12 nopadding" style="margin-bottom:10px;">
+                <div class="pull-left">自定义菜单:</div>
+                <div class="pull-right"><button ng-click="definedMenu($event)" class="btn btn-primary">添加</button></div>
+            </div>
+            <table class="table table-bordered" ng-show="definedMenus.length">
+                <thead>
+                    <tr class="definedMenus">
+                        <td>菜单项</td>
+                        <td>链接</td>
+                        <td>设置</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="menu in definedMenus" class="definedMenus">
+                        <td>{{menu.text}}</td>
+                        <td>{{menu.href}}</td>
+                        <td>
+                            <span ng-show="menu.show" ng-click="toggle(menu)">显示</span>
+                            <span ng-hide="menu.show" ng-click="toggle(menu)">隐藏</span>
+                        </td>
+                        <td>
+                            <i class="iconfont icon-editor" ng-click="editMenu(menu)" title="编辑"></i>
+                            <i class="iconfont icon-delete" ng-click="removeMenu(menu)" title="删除"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="setting-btn">
+        <div class="form-group text-center">
+            <button class="btn btn-primary" ng-click="getSelectedMenu($event)">确定</button>
+        </div>
+    </div>
+</div>

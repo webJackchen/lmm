@@ -1,0 +1,70 @@
+﻿<div ng-controller="SettingLineHorizontalCtrl">
+    <div class="setting-content">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>线条样式:</label>
+            </div>
+            <div class="col-sm-12">
+                <select class="form-control" ng-model="data.borderStyle">
+                    <option value="dashed">虚线</option>
+                    <option value="dotted">点状</option>
+                    <option value="solid">实线</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>线条粗细:</label>
+            </div>
+            <div class="col-sm-12">
+                <input class="form-control" type="number" ng-model="data.borderWidth" value="1" min="1" max="100" step="1" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>端点类型:</label>
+            </div>
+            <div class="col-sm-12">
+                <select class="form-control" ng-model="data.borderRadius">
+                    <option value="0">正方形</option>
+                    <option value="40%">圆形</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>透明度:</label>
+            </div>
+            <div class="col-sm-8">
+                <input style="width:100%;" type="text" id="border-opacity" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="0" data-slider-tooltip="hide" data-slider-handle="round" />
+            </div>
+            <div class="col-xs-4" style="padding-right:0;">
+                <input style="width:80%;height:20px;border-radius:3px;border:1px solid #ddd;" type="number" ng-model="data.opacity" min="0" max="100" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>颜色:</label>
+            </div>
+            <div class="col-sm-12">
+                <input id="borderColorPicker" type="text" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <custom-manage type="controls_shapeandline_hline"></custom-manage>
+            </div>
+        </div>
+    </div>
+
+    <div class="setting-btn">
+        <div class="form-group row lanh-line">
+            <div class="col-sm-12">
+                <location-size-manage></location-size-manage>
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <button class="btn btn-primary" ng-click="btnOK()">确定</button>
+        </div>
+    </div>
+</div>

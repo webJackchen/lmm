@@ -1,0 +1,178 @@
+﻿<div class="col-sm-12 manuscript" ng-controller="ComponentCtrl">
+
+    <!-- Recycle Body -->
+    <div class="col-sm-12 nopadding">
+        <ul class="col-sm-12 nav nav-tabs management-content-bar nopadding">
+            <li class="active" ng-click="changeStatus($event,'')" ng-show="!roleStatus.isKplusUser && roleStatus.role === 'user'"><a href="javascript:void(0);">我的组件<s class="active"><i></i></s></a></li>
+            <li ng-click="changeStatus($event,'Design')" ng-show="!roleStatus.isKplusUser && roleStatus.role === 'user'"><a href="javascript:void(0);">设计中</a></li>
+            <li ng-click="changeStatus($event,'Check')" ng-show="!roleStatus.isKplusUser && roleStatus.role === 'user'"><a href="javascript:void(0);">审核中</a></li>
+            <li ng-click="changeStatus($event,'CheckFailed')" ng-show="!roleStatus.isKplusUser && roleStatus.role === 'user'"><a href="javascript:void(0);">未通过</a></li>
+            <li ng-click="changeStatus($event,'Active')" ng-show="!roleStatus.isKplusUser && roleStatus.role === 'user'"><a href="javascript:void(0);">已上架</a></li>
+            <li class="active" ng-click="changeStatus($event,'Check')" ng-show="!roleStatus.isKplusUser && roleStatus.role === 'admin'"><a href="javascript:void(0);">上架申请<s class="active"><i></i></s></a></li>
+            <li ng-click="changeStatus($event,'Active')" ng-show="!roleStatus.isKplusUser && roleStatus.role === 'admin'"><a href="javascript:void(0);">上架中的稿件</a></li>
+            <li ng-click="changeStatus($event,'Deactive')" ng-show="!roleStatus.isKplusUser && roleStatus.role === 'admin'"><a href="javascript:void(0);">下架中的稿件</a></li>
+            <li class="pull-right" ng-show="!roleStatus.isKplusUser && roleStatus.role === 'user'">
+                <button class="btn btn-primary btn-copy pull-right" ng-click="copyAllManuscript()">复制</button></li>
+            <li class="pull-right" ng-show="!roleStatus.isKplusUser && roleStatus.role === 'user'">
+                <button class="btn btn-primary btn-add pull-right" ng-click="createComponent()">新建</button></li>
+        </ul>
+    </div>
+
+
+    <div class="conditionQuery">
+        <div class="col-sm-12 nopadding">
+            <div class="col-sm-3 pull-left keyword">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="输入组件编号或组件名称" ng-model="componentKeyword">
+                    <span class="input-group-addon" ng-click="searchKeyword()"><i class="iconfont icon-search"></i></span>
+                </div>
+            </div>
+            <div class="col-sm-1 pull-left more-condition" style="width: 110px;" ng-click="showMoreCondition()">
+                <span>精简筛选条件</span>
+                <i class="iconfont icon-down-arrow" ng-hide="moreCondition"></i>
+                <i class="iconfont icon-up-arrow" ng-show="moreCondition"></i>
+            </div>
+        </div>
+
+        <div class="pull-right query-more-condition" ng-show="moreCondition">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label>终端筛选：</label>
+                    <select class="form-control" ng-model="componentCondition.webType">
+                        <option value="">全部</option>
+                        <option value="Web">PC</option>
+                        <!--<option value="WAP">MB</option>-->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>编辑日期：</label>
+                    <div class="form-control datetimepicker">
+                        <input type="text" id="datetimepickerMauscript" ng-model="componentCondition.editTime" value="" style="width: 180px;">
+                        <span class="add-on" ng-click="removeDate($event)"><i class="iconfont icon-close"></i></span>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="componentCondition.prcoessStatus ===''">
+                    <label>组件状态：</label>
+                    <select class="form-control" ng-model="componentStatus">
+                        <option value="">全部</option>
+                        <option value="Design">设计中</option>
+                        <option value="Check">审核中</option>
+                        <option value="CheckFailed">未通过</option>
+                        <option value="Active">已上架</option>
+                        <option value="Deactive">已下架</option>
+                        <option value="Removed">已移出</option>
+                    </select>
+                </div>
+                <div class="form-group pull-right nomargin">
+                    <button class="btn btn-primary btn-add pull-left" ng-click="searchCondition()">搜 索</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 template nopadding">
+        <div class="col-sm-12 grid nopadding">
+            <div class="col-sm-3 col-padding-clear column" ng-repeat="component in componentList">
+                <div class="column-template" style="{{ !roleStatus.isKplusUser && roleStatus.role === 'admin'?'padding: 0;': '' }}">
+                    <div class="col-sm-12 col-padding-clear template-title">
+                        <span>{{ component.title }}</span>
+                        <i ng-show="(component.prcoessStatus === 'Design'&& !component.isAssignToOther)|| component.prcoessStatus === 'CheckFailed'" ng-click="deleteDialog(component)" class="iconfont icon-close" title="删除"></i>
+                    </div>
+                    <div class="col-sm-12 col-padding-clear template-body" style="background-image: url({{host}}{{ component.previewImg }}); {{ !roleStatus.isKplusUser && roleStatus.role === 'admin'?'margin: 0;': '' }}">
+                        <div class="template-description" ng-show="!roleStatus.isKplusUser && roleStatus.role === 'user'">
+                            <div class="template-style" style="text-align: center;">
+                                <i ng-click="seeComponent(component)" class="iconfont icon-view" title="查看"></i>
+
+                                <i ng-show="(component.prcoessStatus === 'Design' && !component.isAssignToOther)|| component.prcoessStatus === 'CheckFailed' " ng-click="editComponentInfo(component)" class="iconfont icon-editor" title="编辑"></i>
+                                <i ng-click="copyComponent(component)" class="iconfont icon-copy" title="复制"></i>
+                                <i ng-show="(component.prcoessStatus === 'Design'&& !component.isAssignToOther)|| component.prcoessStatus === 'CheckFailed'" ng-click="uploadImage(component)" upload-image="uploadImageCallback" class="iconfont icon-up-pic" title="上传图片"></i>
+                            </div>
+                            <div class="apply-failure-reason" ng-show="component.prcoessStatus === 'CheckFailed'">
+                                <span>原因:{{component.checkFailedRemark}}</span>
+                            </div>
+                        </div>
+                        <a href="../#/framework?componentid={{component.componentId}}&preview=true" target="_blank" ng-show="!roleStatus.isKplusUser && roleStatus.role === 'admin'">
+                            <div class="template-description" ng-show="!roleStatus.isKplusUser && roleStatus.role === 'admin'">
+                                <div class="template-style">
+                                    <div>
+                                        <span>编号:</span>
+                                        <span>{{ component.id }}</span>
+                                    </div>
+                                    <div>
+                                        <span>设计师:</span>
+                                        <span>{{ component.creator }}</span>
+                                    </div>
+                                    <div>
+                                        <span>组件名称:</span>
+                                        <span>{{ component.title }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-sm-12 col-padding-clear text-center" ng-show="!roleStatus.isKplusUser && roleStatus.role === 'user'">
+                        <button class="btn btn-apply" ng-click="componentShelve(component)" ng-show="component.prcoessStatus === 'Design' && !component.isAssignToOther || component.prcoessStatus === 'CheckFailed' && !component.isAssignToOther">申请上架</button>
+                        <button class="btn btn-result template-Check" ng-show="component.prcoessStatus === 'Check'">组件审核中...</button>
+                        <button class="btn btn-result" ng-show="component.prcoessStatus === 'Active'">已上架</button>
+                        <button class="btn btn-result" ng-show="component.prcoessStatus === 'Deactive'">已下架</button>
+                        <button class="btn btn-result" ng-show="component.isAssignToOther">已移出</button>
+                    </div>
+                    <div class="col-sm-12 col-padding-clear text-center" ng-show="!roleStatus.isKplusUser && roleStatus.role === 'admin'">
+                        <span class="btn-pass" ng-show="component.prcoessStatus === 'Check'" ng-click="checkSuccess(component)">YES</span>
+                        <span class="btn-refuse" ng-show="component.prcoessStatus === 'Check'" ng-click="checkFailure(component)">NO</span>
+                        <button class="btn btn-apply" ng-show="component.prcoessStatus === 'Active'" style="margin: 3px 0;" ng-click="unShelve(component)">下架</button>
+                        <button class="btn btn-apply" ng-show="component.prcoessStatus === 'Deactive'" style="margin: 3px 0;" ng-click="checkSuccess(component)">上架</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Grid -->
+    <!--  <div class="col-sm-12 template">
+        <div class="col-sm-12 grid">
+            <div class="col-sm-3 col-padding-clear column" ng-repeat="template in styleList">
+                <div class="column-template">
+                    <div class="col-sm-12 col-padding-clear template-title">
+                        <span>{{ template.title }}</span>
+                        <i ng-show="template.status != 3" ng-click="deleteComponent(template)" class="iconfont icon-close" title="删除"></i>
+                    </div>
+                    <div class="col-sm-12 col-padding-clear template-body" style="background-image: url({{host}}{{ template.previewImg }})">
+                        <div class="template-description">
+                            <div class="template-style">
+                                <i ng-click="seeComponent(template)" class="iconfont icon-view" title="查看"></i>
+                                <i ng-show="template.status != 3" ng-click="editComponentInfo(template)" class="iconfont icon-editor" title="编辑"></i>
+                                <i ng-click="copyComponent(template)" class="iconfont icon-copy" title="复制"></i>
+                                <i ng-show="template.status != 3" ng-click="uploadImage(template)" class="iconfont icon-up-pic" title="上传图片"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-padding-clear text-center">
+                        <button class="btn btn-primary" style="width: 80px" ng-click="btnSubmit(template)" ng-show="template.status != 3">上  架</button>
+                        <button class="btn btn-primary" style="width: 80px" ng-click="shelvesSubmit(template)" ng-show="template.status == 3">下架</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+    <div class="content-page text-right" id="content-page">
+        <pagination total-items="componentPage.total"
+            ng-model="componentPage.pageIndex"
+            items-per-page="componentPage.pageSize"
+            max-size="5"
+            class="pagination-sm"
+            boundary-links="true"
+            rotate="false"
+            ng-change="pageChanged()"
+            previous-text="前一页"
+            next-text="下一页"
+            first-text="首页"
+            last-text="尾页"></pagination>
+    </div>
+
+</div>

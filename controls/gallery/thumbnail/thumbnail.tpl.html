@@ -1,0 +1,24 @@
+﻿<div class="thumbnail-container"
+     data-interval="{{data.attrs.autoPlayInterval}}"
+     data-autoplay="{{data.attrs.autoPlay}}"
+     data-actionmode="{{data.attrs.event}}">
+    <div u="slides" class="thumbnail-region">
+        <div ng-repeat="imageItem in data.$item$">
+            <a target="_blank" href="{{ imageItem.hyperLink.text}}">
+                <img u="image" ng-src="{{imageItem.image.url}}" alt="{{imageItem.allTitle.text}}" />
+            </a>            
+        </div>
+    </div>
+    <span u="arrowleft" class="thumbnail-navigator left a05"></span>
+    <span u="arrowright" class="thumbnail-navigator right a05"></span>
+    <div u="thumbnavigator" class="thumbnail-navigator nv-thumbnail t01">
+        <div u="slides" class="thumbnail-region">
+            <div u="prototype" class="current">
+                <div class="current-border">
+                    <div u="thumbnailtemplate" class="current-template"></div>
+                </div>
+                <div class="current-target"></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,6 @@
+﻿<div class="buttons">
+    <span ng-if="editorInfo.type == 'web'">|</span><button class="btn btn-link" ng-click="btnPreview()" ng-if="editorInfo.type == 'web'">预览</button>
+    <span ng-show="editorInfo.readOnly == false">|</span><button class="btn btn-link" ng-show="editorInfo.readOnly == false" ng-click="btnSave()">保存</button>
+    <span ng-show="userInfo.isKplusUser == 'true' && editorInfo.type == 'web' && editorInfo.readOnly == false">|</span><button class="btn btn-link" ng-click="btnRelease()" ng-show="userInfo.isKplusUser == 'true' && editorInfo.type == 'web' && editorInfo.readOnly == false">发布</button>
+    <span ng-show="userInfo.isKplusUser != 'true'">|</span><button class="btn btn-link" ng-click="btnExit()" ng-show="userInfo.isKplusUser != 'true'" title="退出"><i class="iconfont">&#xe672;</i></button>
+</div>

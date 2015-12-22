@@ -1,0 +1,211 @@
+﻿.management {
+    position: relative;
+    margin-top: 58px;
+    padding: 0px;
+    z-index: 0;
+}
+
+.management .manuscript{
+    margin-top: 10px;
+}
+.management .manuscript .btn-add{
+    margin-right: 20px;
+}
+.management .manuscript .btn-add i{
+    margin-right: 5px;
+}
+    .management .manuscript .template-list .iconfont {
+        color: #888888;
+        margin: 0px 2px;
+        font-size: 18px;
+    }
+
+.management .editor{
+
+}
+
+    .management .editor .computer {
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        width: 724px;
+        height: 425px;
+        background: url("../images/management/background-computer.png");
+        padding: 30px 98px 59px 95px;
+    }
+
+        .management .editor .computer .toolbar {
+            height: 30px;
+        }
+
+        .management .editor .computer .content {
+            margin-top: 30px;
+            width: 100%;
+            height: 306px;
+            background-repeat: round;
+            background-size: cover;
+        }
+
+            .management .editor .computer .content .hover-btn {
+                width: 165px;
+                height: 165px;
+                background: url("../images/management/icon_theme-bg.png");
+                border-radius: 50%;
+                text-align: center;
+                margin: auto;
+                position: relative;
+                top: 70px;
+                padding-top: 60px;
+                display: none;
+            }
+
+            .management .editor .computer .content:hover .hover-btn{
+                display: block;
+            }
+
+             .management .template .grid .column{
+                 margin-bottom:20px;
+             }
+
+                .management .template .grid .column .column-template {
+                    margin: 0px 10px;
+                    border: 1px solid #d4d4d4;
+                    padding: 5px 0px;
+                    overflow: hidden;
+                }
+                    .management .template .grid .column .column-template .template-title>span{
+                        width:85%;
+                        overflow:hidden;
+                        white-space:nowrap;
+                        text-overflow:ellipsis;
+                        float:left;
+                        text-align: left;
+                        line-height: 22px;
+                        padding-left:5px;
+                    }
+                    .management .template .grid .column .column-template .template-title > i {
+                        float:right;
+                        width:10%;
+                        text-align: right;
+                        margin-right:5px;
+                    }
+                    .management .template .grid .column .column-template .template-body {
+                        /*background: url("../images/no_image_220x220.jpg");*/
+                        background-repeat: round;
+                        height: 160px;
+                        margin: 5px 0;
+                        background-size: cover;
+                            text-align: center;
+                            border-top: 1px solid #d4d4d4;
+                            border-bottom: 1px solid #d4d4d4;
+                    }
+
+                        .management .template .grid .column .column-template .template-body .template-description {
+                            width: 100%;
+                            height: 158px;
+                            background: #000;
+                            position: absolute;
+                            top: 0px;
+                            left: 0px;
+                            opacity: 0.6;
+                            color: #fff;
+                            padding: 15px;
+                            text-align: left;
+                            display: none;
+                        }
+                        .management .template .grid .column .column-template .template-body:hover .template-description {
+                            display: table;
+                        }
+                        .management .template .grid .column .column-template .template-body .template-description .template-style {
+                            display: table-cell;
+                            vertical-align: middle;
+                        }
+                            .management .template .grid .column .column-template .template-body .template-description .template-style div {
+                                     width: 100%;
+                                         height: 21px;
+                                     overflow: hidden;
+                            }
+                            .management .template .grid .column .column-template .template-body .template-description .template-style i {
+                                font-size:35px;
+                                margin:0 8px;
+                            }
+                                .management .template .grid .column .column-template .template-body .template-description .template-style i:hover {
+                                     color: #3ec5df;
+                                }
+                        .management .template .grid .column .column-template .template-body .template-Check {
+                             width: 100%;
+                            height: 160px;
+                            position: absolute;
+                            top: 0px;
+                            left: 0px;
+                            color: #fff;
+                            padding: 15px;
+                            text-align: center;
+                            display: none;
+                        }
+                        .management .template .grid .column .column-template .template-body.active .template-Check {
+                             display: table;
+                        }
+                            .management .template .grid .column .column-template .template-body .template-Check .template-ok {
+                                display: table-cell;
+                                vertical-align: middle;
+                            }
+                            .management .template .grid .column .column-template .template-body .template-Check .template-ok i {
+                                font-size:55px;
+                                margin:0 8px;
+                                color: #3ec5df;
+                            }
+ .management .template .grid .column .column-template template-copy .template-body{
+     border-top:none;
+}
+                    .manag
+
+/*manuscript*/
+td.td-disabled button {
+    border:none;
+    background: none;
+      padding: 0px;
+        margin: 0px 3px;
+}
+td.td-disabled .disabled{
+    cursor:not-allowed;
+}
+    td.td-disabled .disabled i {
+          color: #ccc !important;
+    }
+
+    /*样式库条件查询样式*/
+.conditionQuery .form-group {
+    margin-right:10px;
+    margin-bottom: 10px;
+}
+.conditionQuery .form-group input,.conditionQuery .form-group select {
+    min-width:180px;
+}
+
+    .conditionQuery .form-group button {
+        margin-right:0 !important;
+    }
+    .conditionQuery .form-group .datetimepicker {
+        padding:0 ;
+        display:inline-block;
+    }
+    .conditionQuery .form-group .datetimepicker input{
+        border:none;
+        padding:0 10px;
+    }
+    .conditionQuery .form-group .datetimepicker span {
+        display:inline-block;
+        border-left: 1px solid #ccc;
+            padding: 5px;
+            cursor:pointer;
+    }
+.conditionQuery .form-group .datetimepicker span i{
+        color: #000;
+    font-weight: bolder
+}
+.more-condition {
+    padding:0px;
+   line-height: 34px;
+}

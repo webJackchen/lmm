@@ -1,0 +1,187 @@
+﻿<!doctype html>
+<html ng-app="lanhKdesignApp">
+<head>
+    <meta charset="utf-8">
+    <!-- HTTP 1.1 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <!-- HTTP 1.0 -->
+    <meta http-equiv="cache-control" content="no-cache">
+    <!-- Prevent caching at the proxy server -->
+    <meta http-equiv="expires" content="0">
+
+    <title>蓝海基业在线制作 v2.2</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico" />
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(app) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="vendor/spectrum/spectrum.css" />
+    <link rel="stylesheet" href="vendor/seiyria-bootstrap-slider/dist/css/bootstrap-slider.css" />
+    <link rel="stylesheet" href="vendor/summernote/dist/summernote.css" />
+    <link rel="stylesheet" href="vendor/messenger/build/css/messenger.css" />
+    <link rel="stylesheet" href="vendor/messenger/build/css/messenger-theme-future.css" />
+    <link rel="stylesheet" href="vendor/messenger/build/css/messenger-theme-flat.css" />
+    <link rel="stylesheet" href="vendor/messenger/build/css/messenger-theme-block.css" />
+    <link rel="stylesheet" href="vendor/messenger/build/css/messenger-theme-air.css" />
+    <link rel="stylesheet" href="vendor/messenger/build/css/messenger-theme-ice.css" />
+    <link rel="stylesheet" href="vendor/jstree/dist/themes/default/style.css" />
+    <link rel="stylesheet" href="vendor/bootstrap-daterangepicker/daterangepicker.css" />
+    <!-- endbower -->
+    <link href="vendor/jquery-ui/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link href="styles/iconfont.css" rel="stylesheet" />
+    <link href="styles/main.css" rel="stylesheet" />
+    <link href="styles/login.css" rel="stylesheet" />
+    <link href="styles/loading.css" rel="stylesheet" />
+    <link href="styles/management.css" rel="stylesheet" />
+    <link href="styles/framework.css" rel="stylesheet" />
+    <link href="styles/define.css" rel="stylesheet" />
+    <!-- endbuild -->
+</head>
+<body>
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!--<div class="container">-->
+    <div>
+        <div ng-view=""></div>
+    </div>
+    <script src="http://webapi.amap.com/maps?v=1.3&key=27db612fc2ce1c8f52144e0962bd4b28&callback=init"></script>
+    <script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "2", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+
+    <!-- build:js(app) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="vendor/modernizr/modernizr.js"></script>
+    <script src="vendor/jquery/dist/jquery.js"></script>
+    <script src="vendor/angular/angular.js"></script>
+    <script src="vendor/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="vendor/angular-animate/angular-animate.js"></script>
+    <script src="vendor/angular-aria/angular-aria.js"></script>
+    <script src="vendor/angular-cookies/angular-cookies.js"></script>
+    <script src="vendor/angular-messages/angular-messages.js"></script>
+    <script src="vendor/angular-resource/angular-resource.js"></script>
+    <script src="vendor/angular-route/angular-route.js"></script>
+    <script src="vendor/angular-sanitize/angular-sanitize.js"></script>
+    <script src="vendor/angular-touch/angular-touch.js"></script>
+    <script src="vendor/jquery-ui/jquery-ui.js"></script>
+    <script src="vendor/spectrum/spectrum.js"></script>
+    <script src="vendor/jquery-bridget/jquery.bridget.js"></script>
+    <script src="vendor/seiyria-bootstrap-slider/js/bootstrap-slider.js"></script>
+    <script src="vendor/flow.js/dist/flow.js"></script>
+    <script src="vendor/ng-flow/dist/ng-flow.js"></script>
+    <script src="vendor/js-beautify/js/lib/beautify.js"></script>
+    <script src="vendor/js-beautify/js/lib/beautify-css.js"></script>
+    <script src="vendor/js-beautify/js/lib/beautify-html.js"></script>
+    <script src="vendor/summernote/dist/summernote.js"></script>
+    <script src="vendor/jssor-slider/js/jssor.slider.mini.js"></script>
+    <script src="vendor/messenger/build/js/messenger.js"></script>
+    <script src="vendor/messenger/build/js/messenger-theme-future.js"></script>
+    <script src="vendor/messenger/build/js/messenger-theme-flat.js"></script>
+    <script src="vendor/jstree/dist/jstree.js"></script>
+    <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="vendor/moment/moment.js"></script>
+    <script src="vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- endbower -->
+    <script src="vendor/jssor-carousel/jssor.js"></script>
+    <script src="vendor/jssor-carousel/jssor.slider.js"></script>
+    <script src="vendor/summernote/lang/summernote-zh-CN.js"></script>
+    <!-- endbuild -->
+    <!-- build:js(app) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/attach-filters.js"></script>
+    <script src="scripts/startup.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+    <script src="scripts/controllers/framework.js"></script>
+    <script src="scripts/controllers/frameworkheader.js"></script>
+    <script src="scripts/controllers/frameworkleftmenu.js"></script>
+    <script src="scripts/controllers/settingbasestyle.js"></script>
+    <script src="scripts/services/frameworkleftmenu.js"></script>
+    <script src="scripts/controllers/frameworkpageeditor.js"></script>
+    <script src="scripts/directives/controlmanage.js"></script>
+    <script src="scripts/services/baseservice.js"></script>
+    <script src="scripts/services/sessionservice.js"></script>
+    <script src="scripts/services/storage.js"></script>
+    <script src="scripts/controllers/settingimage.js"></script>
+    <script src="scripts/controllers/settingvideo.js"></script>
+    <script src="scripts/controllers/shapeandline.js"></script>
+    <script src="scripts/controllers/settingseo.js"></script>
+    <script src="scripts/controllers/settingmenu.js"></script>
+    <script src="scripts/controllers/settingcategorylist.js"></script>
+    <script src="scripts/controllers/settinggoodscategorylist.js"></script>
+    <script src="scripts/controllers/definedcategory.js"></script>
+    <script src="scripts/controllers/settingcontentlist.js"></script>
+    <script src="scripts/controllers/settinggoodscontentlist.js"></script>
+    <script src="scripts/controllers/settingdownload.js"></script>
+    <script src="scripts/controllers/settingnews.js"></script>
+    <script src="scripts/controllers/settinggoods.js"></script>
+    <script src="scripts/controllers/settingjob.js"></script>
+    <script src="scripts/controllers/settingproduct.js"></script>
+    <script src="scripts/controllers/settingintroduce.js"></script>
+    <script src="scripts/services/lanhwindow.js"></script>
+    <script src="scripts/services/keyboardfeature.js"></script>
+    <script src="scripts/services/history.js"></script>
+    <script src="scripts/services/alignservice.js"></script>
+    <script src="scripts/directives/imagemanage.js"></script>
+    <script src="scripts/services/spectrumservice.js"></script>
+    <script src="scripts/directives/custommanage.js"></script>
+    <script src="scripts/directives/bindhtmlunsafe.js"></script>
+    <script src="scripts/controllers/settingslide.js"></script>
+    <script src="scripts/services/loginservice.js"></script>
+    <script src="scripts/controllers/management.js"></script>
+    <script src="scripts/controllers/manuscript.js"></script>
+    <script src="scripts/controllers/manuscriptcopy.js"></script>
+    <script src="scripts/controllers/manuscriptmanage.js"></script>
+    <script src="scripts/controllers/recyle.js"></script>
+    <script src="scripts/services/recyleservice.js"></script>
+    <script src="scripts/services/manuscriptservice.js"></script>
+    <script src="scripts/services/utilsservice.js"></script>
+    <script src="scripts/services/messengerservice.js"></script>
+    <script src="scripts/controllers/settinggallerygrid.js"></script>
+    <script src="scripts/directives/photogallerymanage.js"></script>
+    <script src="scripts/directives/linkmanage.js"></script>
+    <script src="scripts/services/pageservice.js"></script>
+    <script src="scripts/controllers/settingtext.js"></script>
+    <script src="scripts/controllers/managementeditor.js"></script>
+    <script src="scripts/controllers/managementtemplate.js"></script>
+    <script src="scripts/services/templateservice.js"></script>
+    <script src="scripts/controllers/settingfullslide.js"></script>
+    <script src="scripts/controllers/settingthumbnail.js"></script>
+    <script src="scripts/directives/admanage.js"></script>
+    <script src="scripts/directives/locationsizemanage.js"></script>
+    <script src="scripts/controllers/managementstyle.js"></script>
+    <script src="scripts/controllers/stylemanage.js"></script>
+    <script src="scripts/controllers/stylemanagecopy.js"></script>
+    <script src="scripts/services/styleservice.js"></script>
+    <script src="scripts/controllers/managementstyleimage.js"></script>
+    <script src="scripts/controllers/settingbreadcrumbs.js"></script>
+    <script src="scripts/controllers/settinglinks.js"></script>
+    <script src="scripts/controllers/settingmessageboard.js"></script>
+    <script src="scripts/controllers/settingcontact.js"></script>
+    <script src="scripts/controllers/managementcomponent.js"></script>
+    <script src="scripts/services/componentservice.js"></script>
+    <script src="scripts/controllers/settingcomponent.js"></script>
+    <script src="scripts/controllers/settingcustomstyle.js"></script>
+    <script src="scripts/directives/mediamanage.js"></script>
+    <script src="scripts/controllers/settingmap.js"></script>
+    <script src="scripts/controllers/frameworkstylecreate.js"></script>
+    <script src="scripts/directives/uploadimage.js"></script>
+    <script src="scripts/controllers/frameworkcomponentcreate.js"></script>
+    <script src="scripts/controllers/settingform.js"></script>
+    <script src="scripts/controllers/managecomponentshelve.js"></script>
+    <script src="scripts/services/summernoteext.js"></script>
+    <script src="scripts/controllers/settinghtml.js"></script>
+    <script src="scripts/controllers/settingcustomerservices.js"></script>
+    <script src="scripts/controllers/settinglogin.js"></script>
+    <script src="scripts/directives/kdotree.js"></script>
+    <script src="scripts/controllers/settingfulltext.js"></script>
+    <script src="scripts/controllers/settingfulltextresult.js"></script>
+    <script src="scripts/controllers/settingglobal.js"></script>
+    <!-- endbuild -->
+    <script src="scripts/config.js"></script>
+</body>
+</html>

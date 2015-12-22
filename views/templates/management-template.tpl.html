@@ -1,0 +1,45 @@
+﻿<div class="col-sm-12 template" ng-controller="ManagementTemplateCtrl">
+    <div class="col-sm-12 grid">
+        <div class="col-sm-3 col-padding-clear column" ng-repeat="template in templateList">
+            <div class="column-template">
+                <div class="col-sm-12 col-padding-clear template-title"><span>{{ template.title }}</span></div>
+                <div class="col-sm-12 col-padding-clear template-body" style="background-image: url({{ template.previewImg }})">
+                    <a href="{{template.previewUrl}}" target="_blank">
+                        <div class="template-description">
+                            <div>
+                                <span>编号:</span>
+                                <span>{{ template.number }}</span>
+                            </div>
+                            <div>
+                                <span>主题详情:</span>
+                                <span>{{ template.title }}</span>
+                            </div>
+                            <div>
+                                <span>主题类型:</span>
+                                <span>{{ template.styleClass }}</span>
+                            </div>
+                            <div>
+                                <span>行业类型:</span>
+                                <span>{{ template.industryName }}</span>
+                            </div>
+                            <div>
+                                <span>安装次数:</span>
+                                <span>{{ template.count | number }}</span>
+                            </div>
+                            <div>
+                                <span>更新时间:</span>
+                                <span>{{ template.updateTime|date:"yyyy-MM-dd" }}</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-12 col-padding-clear text-center">
+                    <button class="btn btn-primary" style="width: 80px" ng-click="btnInstall(template)" ng-if="!template.isUsed">安 装</button>
+                    <button class="btn btn-default" style="width: 80px; height: 32px;" ng-disabled="true" ng-if="template.isUsed">已安装</button>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+    </div>
+</div>

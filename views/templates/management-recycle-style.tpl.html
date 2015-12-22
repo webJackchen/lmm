@@ -1,0 +1,124 @@
+﻿<div class="col-sm-12 manuscript" ng-controller="RecyleCtrl">
+
+    <div class="conditionQuery">
+        <div class="col-sm-12 nopadding">
+            <div class="col-sm-3 pull-left keyword">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="输入稿件编号或样式名称" ng-model="styleKeyword">
+                    <span class="input-group-addon" ng-click="keywordStyle()"><i class="iconfont icon-search"></i></span>
+                </div>
+            </div>
+            <div class="col-sm-1 pull-left more-condition" style="width: 110px;" ng-click="showMoreCondition()">
+                <span>精简筛选条件</span>
+                <i class="iconfont icon-down-arrow" ng-hide="moreCondition"></i>
+                <i class="iconfont icon-up-arrow" ng-show="moreCondition"></i>
+            </div>
+        </div>
+
+        <div class="pull-right query-more-condition" ng-show="moreCondition">
+            <div class="form-inline">
+                <div class="form-group" style="margin-right:210px;">
+                    <label>终端筛选：</label>
+                    <select class="form-control" ng-model="styleCondition.webType">
+                        <option value="">全部</option>
+                        <option value="Web">PC</option>
+                        <!--<option value="WAP">MB</option>-->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>样式类型：</label>
+                    <select class="form-control" ng-model="styleCondition.moduleType"
+                            ng-options="model.key as model.title for model in tpl_status.sltModuleList"></select>
+                </div>
+
+                <div class="form-group pull-right nomargin">
+                    <label>编辑日期：</label>
+                    <div class="form-control datetimepicker">
+                        <input type="text" id="datetimepickerStyle" ng-model="styleCondition.lastEditTime" style="width: 180px;">
+                        <span class="add-on" ng-click="removeDate($event)"><i class="iconfont icon-close"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>样式状态：</label>
+                    <select class="form-control" ng-model="styleCondition.prcoessStatus">
+                        <option value="">全部</option>
+                        <option value="Design">设计中</option>
+                        <option value="Check">审核中</option>
+                        <option value="CheckFailed">未通过</option>
+                        <option value="Active">已上架</option>
+                        <option value="Deactive">已下架</option>
+                        <option value="Removed">已移出</option>
+                    </select>
+                </div>
+                <div class="form-group" style="width: 200px;"></div>
+                <div class="form-group pull-right nomargin">
+                    <button class="btn btn-primary btn-add pull-left" ng-click="queryListStyle()">搜 索</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12 template-list">
+        <div class="form-group pull-left nomargin">
+            <button class="btn btn-copy btn-add pull-left" ng-click="batchDeletStyle()">批量删除</button>
+            <button class="btn btn-copy pull-left" ng-click="batchReductionStyle()">批量还原</button>
+        </div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" ng-checked="selectedStyle" ng-click="selectAllStyle()"></th>
+                    <th>编号</th>
+                    <th>名称</th>
+                    <th>预览</th>
+                    <th>来源</th>
+                    <th>上次编辑时间</th>
+                    <th>状态</th>
+                    <th>备注</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="{{ template.id }}" ng-repeat="template in styleRecycleList">
+                    <th><input type="checkbox" ng-checked="template.selected" ng-click="selectInfoStyle(template)"></th>
+                    <td>{{ template.id }}</td>
+                    <td>{{template.title}}</td>
+                    <td style="overflow: visible;position:relative;width:64px;">
+                        <i class="iconfont icon-pic-background pull-right" title="预览" ng-mouseenter="showImage($event)" ng-mouseleave="hideImage($event)"></i>
+                        <img ng-class="{'preview-template-top':$index>5}" class="preview-template" src="{{host}}{{ template.previewImg }}" />
+                    </td>
+                    <td>{{ template.creator }}</td>
+                    <td>{{template.lastEditTime|date:'yyyy年MM月dd日 HH:mm:ss'}}</td>
+                    <td>
+                        <span ng-if="template.prcoessStatus=='Design'">设计中</span>
+                        <span ng-if="template.prcoessStatus=='Check'">审核中</span>
+                        <span ng-if="template.prcoessStatus=='CheckFailed'">未通过</span>
+                        <span ng-if="template.prcoessStatus=='Active'">已上架</span>
+                        <span ng-if="template.prcoessStatus=='Deactive'">已下架</span>
+                    </td>
+                    <td title="{{template.deleteRemark}}">{{template.deleteRemark}}</td>
+                    <td>
+                        <i class="iconfont icon-reduction" title="还原" ng-click="reductionStyle(template)"></i>
+                        <i class="iconfont icon-delete" title="删除" ng-click="throughStyle(template)"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="content-page text-right" id="content-page">
+            <pagination total-items="stylePage.total"
+                        ng-model="stylePage.pageIndex"
+                        items-per-page="stylePage.pageSize"
+                        max-size="5"
+                        class="pagination-sm"
+                        boundary-links="true"
+                        rotate="false"
+                        ng-change="pageChanged()"
+                        previous-text="前一页"
+                        next-text="下一页"
+                        first-text="首页"
+                        last-text="尾页"></pagination>
+        </div>
+    </div>
+</div>
