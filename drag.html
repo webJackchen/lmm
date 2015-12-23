@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>多元素同步拖动放大缩小</title>
+    <style>
+        #contanier{
+           border: 1px solid #ccc;
+            margin: 100px 0 0 300px;
+        }
+        .a{
+            width: 200px;
+            height: 100px;
+            background-color: red;
+        }
+        .b{
+            width: 100px;
+            height: 50px;
+            background-color: gold;
+        }
+        .c{
+            width: 200px;
+            height: 100px;
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <div id="contanier">
+        <div class="a"></div>
+        <div class="b"></div>
+        <div class="c"></div>
+    </div>
+</body>
+<script src="jquery-1.8.2.min.js"></script>
+<script>
+    $(function(){
+        var oC = $("#contanier"),
+            wArr = [],
+            hArr = [],
+            posArrV = [],
+            posArrH = [],
+            oEleArr = $("#contanier>div"),
+            wrapOriginData = {},
+            direction = {};
+        function getOriginData(){
+            oC.css({
+                "position":"relative",
+                "height":"auto",
+                "display":"inline-block"
+            });
+            wrapOriginData.width = oC.css("width");
+            wrapOriginData.height = oC.css("height");
+            wrapOriginData.offset = oC.offset();
+            oC.css({
+                "width":wrapOriginData.width,
+                "height":wrapOriginData.height
+            })
+            $.each(oEleArr,function(insex,item){
+                var obj = $(item),
+                    offset = obj.offset();
+                wArr.push(parseFloat(obj.css("width")));
+                hArr.push(parseFloat(obj.css("height")));
+                obj.css({
+                    top:offset.top - wrapOriginData.offset.top,
+                    left:offset.left - wrapOriginData.offset.left
+                })
+                posArrV.push(parseFloat(obj.css("top")));
+                posArrH.push(parseFloat(obj.css("left")));
+            });
+            oEleArr.css({
+                "position":"absolute"
+            })
+        }
+        getOriginData();
+        function drag(){
+            var disX = 0,
+                disY = 0;
+            oC.bind("mousedown",function(e){
+                disX = e.clientX;
+                disY = e.clientY;
+                direction.h = Math.abs(disX-parseFloat(wrapOriginData.offset.left))<=10?'left':Math.abs(disX-parseFloat(wrapOriginData.offset.left)-parseFloat(wrapOriginData.width))<=10?"right":'';
+                direction.v = Math.abs(disY-parseFloat(wrapOriginData.offset.top))<=10?'up':Math.abs(disY-parseFloat(wrapOriginData.offset.top)-parseFloat(wrapOriginData.height))<=10?"down":'';
+                if(direction.h == "" && direction.v == ""){
+                    return;
+                }
+
+                $(document).bind("mousemove",function(ev){
+                    update({
+                        scaleX:Math.abs(ev.clientX - disX),
+                        scaleY:Math.abs(ev.clientY) - disY
+                    })
+                })
+                $(document).bind("mouseup",function(){
+                    oC.unbind("mousedown");
+                    $(this).unbind("mousemove");
+                })
+            })
+        }
+        drag();
+        function update(scale){
+//            改变所有元素的宽高、left、top
+//            console.log(scale)
+            switch (direction.h){
+                case "left":
+
+            }
+            oC.css({
+                "width":parseFloat(wrapOriginData.width)+scale.scaleX,
+                "height":parseFloat(wrapOriginData.height)+scale.scaleY,
+//                "left":parseFloat(wrapOriginData.offset.left)+scale.scaleX,
+//                "top":parseFloat(wrapOriginData.offset.top)+scale.scaleY
+            })
+            $.each(oEleArr,function(index,item){
+                var obj = $(item);
+                console.log("scaleY"+scale.scaleY+"--第"+index+"个:"+hArr[index]+scale.scaleY/3);
+                obj.css({
+                    width:wArr[index]+scale.scaleX/wArr.length + 'px',
+                    height:hArr[index]+scale.scaleY/wArr.length + 'px',
+//                    top:posArrV[index]+scale.scaleY + 'px',
+//                    left:posArrH[index]+scale.scaleX + 'px'
+
+                })
+            });
+        }
+    })
+</script>
+</html>
