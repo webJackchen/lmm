@@ -19,7 +19,11 @@ angular.module('lanhKdesignApp')
           history.attachScope($scope);
           alignService.attachScope($scope);
 
+          $(document.body).removeClass('page-mobile-body');
+          $(document.body).addClass('page-pc-body');
+
           var model = $scope.model = {};
+          var groupModel = $scope.groupModel = {};
           $scope.editorInfo = $scope.$parent.editorInfo;
 
           var _mouseEnterTarget = null,
@@ -27,6 +31,7 @@ angular.module('lanhKdesignApp')
               _isRightMenuPanel = false,
               _mouseEnterEditorPanel = false;
 
+          /*鼠标右键菜单*/
           var _showMouseRightMenu = function (event) {
               if (_isRightMenuPanel == true) return true;
               var $toolbar = $(".lanh-control-toolbar-rightmenu");
@@ -109,6 +114,7 @@ angular.module('lanhKdesignApp')
                           break;
                   }
                   _clickTarget = $.grep(_clickTarget, function (el) { return $(el).hasClass(_focusControlTarget) });
+                  $scope.checkedModuleStyle(_clickTarget);
                   _showToolbar(_clickTarget);
                   _selectableFn.release();
                   $.each($element.find("[id^='oper_']." + _focusControlTarget), function (i, el) {
@@ -120,7 +126,26 @@ angular.module('lanhKdesignApp')
               })
           }
 
+          //隐藏模块提示
+          function hideModuleTopTip(e) {
+              var target = e ? $(e) : getJqueryClickTarget();
+              var topTip = target.children("span.module-top-tip");
+              if (topTip.length > 0)
+                  topTip.hide()
+          }
+
+          //显示模块提示
+          function showModuleTopTip(e) {
+              var target = e ? $(e) : getJqueryClickTarget();
+              var topTip = target.children("span.module-top-tip");
+              if (topTip.length > 0)
+                  topTip.show();
+          }
+
           $(document).on("keydown", function (event) {
+              if (event.ctrlKey && event.keyCode == 65) {/*屏蔽ctrl+a*/
+                  return false;
+              }
               if (event.keyCode == 18) {
                   _unlockControls("fullWidth");
                   return false;
@@ -160,7 +185,13 @@ angular.module('lanhKdesignApp')
           })
           .on("mousemove", function (event) {
               if (event.altKey == false) {
-                  _unlockControls("realWidth");
+                  if ($(event.target).parents("div.realWidth").length > 0) {
+                      _unlockControls("realWidth");
+                      return false;
+                  } else if ($(event.target).parents("div.realWidth").length > 0) {
+                      _unlockControls("fullWidth");
+                      return false;
+                  }
               }
           });
 
@@ -171,7 +202,6 @@ angular.module('lanhKdesignApp')
                   if (_isRightMenuPanel) return true;
                   //if ($(e.target).attr("id") == "alignMenu" || $(e.target).parents("#alignMenu").length > 0) return true;
                   $element.find("[id^='oper_']").removeClass("new");
-
                   if (e.which == 1 || e.which == 3) {
                       if (e.which == 1 && e.ctrlKey) {
                           if (!!_mouseEnterTarget) {
@@ -185,7 +215,7 @@ angular.module('lanhKdesignApp')
                                       _clickTarget.push(_mouseEnterTarget);
                                   }
                               }
-                              _selectableFn.release();
+                              _selectableFn.release(e.target);
                               _selectableFn.build($(_clickTarget).parent().attr("id"));
                           }
                       } else {
@@ -193,11 +223,17 @@ angular.module('lanhKdesignApp')
                               $element.find("[id^='oper_']").removeClass("on");
                               $(_mouseEnterTarget).addClass("on");
                               _clickTarget = $(_mouseEnterTarget);
-                              _showToolbar(_clickTarget);
+                              // _showToolbar(_clickTarget);
+                              $scope.checkedModuleStyle(_clickTarget);
+                              var id = _clickTarget.find("[id^='control_']").attr("id");
+                              _clickTarget.find("span.module-top-tip").hide();/*隐藏文字提示*/
+                              $(".ui-widget-content .ui-resizable-handle").hide();
+                              $(".lanh-control-toolbar").removeClass("on");
                           } else if (_mouseEnterTarget == null) {
                               $element.find("[id^='oper_']").removeClass("on");
                               _clickTarget = [];
-                              _selectableFn.release();
+                              _selectableFn.release(e.target);
+                              $(".ui-widget-content .ui-resizable-handle").hide();
                           }
                       }
                   }
@@ -217,16 +253,100 @@ angular.module('lanhKdesignApp')
                       e.which == 3 && _clickTarget.length == 1) {
                       $element.find("[id^='oper_']").removeClass("on");
                       $(_mouseEnterTarget).addClass("on");
-                      _selectableFn.release();
+                      _selectableFn.release(e.target);
+                      hideModuleTopTip(_mouseEnterTarget);
                       _clickTarget = $(_mouseEnterTarget);
                       _showToolbar(_clickTarget);
+                      $scope.checkedModuleStyle(_clickTarget);
+
+
+                      if ($(_mouseEnterTarget).hasClass("on")) {
+                          $(_mouseEnterTarget).find(".ui-resizable-handle").show();
+                          if (_clickTarget.parent().attr("id") == 'oper_selectedPanel') {/*判断是否为框选，yes 则取消框选*/
+                              // _clickTarget.parent().remove();
+                          }
+                      }
                   }
                   _mouseSeletable = false;
               });
           })
 
+          //获取_clickTarget的jquery实例
+          function getJqueryClickTarget() {
+              if (!_clickTarget)
+                  return $(null);
+              if (Object.prototype.toString.call(_clickTarget) === '[object Array]')
+                  return $(_clickTarget);
+              return _clickTarget;
+          }
+
+          //创建选择div，支持group
+          function buildSelectedPanelDiv(groupId) {
+              var id = groupId || "oper_selectedPanel";
+              var $div = $("<div id=\"" + id + "\" class=\"module-group " + (groupId ? "module-group-activate" : "") + "\"></div>");
+              return $div;
+          }
+
+          var wrapElem = null,
+              rateArr = [],
+              elemArr = [];
+
+          //获取拖动初始数据
+          function getOriginData(wrapObj) {
+              var wrapObjs = $("#" + wrapObj.id);
+              var oEleArr = $("#" + wrapObj.id + " [id^='oper_']");
+              wrapElem = {
+                  "id": wrapObj.id,
+                  "width": parseFloat(wrapObjs.css("width")),
+                  "height": parseFloat(wrapObjs.css("height"))
+              };
+              $.each(oEleArr, function (index, elem) {
+                  rateArr.push({
+                      "rateW": parseFloat($(elem).css("width")) / wrapElem.width,
+                      "rateH": parseFloat($(elem).css("height")) / wrapElem.height,
+                      "rateL": parseFloat($(elem).css("left")) / wrapElem.width,
+                      "rateT": parseFloat($(elem).css("top")) / wrapElem.height
+                  })
+              })
+          }
+
+          //更新拖动数据
+          function updateDate(wrapObj) {
+              var wrapObjs = $("#" + wrapObj.id);
+              var oEleArr = $("#" + wrapObj.id + " [id^='oper_']");
+              elemArr = [];
+              wrapElem = {
+                  "id": wrapObj.id,
+                  "width": parseFloat(wrapObjs.css("width")),
+                  "height": parseFloat(wrapObjs.css("height"))
+              };
+
+              $.each(oEleArr, function (index, elem) {
+                  elemArr.push({
+                      "width": wrapElem.width * rateArr[index].rateW + "px",
+                      "height": wrapElem.height * rateArr[index].rateH + "px",
+                      "left": wrapElem.width * rateArr[index].rateL + "px",
+                      "top": wrapElem.height * rateArr[index].rateT + "px"
+                  });
+                  $(elem).css({
+                      width: elemArr[index].width,
+                      height: elemArr[index].height,
+                      left: elemArr[index].left,
+                      top: elemArr[index].top
+                  })
+              })
+          }
+
+          //快捷键创建组合
+          $scope.$on("framework.createGroup", function (e, target) {
+              if (!target || _selectableFn.isGroupElement(target))
+                  return;
+
+              _selectableFn.group();
+          });
+
           var _selectableFn = {
-              build: function (contentId) {
+              build: function (contentId, groupId) {
                   switch (contentId) {
                       case "content-header":
                           contentId = "content-header-body";
@@ -239,52 +359,201 @@ angular.module('lanhKdesignApp')
                           break;
                   }
                   var $content = $element.find("#" + contentId),
-                      $focusControls = $content.find("[id^='oper_'].on").not(".ui-draggable-disabled");
+                      $focusControls = groupId ? $content.find("[group='" + groupId + "']") : $content.find("[id^='oper_'].on").not(".ui-draggable-disabled");
                   if ($focusControls.length == 0) return;
-                  var left = 0, top = 0, width = 0, height = 0;
+                  var left = 0, top = 0, width = 0, height = 0, $toptoolbar = $(".lanh-control-toolbar");
+
                   $.each($focusControls, function (i, el) {
                       var position = $(el).position();
                       left = (i == 0) ? position.left : Math.min(left, position.left);
                       top = (i == 0) ? position.top : Math.min(top, position.top);
                   });
+
                   $.each($focusControls, function (i, el) {
                       var position = $(el).position();
                       width = (i == 0) ? position.left + $(el).width() - left : Math.max(width, position.left + $(el).width() - left);
                       height = (i == 0) ? position.top + $(el).height() - top : Math.max(height, position.top + $(el).height() - top);
                   });
-                  $content.find("#oper_selectedPanel").remove();
-                  var $div = $("<div id=\"oper_selectedPanel\" style=\"position: absolute;min-width: 6px;min-height: 6px;overflow: hidden;\"></div>");
-                  $div.css({
+
+                  var $selectedPanel = buildSelectedPanelDiv(groupId);
+                  $selectedPanel.css({
                       "left": left,
                       "top": top
                   });
-                  $div.width(width + 4);
-                  $div.height(height + 4);
-                  $content.append($div);
+
+                  $toptoolbar.removeClass("on");
+
+                  $selectedPanel.width(width + 3);
+                  $selectedPanel.height(height + 3);
+                  $content.append($selectedPanel);
+
                   $.each($focusControls, function (i, el) {
-                      var position = $(el).position();
-                      $(el).css({
+                      var $el = $(el);
+                      var position = $el.position();
+                      $el.css({
                           "left": position.left - left,
                           "top": position.top - top
                       });
-                      $(el).draggable({ disabled: true });
+                      $el.draggable({ disabled: true });
+
+                      $timeout(function () {
+                          if (groupId)
+                              $scope.model[$el.attr("id").replace("oper_", "")]["isGroup"] = true;
+                          $scope.model[$el.attr("id").replace("oper_", "")]["isSelected"] = true;
+                      });
                   });
-                  $content.find("#oper_selectedPanel").append($focusControls);
-                  $content.find("#oper_selectedPanel").draggable(draggableOption("panel"));
+
+                  $selectedPanel.append($focusControls);
+                  $selectedPanel.draggable(draggableOption("group"));
+
+
+                  $selectedPanel.resizable({
+                      autoHide: false,
+                      handles: "n,e,s,w,se,sw,ne,nw",
+                      containment: "#content-body-body",
+                      start: function (event, ui) {
+                          getOriginData({ id: $(ui.helper).attr("id") });
+                          if (_selectableFn.isGroup(ui.helper) || $(ui.helper).attr("id") == 'oper_selectedPanel') {
+                              _clickTarget = ui.helper;
+                          }
+                      },
+                      stop: function (event, ui) {
+                          rateArr = [];
+                          elemArr = [];
+                          $.each($focusControls, function (i, el) {
+                              resizableStop($(el).attr("id").replace("oper_", ""));
+                          });
+                          _clickTarget = [];
+                      },
+                      resize: function (event, ui) {
+                          updateDate({ id: $(ui.helper).attr("id") });
+                          resizeShowToolbar();
+                          $toptoolbar.removeClass("on");
+                          return false;
+                      }
+                  });
               },
-              release: function () {
-                  var $selectedPanel = $element.find("#oper_selectedPanel");
+              saveGroup: function ($selectedPanel) {
+                  //保存group到model
+                  var groupId = $selectedPanel.attr("id");
+                  if (groupId.indexOf("oper_group") === -1)
+                      return;
+
+                  $timeout(function () {
+                      if (!groupModel[groupId]) groupModel[groupId] = {};
+                      groupModel[groupId]["groupId"] = groupId;
+                      if (!groupModel[groupId]["Controls"]) groupModel[groupId]["Controls"] = [];
+                      $selectedPanel.find("[group]").each(function () {
+                          groupModel[groupId]["Controls"].push($(this).attr("id"));
+                      });
+                  });
+              },
+              release: function (obj, unGroup) {
+                  var $clickTarget = obj ? $(obj) : getJqueryClickTarget(_clickTarget);
+                  //触发元素为组合边框自己就不执行release，防止缩放组合执行release
+                  if ($clickTarget.parents().hasClass("module-group") && !unGroup) {
+                      return;
+                  }
+
+                  var $selectedPanel = $element.find("#oper_selectedPanel,[id^='oper_group_']");
                   var panelPosition = $selectedPanel.position();
+
+                  var groupId = $selectedPanel.attr("id");
+
+                  if (unGroup) {
+                      for (var i = 0; i < $scope.groupModel.length; i++) {
+                          if ($scope.groupModel[i].groupId == groupId) break;
+                      }
+                      $timeout(function () {
+                          $scope.groupModel.splice(i, 1);
+                      });
+                  }
+
                   $.each($selectedPanel.find("[id^='oper_']"), function (i, el) {
-                      var position = $(el).position();
-                      $(el).css({
+                      var $el = $(el);
+                      var position = $el.position();
+                      $el.css({
                           "left": position.left + panelPosition.left,
                           "top": position.top + panelPosition.top,
                       });
-                      $(el).draggable({ disabled: false });
+
+                      $el.draggable({ disabled: false });
+
+
+                      $timeout(function () {
+                          if (_selectableFn.isGroupElement(el) && unGroup) {
+                              $el.removeAttr("group");
+                              $scope.model[$el.attr("id").replace("oper_", "")]["isGroup"] = false;
+                          }
+                          $scope.model[$el.attr("id").replace("oper_", "")]["isSelected"] = false;
+                      });
                   });
                   $selectedPanel.parent().append($selectedPanel.find("[id^='oper_']"));
                   $selectedPanel.remove();
+              },
+              group: function () {
+                  var $clickTarget = getJqueryClickTarget(_clickTarget);
+                  var selectedPanel = $clickTarget.parent();
+                  if (selectedPanel.length <= 0) return;
+
+                  selectedPanel = $(selectedPanel[0]);
+                  if (!selectedPanel.hasClass("module-group")) return;
+
+                  var id = "oper_group_" + new Date().getTime();
+                  selectedPanel.addClass("module-group-activate").attr("id", id);
+                  $.each(selectedPanel.find("[id^='oper_']"), function (i, el) {
+                      var $el = $(el);
+                      $el.attr("group", id);
+                      $timeout(function () {
+                          $scope.model[$el.attr("id").replace("oper_", "")]["isGroup"] = true;
+                          $scope.model[$el.attr("id").replace("oper_", "")]["isSelected"] = false;
+                      });
+                  });
+
+                  _selectableFn.saveGroup(selectedPanel);
+              },
+              activeGroup: function (obj) {
+                  if (!obj && (!_clickTarget || _clickTarget.length <= 0))
+                      return;
+
+                  var $clickTarget = obj ? $(obj) : getJqueryClickTarget(_clickTarget);
+                  var groupId = $clickTarget.attr("group");
+                  if (groupId && groupId !== "" && _selectableFn.isHideGroupElement($clickTarget)) {
+                      _selectableFn.build($clickTarget.parent().attr("id"), groupId);
+                  }
+              },
+              isGroup: function (obj) {
+                  //判断元素是否是组合
+                  var $clickTarget = $(obj);
+                  if ($clickTarget.length <= 0)
+                      return false;
+
+                  return $clickTarget.attr("id").indexOf("oper_group") !== -1;
+              },
+              isGroupElement: function (obj) {
+                  //判断元素是否是组合元素
+                  var $clickTarget = obj ? $(obj) : getJqueryClickTarget(_clickTarget);
+                  if ($clickTarget.length <= 0)
+                      return false;
+
+                  var groupId = $clickTarget.attr("group");
+                  return groupId && groupId !== "";
+              },
+              isActiveGroupElement: function (obj) {
+                  //判断元素是否是组合元素，并且组合是激活状态
+                  var $clickTarget = obj ? $(obj) : getJqueryClickTarget(_clickTarget);
+                  if ($clickTarget.length <= 0)
+                      return false;
+
+                  return $clickTarget.attr("group") && $clickTarget.parent("[id^='oper_group']").length > 0;
+              },
+              isHideGroupElement: function (obj) {
+                  //判断元素是否是组合元素，并且组合非激活状态
+                  var $clickTarget = obj ? $(obj) : getJqueryClickTarget(_clickTarget);
+                  if ($clickTarget.length <= 0)
+                      return false;
+
+                  return $clickTarget.attr("group") && $clickTarget.parent("[id^='oper_group']").length <= 0;
               }
           }
 
@@ -467,12 +736,23 @@ angular.module('lanhKdesignApp')
           var _contentSelectableOption = {
               filter: "[id^='oper_'].realWidth",
               distance: 10,
+              tolerance: 'fit',//被选元素完全覆盖的时候才会框选
               start: function (event) {
                   $timeout(function () {
                       _mouseSeletable = true;
                       _clickTarget = [];
                       _selectableFn.release();
                   });
+              },
+              selecting: function (event, dom) {
+                  $(dom).each(function () {
+                      $(this.selecting).addClass('on');
+                  })
+              },
+              unselecting: function (event, dom) {
+                  $(dom).each(function () {
+                      $(this.unselecting).removeClass('on');
+                  })
               },
               selected: function (event, dom) {
                   $timeout(function () {
@@ -483,6 +763,7 @@ angular.module('lanhKdesignApp')
               stop: function (event) {
                   $timeout(function () {
                       _showToolbar(_clickTarget);
+                      $scope.checkedModuleStyle(_clickTarget);
                       _selectableFn.build($(event.target).attr("id"));
                   });
               }
@@ -553,14 +834,30 @@ angular.module('lanhKdesignApp')
                       position.left += parentPosition.left;
                       position.top += parentPosition.top;
                   }
+
+                  //组合内元素需要重新计算
+                  var groupLeft = 0,
+                      groupTop = 0;
+                  if (_selectableFn.isGroupElement($dom)) {
+                      var $group = $("#" + $dom.attr("group"));
+                      if ($group.length > 0) {
+                          groupLeft = parseInt($group.css("left"), 0);
+                          groupTop = parseInt($group.css("top"), 0);
+                      }
+                  }
                   //通栏不改变宽度和left坐标
                   if (model[id].location.indexOf("-full") == -1) {
                       model[id].style.width = $dom.width();
-                      model[id].style.left = position.left;
+                      model[id].style.left = position.left + groupLeft;
                   }
                   model[id].style.height = $dom.height();
+                  model[id].style.top = position.top + groupTop;
+              } else {
+                  var position = $dom.position();
+                  model[id].style.left = position.left;
                   model[id].style.top = position.top;
               }
+
               if (model[id].location.indexOf("-full") != -1 || !!model[id].resizeHandles) {
                   var handles = model[id].resizeHandles.split(",");
                   if ($.grep(handles, function (n) { return n.indexOf("e") != -1 || n.indexOf("w") != -1 }).length == 0) {
@@ -570,33 +867,57 @@ angular.module('lanhKdesignApp')
                       model[id].style.height = "auto";
                   }
               }
-              //console.log(model[id].style);
+
               return model[id].style;
           }
 
-          var _showToolbar = function (attachTarget) {
+          /*模块顶部工具条*/
+          var _showToolbar = function (attachTarget, draggle) {
               //global control toolbar
               var $toolbar = $(".lanh-control-toolbar");
               $toolbar.removeClass("on");
-              if ($(attachTarget).length == 1) {
-                  $toolbar.addClass("on");
-                  var position = $(attachTarget).offset();
-                  $toolbar.css({
-                      "left": position.left,
-                      "top": position.top - $toolbar.height() - 5
-                  });
-              }
-
+              //fix by clark：Crtl多选时，attachTarget不是数组对象，而是一个特殊数组对象
               var _models = null;
-              if (angular.isArray(attachTarget)) {
+              if (angular.isArray(attachTarget) || (attachTarget && attachTarget.length > 1)) {
                   _models = [];
-                  $.each(attachTarget, function (i, el) {
+                  for (var i = 0, ii = attachTarget.length; i < ii; i++) {
+                      var el = attachTarget[i];
                       _models.push(model[$(el).find("[id^='control_']").attr("id")]);
-                  });
+                  }
               } else {
                   _models = [model[$(attachTarget).find("[id^='control_']").attr("id")]];
               }
               $scope.$emit("framework.control.toolbar.get", _models);
+
+
+              if ($(attachTarget).length != 0) {
+                  $toolbar.addClass("on");
+                  var position = $(attachTarget).offset();
+                  var top = position.top - $toolbar.height() - 5;
+                  var _top = _models[0].style.top;
+                  if (_top <= $toolbar.height())
+                      top = top + _models[0].style.height + $toolbar.height() + 10;
+                  $toolbar.css({
+                      "left": position.left,
+                      "top": top
+                  });
+
+
+                  if (draggle) {/*拖动的特殊情况*/
+                      $(".lanh-control-toolbar .lanh-control-toolbar-position.position").show();
+                      $(".lanh-control-toolbar .lanh-control-toolbar-position.text").hide();
+                      $(".lanh-control-toolbar .lanh-control-toolbar-setting").hide();
+                  } else {
+                      $(".lanh-control-toolbar .lanh-control-toolbar-position.position").hide();
+                      if (!!attachTarget && $(attachTarget).find("span.module-top-tip").text() === "文字") {
+                          $(".lanh-control-toolbar .lanh-control-toolbar-position.text").show();
+                          $(".lanh-control-toolbar .lanh-control-toolbar-setting").hide();
+                      } else {
+                          $(".lanh-control-toolbar .lanh-control-toolbar-setting").show();
+                          $(".lanh-control-toolbar .lanh-control-toolbar-position.text").hide();
+                      }
+                  }
+              }
           }
 
           var _showSettingWindow = function () {
@@ -716,6 +1037,9 @@ angular.module('lanhKdesignApp')
                               $dom = $("#oper_" + id);
                               if (name == "left" && $scope.model[id].location.indexOf("-full") != -1) {   //通栏只会把left设置为0;
                                   value = "0px";
+                              }
+                              else if ($dom.parent().attr("id").indexOf("oper_selectedPanel") != -1) {
+                                  value = $dom.css(name);
                               } else {
                                   value = parseFloat(style[name]) + "px";
                               }
@@ -729,7 +1053,8 @@ angular.module('lanhKdesignApp')
                       }
                       $dom.css(name, value);
                   }
-                  _selectableFn.build($(_clickTarget).parent().attr("id"));
+                  //注释，by kenny
+                  //_selectableFn.build($(_clickTarget).parent().attr("id"));
               }
               $timeout(function () {
                   //禁用跳转链接
@@ -739,21 +1064,29 @@ angular.module('lanhKdesignApp')
 
           var draggableOption = function (type) {
               return {
+                  snap: true,
+                  snapTolerance: 5,
                   addClasses: false,
                   containment: "#content",
                   cursor: "move",
                   refreshPositions: true,
                   stop: function (event, ui) {
                       $element.find("#content-header,#content-body,#content-footer").css({ "overflow": "hidden", "z-index": "0" });
+                      $(ui.helper).find('a').css({ "cursor": "pointer" });
                       var zIndex = parseFloat(ui.helper.css("z-index")) - 100;
                       ui.helper.css("z-index", zIndex);
+                      var elemArrs = ui.helper.find("[id^='control_']");
                       $timeout(function () {
-                          $.each(ui.helper.find("[id^='control_']"), function (i, el) {
+                        console.log(elemArrs);
+                          $.each(elemArrs, function (i, el) {
+                            debugger;
                               var id = $(el).attr("id");
                               if (!!$scope.model[id]) {
-                                  if (ui.helper.position().top < 0) {
-                                      ui.helper.css("top", 0);
-                                  }
+                                  //commit by clark 模块元素需要能够拖到上边框和下边框之外
+
+                                  //if (ui.helper.position().top < 0) {
+                                  //    ui.helper.css("top", 0);
+                                  //}
                                   /*else if (ui.helper.position().top + ui.helper.outerHeight() > ui.helper.parent().height()) {
                                       ui.helper.css("top", ui.helper.parent().height() - ui.helper.outerHeight());
                                   }*/
@@ -770,25 +1103,51 @@ angular.module('lanhKdesignApp')
                           //如果改变了区域(比如:body -> header), model会被删除，则不会进入下面的流程，(history会在drop中记录)。
                           if (ui.helper.find("[id^='control_']").length > 0 && !!$scope.model[ui.helper.find("[id^='control_']").attr("id")]) {
                               _showToolbar(_clickTarget);
+                              $scope.checkedModuleStyle(_clickTarget);
                               history.log();
                               ui.helper.parents("[id^='content-'].ui-resizable").addClass('selected');
                           } else {
                               _clickTarget = [];
                               _showToolbar(_clickTarget);
+                              $scope.checkedModuleStyle(_clickTarget);
+                          }
+
+                          var id = ui.helper.find("[id^='control_']").attr("id");
+                          $(event.target).find(".ui-resizable-handle").show();
+                          if (_selectableFn.isGroup(ui.helper) || $(ui.helper).attr("id") == 'oper_selectedPanel') {/*框选状态*/
+                              $.each(ui.helper.find("[id^='oper_control_']"), function (index, item) {
+                                  $(item).addClass("on");
+                                  $(item).find(".ui-resizable-handle").hide();
+                              })
+                              $(".lanh-control-toolbar").removeClass("on");
                           }
                       });
                   },
                   drag: function (event, ui) {
-                      var borderWidth = type == "single" ? 4 : 0;
-                      if (ui.position.left < 0) {
-                          ui.helper.css({ "left": 0 });
-                          ui.position.left = 0;
-                      } else if ((ui.position.left + ui.helper.width() + borderWidth) > ui.helper.parent().width()) {
-                          var left = ui.helper.parent().width() - (ui.helper.width() + borderWidth);
-                          ui.helper.css({ "left": left });
-                          ui.position.left = left;
+                      $(ui.helper).find('a').css({ "cursor": "move" });
+                      if (_selectableFn.isGroup(ui.helper) || $(ui.helper).attr("id") == 'oper_selectedPanel') {
+                          _clickTarget = ui.helper;
+                          $.each(ui.helper.find("[id^='oper_control_']"), function (index, item) {
+                              $(item).addClass("on");
+                          })
                       }
-                      _showToolbar(_clickTarget);
+
+                      // commit by clark 模块能够拖到边线之外
+                      //var borderWidth = type == "single" ? 2 : 0;
+                      //if (ui.position.left < 0) {
+                      //    ui.helper.css({ "left": 0 });
+                      //    ui.position.left = 0;
+                      //} else if ((ui.position.left + ui.helper.width() + borderWidth) > ui.helper.parent().width()) {
+                      //    var left = ui.helper.parent().width() - (ui.helper.width() + borderWidth);
+                      //    ui.helper.css({ "left": left });
+                      //    ui.position.left = left;
+                      //}
+
+                      //_clickTarget.find("span.module-top-tip").hide();
+
+                      _showToolbar(_clickTarget, true);
+                      hideModuleTopTip();
+                      $scope.checkedModuleStyle(_clickTarget);
                   },
                   start: function (event, ui) {
                       $element.find("#content-header,#content-body,#content-footer").css({ "overflow": "", "z-index": "0" });
@@ -797,35 +1156,60 @@ angular.module('lanhKdesignApp')
                       var zIndex = parseFloat(ui.helper.css("z-index")) + 100;
                       ui.helper.css("z-index", zIndex);
                       _mouseDraggable = true;
+                      _showToolbar(_clickTarget, true);
+
+                      $(event.target).find(".ui-resizable-handle").hide();
                   }
               }
           }
 
-          var _bindOper = function (id) {
 
+          function snapline(current) {
+              //$('#content ')
+          }
+
+          function resizeShowToolbar() {
+              $timeout(function () {
+                  /*_showToolbar(_clickTarget);*/
+                  $scope.checkedModuleStyle(_clickTarget);
+              });
+          }
+
+          function resizableStop(id) {
+              $timeout(function () {
+                  _updateModel(id);
+                  history.log();
+                  /*_showToolbar(_clickTarget);*/
+                  $scope.checkedModuleStyle(_clickTarget);
+
+                  if (!!$scope.model[id].resizeCallback) {
+                      $(document).trigger('framework.resized.' + id, $scope.model[id]);
+                  }
+              });
+          }
+
+          var _bindOper = function (id) {
               var $dom = $element.find("#oper_" + id);
+              //恢复组合
+              if ($scope.groupModel && $scope.groupModel.length > 0) {
+                  $scope.groupModel.forEach(function (g) {
+                      if (g.controls.indexOf("oper_" + id) !== -1) {
+                          $dom.attr("group", g.groupId);
+                      }
+                  });
+              }
 
               $dom.draggable(draggableOption("single"));
               var handles = $scope.model[id].location.indexOf("-full") != -1 ? "n,s" : $scope.model[id].resizeHandles;
               $dom.resizable({
-                  autoHide: true,
+                  autoHide: false,
                   containment: "parent",
                   handles: handles || "all",
                   stop: function () {
-                      $timeout(function () {
-                          _updateModel(id);
-                          history.log();
-                          _showToolbar(_clickTarget);
-
-                          if (!!$scope.model[id].resizeCallback) {
-                              $(document).trigger('framework.resized.' + id, $scope.model[id]);
-                          }
-                      });
+                      resizableStop(id);
                   },
                   resize: function () {
-                      $timeout(function () {
-                          _showToolbar(_clickTarget);
-                      });
+                      resizeShowToolbar();
                   }
               });
 
@@ -835,11 +1219,19 @@ angular.module('lanhKdesignApp')
                       if ($(_mouseEnterTarget).hasClass(_focusControlTarget)) {
                           $(_mouseEnterTarget).addClass($scope.$root._attachMouseEvents == "alignSize" ? "hover-target" : "hover");
                       }
+
+                      _selectableFn.activeGroup(_mouseEnterTarget);
+                      if (!$(_mouseEnterTarget).hasClass("on")) {
+                          //$(_mouseEnterTarget).children("span.module-top-tip").show();
+                          showModuleTopTip(_mouseEnterTarget);
+                      }
                   });
               }).on("mouseleave", function (e) {
                   $timeout(function () {
                       _mouseEnterTarget = null;
                       $element.find("[id^='oper_']").removeClass("hover").removeClass("hover-target");
+                      //$element.find("[id^='oper_']").children("span.module-top-tip").hide();
+                      hideModuleTopTip($element.find("[id^='oper_']"));
                   });
               }).on("dblclick", function (e) {
                   _showSettingWindow();
@@ -847,12 +1239,13 @@ angular.module('lanhKdesignApp')
           }
 
           var _getPageJson = function (type) {
-              var _model = angular.copy($scope.model);
+              var _model = angular.copy($scope.model),
+                  currentPage = $scope.$root.currentPageItem;
               var _result = null;
               if (type == "web") {
-                  var pageName = $scope.currentPage.key;
-                  if (!$scope.currentPage.single) {
-                      var aliasName = $scope.currentPage.alias;
+                  var pageName = currentPage.key;
+                  if (!currentPage.single) {
+                      var aliasName = currentPage.alias;
                       if (!aliasName) {
                           aliasName = pageName.substring(0, pageName.indexOf('_'));
                       }
@@ -867,14 +1260,14 @@ angular.module('lanhKdesignApp')
                   }, $scope.turnedOptions);
 
                   _result = {
-                      PageID: $scope.currentPage.alias,
+                      PageID: currentPage.alias,
                       TemplateId: $scope.editorInfo.id,
                       PageName: pageName,
-                      PageTitle: $scope.currentPage.text,
+                      PageTitle: currentPage.text,
                       PageType: "Web",
                       PageGuid: $scope.pageGuid,
                       PageSize: $scope.pageSize,
-                      Single: $scope.currentPage.single,
+                      Single: currentPage.single,
                       SEO: $scope.seo,
                       TurnedOptions: turnedOptions,
                       Controls: []
@@ -906,6 +1299,13 @@ angular.module('lanhKdesignApp')
                       });
                   }
               }
+
+              //组合
+              var _groupModel = angular.copy($scope.groupModel);
+              _result.Groups = [];
+              for (var _group in _groupModel) {
+                  _result.Groups.push(_groupModel[_group]);
+              }
               return _result;
           }
 
@@ -920,7 +1320,7 @@ angular.module('lanhKdesignApp')
                   case "product_detail":
                   case "goods_detail":
                   case "fulltextresult":
-                      detailControl = frameworkLeftMenuService.getMenuInfo("controls_" + page);
+                      detailControl = frameworkLeftMenuService.getMenuInfo("controls_" + page, $scope.editorInfo.type);
                       break;
               }
               if (!!data) {
@@ -939,7 +1339,7 @@ angular.module('lanhKdesignApp')
               $.each(data.controls, function (i, control) {
                   control._banLog = true;
               });
-              _reloadPageJSON = true;
+              if (data.controls.length > 0) _reloadPageJSON = true;
               $scope.$root.$broadcast("framework.attachControl", data.controls);
           }
 
@@ -1006,9 +1406,13 @@ angular.module('lanhKdesignApp')
 
           //代替事件，避免事件冒泡导致多余的调用。
           $scope.appendToElement = function ($el, tempModelName, isRewrite) {
-              var _$el = $('<div id="oper_' + $el.attr("id") + '" class="ui-widget-content" style="position: absolute; min-width: 6px; min-height: 6px; overflow:hidden;"></div>').append($el),
+              $el.css("overflow", "hidden");
+              var _$el = $('<div id="oper_' + $el.attr("id") + '" class="ui-widget-content" style="position: absolute; min-width: 6px; min-height: 6px;"><span class="module-top-tip"></span></div>').append($el),
                   _targetContent = "content-body-body",
                   _model = isRewrite == true ? $scope.model[$el.attr("id")] : $scope[tempModelName];
+
+              _$el.find("span.module-top-tip").text(_model.name);
+
               switch (_model.location) {
                   case "header":
                       _targetContent = "content-header-body";
@@ -1046,6 +1450,7 @@ angular.module('lanhKdesignApp')
                   _model.controlId = $el.attr("id");
 
                   model[$el.attr("id")] = angular.copy(_model);
+
                   _bindOper($el.attr("id"));
 
                   $timeout(function () {
@@ -1053,15 +1458,18 @@ angular.module('lanhKdesignApp')
                       if (!_model2) return; //回撤太快时，可能会导致元素已被删除
                       //创建新的元素时，计算当前页面显示区域。设置top属性。
                       if (_model2._createNew == true && _model2.location == "body") {
-                          _model2.style["left"] = 0;
 
-                          var top = $("body").scrollTop() - $element.find("#content-header-body").height(),
-                              bodyHeight = $element.find("#content-body-body").height();
-                          if (top + $el.height() > bodyHeight) {
-                              top = bodyHeight - $el.height();
-                          }
-                          if (!_model2.style) _model2.style = {};
-                          _model2.style["top"] = top;
+                          //commit by clark 暂时注释，原因：拖动创建元素时，需要按照鼠标所在位置创建
+
+                          //_model2.style["left"] = 0;
+
+                          //var top = $("body").scrollTop() - $element.find("#content-header-body").height(),
+                          //    bodyHeight = $element.find("#content-body-body").height();
+                          //if (top + $el.height() > bodyHeight) {
+                          //    top = bodyHeight - $el.height();
+                          //}
+                          //if (!_model2.style) _model2.style = {};
+                          //_model2.style["top"] = top;
                       }
 
                       _setControlStyle($el.attr("id"), _model2.style);
@@ -1088,7 +1496,7 @@ angular.module('lanhKdesignApp')
                               history.reload($scope.model);
                           }
                           else if (!_model2._banLog) {
-                              history.log()
+                              history.log();
                           }
                           //clear
                           createControlsCount = 0;
@@ -1100,8 +1508,11 @@ angular.module('lanhKdesignApp')
                       delete model[$el.attr("id")]._banLog;
                       delete model[$el.attr("id")]._selected;
 
+                      $(".ui-widget-content .ui-resizable-handle").hide();
+
                       $scope.$root.$broadcast("framework.header.model.savedlog", $scope.model);
                       _showToolbar(_clickTarget);
+                      $scope.checkedModuleStyle(_clickTarget);
                   });
               }
           }
@@ -1207,6 +1618,7 @@ angular.module('lanhKdesignApp')
                                       $(_clickTarget).css({ top: finalStyle.top });
                                   }
                                   _showToolbar(_clickTarget);
+                                  $scope.checkedModuleStyle(_clickTarget);
                                   _updateModel(id);
                                   history.log();
                               }
@@ -1237,8 +1649,11 @@ angular.module('lanhKdesignApp')
                   case "patse":
                       keyboardFeature.paste();
                       break;
+                  case "copyPatse":
+                      keyboardFeature.copyPatse(_clickTarget);
+                      //keyboardFeature.paste();
+                      break;
                   case "fullWidth": //通栏
-                      debugger;
                       var _id = $(_clickTarget).find("[id^='control_']").attr("id"),
                           _model = $scope.model[_id];
                       if (_model.location.indexOf("-full") == -1) {
@@ -1250,6 +1665,7 @@ angular.module('lanhKdesignApp')
                       }
                       $(_clickTarget).remove();
                       $scope.$broadcast("framework.createControl", [_model]);
+                      history.log();
                       break;
                   case "indexUp":
                       var _id = $(_clickTarget).find("[id^='control_']").attr("id"),
@@ -1335,13 +1751,29 @@ angular.module('lanhKdesignApp')
                       $element.find("[id^='oper_']").removeClass("on");
                       _mouseEnterTarget = null;
                       _clickTarget = [];
-                      _showToolbar(null);
+                      _showToolbar(_clickTarget);
                       break;
                   case "settingHeader":
                       $scope.$root.$broadcast('framework.attachControl', [{ key: 'setting_backgroud', controlId: "pageBackground.header", location: 'header', '_createNew': true }]);
+                      history.log();
                       break;
                   case "settingFooter":
                       $scope.$root.$broadcast('framework.attachControl', [{ key: 'setting_backgroud', controlId: "pageBackground.footer", location: 'footer', '_createNew': true }]);
+                      history.log();
+                      break;
+                  case "group":
+                      _selectableFn.group(_clickTarget);
+                      break;
+                  case "unGroup":
+                      _selectableFn.release(_clickTarget, true);
+                      break;
+                  case "settingBody":
+                      $scope.$root.$broadcast('framework.attachControl', [{ key: 'setting_backgroud', controlId: "pageBackground.body", location: 'body', '_createNew': true }]);
+                      history.log();
+                      break;
+                  case "settingPage":
+                      $scope.$root.$broadcast('framework.attachControl', [{ key: 'setting_backgroud', controlId: "pageBackground.page", location: 'page', '_createNew': true }]);
+                      history.log();
                       break;
               }
               $scope.$emit("framework.control.toolbar.get", [model[id]]);
@@ -1381,15 +1813,66 @@ angular.module('lanhKdesignApp')
                   }
                   if (target.length == 1) {
                       _showToolbar(target);
+                      $scope.checkedModuleStyle(_clickTarget);
                   }
                   _selectableFn.release();
-                  _selectableFn.build($(_clickTarget).parent().attr("id"));
+                  if (_clickTarget.length > 1) {
+                      _selectableFn.build($(_clickTarget).parent().attr("id"));
+                  }
+              }
+          });
+
+          //global control toolbar coordinates
+          //author lilina
+          $scope.$on("framework.control.toolbar.coordinates", function (e, action, value) {
+              switch (action) {
+                  case "X":
+                      var _id = $(_clickTarget).find("[id^='control_']").attr("id");
+                      if (!!_id && value.left !== "" && parseInt(value.left) >= 0) {
+                          $scope.model[_id]["style"]["left"] = value.left;
+                          _setControlStyle(_id, $scope.model[_id]["style"]);
+                          history.log();
+                      }
+                      break;
+                  case "Y":
+                      var _id = $(_clickTarget).find("[id^='control_']").attr("id");
+                      if (!!_id && value.top !== "" && parseInt(value.top) >= 0) {
+                          $scope.model[_id]["style"]["top"] = value.top;
+                          _setControlStyle(_id, $scope.model[_id]["style"]);
+                          history.log();
+                      }
+                      break;
+                  case "width":
+                      var _id = $(_clickTarget).find("[id^='control_']").attr("id");
+                      var parentWidth = parseInt($("#content-body").width()) - parseInt(value.left);
+                      if (!!_id && value.width !== "") {
+                          if (parseInt(value.width) > parseInt(parentWidth) + 4) {
+                              $scope.model[_id]["style"]["width"] = (parentWidth - 4);
+                          } else {
+                              $scope.model[_id]["style"]["width"] = value.width;
+                          }
+                          _setControlStyle(_id, $scope.model[_id]["style"]);
+                          history.log();
+                      }
+                      break;
+                  case "height":
+                      var _id = $(_clickTarget).find("[id^='control_']").attr("id");
+                      var parentHeight = parseInt($("#content-body").height()) - parseInt(value.top);
+                      if (!!_id && value.height !== "") {
+                          if (parseInt(value.height) > parseInt(parentHeight) + 4) {
+                              $scope.model[_id]["style"]["height"] = (parentHeight - 4);
+                          } else {
+                              $scope.model[_id]["style"]["height"] = value.height;
+                          }
+                          _setControlStyle(_id, $scope.model[_id]["style"]);
+                          history.log();
+                      }
+                      break;
               }
           });
 
           $scope.$on("framework.feature.alignSize", function (e, target) {
               //var $oper = $(target).parents("[id^='oper_']");
-
               if (!!_mouseEnterTarget && $(_mouseEnterTarget).hasClass(_focusControlTarget) && _clickTarget.length >= 1) {
                   var targetId = $(_mouseEnterTarget).find("[id^='control_']").attr("id"),
                       sourceModel = $scope.model[targetId],
@@ -1451,18 +1934,22 @@ angular.module('lanhKdesignApp')
               }
           });
 
-          $scope.$on("framework.header.event.save", function (e, callback) {
-              callback = callback || function (result) {
-                  if (result.code == "200") {
-                      $scope.pageGuid = result.dataObject.pageGuid;
-                      messengerService.success(result.message);
-                      $scope.$root.$broadcast("framework.header.model.savedlog", $scope.model);
-                  } else {
-                      messengerService.error(result.message);
+          $scope.$on("framework.header.event.save", function (e, callback, state) {
+              var reCallback = callback;
+              callback = function (result) {
+                  if (!state) {
+                      if (result.code == "200") {
+                          $scope.pageGuid = result.dataObject.pageGuid;
+                          messengerService.success(result.message);
+                          $scope.$root.$broadcast("framework.header.model.savedlog", $scope.model);
+                      } else {
+                          messengerService.error(result.message);
+                      }
                   }
+                  if (reCallback && typeof reCallback === 'function') reCallback(result);
               }
-              if ($scope.editorInfo.type == "web") pageService.savePage(_getPageJson($scope.editorInfo.type), callback);
-              if ($scope.editorInfo.type == "component") componentService.createComponentJSON(_getPageJson($scope.editorInfo.type), callback);
+              if ($scope.editorInfo.type == "web") pageService.savePage(_getPageJson($scope.editorInfo.type), state, callback);
+              if ($scope.editorInfo.type == "component") componentService.createComponentJSON(_getPageJson($scope.editorInfo.type), state, callback);
           });
 
           $scope.$on("framework.header.event.preview", function (e) {
@@ -1488,6 +1975,7 @@ angular.module('lanhKdesignApp')
                   title: data.title,
                   moduleType: _model.key,
                   moduleName: _model.name,
+                  webType: loginService.getPlatformType(),
                   //creator: loginService.getLoginInfo().userName,
                   imgStream: data.previewImg,
                   imgSuffix: data.imgSuffix,
@@ -1509,7 +1997,8 @@ angular.module('lanhKdesignApp')
               //call api save style files;
               styleService.uploadStyle(_data, function (result) {
                   if (result.code == "200") {
-                      messengerService.success("成功上传样式，请等待审核通过。");
+                      messengerService.success("上传成功");
+                      data.closeElement.dialog("close");
                   } else {
                       messengerService.error(result.message);
                   }
@@ -1523,7 +2012,7 @@ angular.module('lanhKdesignApp')
               _data.Controls = [];
               $(_clickTarget).each(function (i, el) {
                   var _model = angular.copy($scope.model[$(el).find("[id^='control']").attr("id")]),
-                      _info = frameworkLeftMenuService.getMenuInfo(_model.key);
+                      _info = frameworkLeftMenuService.getMenuInfo(_model.key, $scope.editorInfo.type);
                   //还原data对象
                   _model.data = _info.data;
                   _model.location = "body";
@@ -1540,6 +2029,7 @@ angular.module('lanhKdesignApp')
               }, function (result) {
                   if (result.code == "200") {
                       messengerService.success(result.message);
+                      data.closeElement.dialog("close");
                   } else {
                       messengerService.error(result.message);
                   }
@@ -1570,60 +2060,77 @@ angular.module('lanhKdesignApp')
               $element.find("[id^='oper_']").remove();
               $element.attr("style", null);
               history.clear();
-
               //get 
               $scope.currentPage = page;
-              pageService.getPage($scope.editorInfo.id, $scope.currentPage.key, "Web", function (result) {
-                  if (!!result.dataObject) {
-                      $scope.pageGuid = result.dataObject.pageGuid;
-                      $scope.pageSize = {
-                          pageHeader: { width: 1200, height: 200 },
-                          pageBody: { width: 1200, height: 1500 },
-                          pageFooter: { width: 1200, height: 200 }
-                      }
-                      if (!!result.dataObject.pageSize) {
-                          var pageSize = result.dataObject.pageSize;
-                          if (!!pageSize.pageHeader) {
-                              if (!!pageSize.pageHeader.width) $scope.pageSize.pageHeader.width = pageSize.pageHeader.width;
-                              if (!!pageSize.pageHeader.height) $scope.pageSize.pageHeader.height = pageSize.pageHeader.height;
+
+              pageService.getState($scope.editorInfo.id, $scope.currentPage.key, "Web", function (result) {
+                  if (result.isTemporary === "true") {
+                      messengerService.confirm("发现临时保存文件2015-01-01 13:30,是否替换?", function (confirm) {
+                          getPagesData(confirm);
+                      }, $scope);
+                  } else {
+                      getPagesData(false);
+                  }
+              });
+
+
+              function getPagesData(isTemporary) {
+                  pageService.getPage($scope.editorInfo.id, $scope.currentPage.key, "Web", isTemporary, function (result) {
+                      if (!!result.dataObject) {
+                          $scope.pageGuid = result.dataObject.pageGuid;
+                          $scope.pageSize = {
+                              pageHeader: { width: 1200, height: 200 },
+                              pageBody: { width: 1200, height: 1500 },
+                              pageFooter: { width: 1200, height: 200 }
                           }
-                          if (!!pageSize.pageBody) {
-                              if (!!pageSize.pageBody.width) $scope.pageSize.pageBody.width = pageSize.pageBody.width;
-                              if (!!pageSize.pageBody.height) {
-                                  if (pageSize.pageBody.height != 'auto')
-                                      $scope.pageSize.pageBody.height = pageSize.pageBody.height;
-                                  else $scope.pageSize.pageBody.height = pageSize.pageBody['min-height'];
+                          if (!!result.dataObject.pageSize) {
+                              var pageSize = result.dataObject.pageSize;
+                              if (!!pageSize.pageHeader) {
+                                  if (!!pageSize.pageHeader.width) $scope.pageSize.pageHeader.width = pageSize.pageHeader.width;
+                                  if (!!pageSize.pageHeader.height) $scope.pageSize.pageHeader.height = pageSize.pageHeader.height;
+                              }
+                              if (!!pageSize.pageBody) {
+                                  if (!!pageSize.pageBody.width) $scope.pageSize.pageBody.width = pageSize.pageBody.width;
+                                  if (!!pageSize.pageBody.height) {
+                                      if (pageSize.pageBody.height != 'auto')
+                                          $scope.pageSize.pageBody.height = pageSize.pageBody.height;
+                                      else $scope.pageSize.pageBody.height = pageSize.pageBody['min-height'];
+                                  }
+                              }
+                              if (!!pageSize.pageFooter) {
+                                  if (!!pageSize.pageFooter.width) $scope.pageSize.pageFooter.width = pageSize.pageFooter.width;
+                                  if (!!pageSize.pageFooter.height) $scope.pageSize.pageFooter.height = pageSize.pageFooter.height;
                               }
                           }
-                          if (!!pageSize.pageFooter) {
-                              if (!!pageSize.pageFooter.width) $scope.pageSize.pageFooter.width = pageSize.pageFooter.width;
-                              if (!!pageSize.pageFooter.height) $scope.pageSize.pageFooter.height = pageSize.pageFooter.height;
-                          }
-                      }
 
-                      if ($scope.turnedOptions !== undefined) {
-                          $scope.turnedOptions = angular.extend(result.dataObject.turnedOptions || {}, $scope.turnedOptions); //全局设置赋值 add by clark
+                          if (!!result.dataObject.groups && result.dataObject.groups.length > 0) {
+                              $scope.groupModel = angular.copy(result.dataObject.groups);
+                          }
+
+                          if ($scope.turnedOptions !== undefined) {
+                              $scope.turnedOptions = angular.extend(result.dataObject.turnedOptions || {}, $scope.turnedOptions); //全局设置赋值 add by clark
+                          }
+                          else {
+                              $scope.turnedOptions = result.dataObject.turnedOptions;
+                          }
+                          $element.find("#content-header-body").width($scope.pageSize.pageHeader.width);
+                          $element.find("#content-header").height($scope.pageSize.pageHeader.height);
+                          $element.find("#content-body-body").width($scope.pageSize.pageBody.width);
+                          $element.find("#content-body").height($scope.pageSize.pageBody.height);
+                          $element.find("#content-footer-body").width($scope.pageSize.pageFooter.width);
+                          $element.find("#content-footer").height($scope.pageSize.pageFooter.height);
                       }
-                      else {
-                          $scope.turnedOptions = result.dataObject.turnedOptions;
+                      var pageKey = $scope.currentPage.key;
+                      if (!$scope.currentPage.single) {
+                          var aliasName = $scope.currentPage.alias;
+                          if (!aliasName) {
+                              aliasName = pageKey.substring(0, pageKey.indexOf('_'));
+                          }
+                          pageKey = pageKey.substring(0, pageKey.lastIndexOf(aliasName));
                       }
-                      $element.find("#content-header-body").width($scope.pageSize.pageHeader.width);
-                      $element.find("#content-header").height($scope.pageSize.pageHeader.height);
-                      $element.find("#content-body-body").width($scope.pageSize.pageBody.width);
-                      $element.find("#content-body").height($scope.pageSize.pageBody.height);
-                      $element.find("#content-footer-body").width($scope.pageSize.pageFooter.width);
-                      $element.find("#content-footer").height($scope.pageSize.pageFooter.height);
-                  }
-                  var pageKey = $scope.currentPage.key;
-                  if (!$scope.currentPage.single) {
-                      var aliasName = $scope.currentPage.alias;
-                      if (!aliasName) {
-                          aliasName = pageKey.substring(0, pageKey.indexOf('_'));
-                      }
-                      pageKey = pageKey.substring(0, pageKey.lastIndexOf(aliasName));
-                  }
-                  _togglePageDoms(pageKey, result.dataObject);
-              });
+                      _togglePageDoms(pageKey, result.dataObject);
+                  });
+              }
           });
 
           $scope.$on("framework.editor.model.get", function (e, callback) {
@@ -1634,6 +2141,34 @@ angular.module('lanhKdesignApp')
               componentService.getComponentJSON($scope.editorInfo.id, function (result) {
                   if (!!result.dataObject) {
                       $scope.$root.$broadcast("framework.attachControl", result.dataObject.controls);
+                  }
+              });
+          }
+
+
+          /*获取module的style，并且设置配置条的状态*/
+          $scope.checkedModuleStyle = function (_mouseEnterTarget) {
+              $timeout(function () {
+                  if (!!_mouseEnterTarget && _mouseEnterTarget.length > 0) {
+                      if ($(".module-configuration").is(":hidden")) {
+                          $(".module-configuration").css({
+                              right: "15%",
+                              top: "15%",
+                              left: "auto"
+                          });
+                      }
+                      //if (_mouseEnterTarget.length > 1) {
+                      //    $(".module-configuration").hide();
+                      //} else if (_mouseEnterTarget.length > 0 && _mouseEnterTarget.length > 0 == 1) {
+                      //    $(".module-configuration").show();
+                      //}
+                      var style = {
+                          left: parseFloat(_mouseEnterTarget[0].style.left),
+                          top: parseFloat(_mouseEnterTarget[0].style.top),
+                          width: parseFloat(_mouseEnterTarget[0].style.width) - 4,
+                          height: parseFloat(_mouseEnterTarget[0].style.height) - 4
+                      }
+                      $scope.$root.$broadcast("framework.control.toolbar.coordinates.style", style);
                   }
               });
           }
