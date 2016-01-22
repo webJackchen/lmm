@@ -165,7 +165,7 @@
         for (var i = 0; i < this.code.length; i++) {
             this.codeDoms.push(this.drawCode(this.code[i], i));
         }
-
+        $("#codeVal").val(this.code);
         this.drawLines();
     };
 
@@ -227,32 +227,111 @@
 $(function () {
     var $el = $("#_panelId_"),
         validCode = new vCode($el.find('#validCode').get(0));
+    var person = /^[a-zA-Z0-9\u4e00-\u9fa5-_]+$/;/*中文和英文*/
+    var photos = /^1([23578])\d{9}$/;/*数字和横线*/
+    var isSubmit = false;
+
+    $el.find("#txtMessage").blur(function () {
+        if (!$el.find("#txtMessage").val().trim()) {
+            $el.find("#txtMessage").siblings("label").text("内容不能为空").show();
+            $el.find("#txtMessage").focus();
+            isSubmit = true;
+            return false;
+        } else if (!stringMaxLength($el.find("#txtMessage").val(), $el.find("#txtMessage"),300)) {
+            $el.find("#txtMessage").siblings("label").text("最多输入300个字符").show();
+            $el.find("#txtMessage").focus();
+            isSubmit = true;
+            return false;
+        } else {
+            isSubmit = false;
+            $el.find("#txtMessage").siblings("label").hide();
+        }
+    });
+
+    $el.find("#txtPerson").blur(function () {
+        if (!$el.find("#txtPerson").val().trim()) {
+            $el.find("#txtPerson").siblings("label").text("姓名不能为空").show();
+            $el.find("#txtPerson").focus();
+            isSubmit = true;
+            return false;
+        } else if (!person.test($el.find("#txtPerson").val())) {
+            $el.find("#txtPerson").siblings("label").text("只能输入中文英文").show();
+            $el.find("#txtPerson").focus();
+            isSubmit = true;
+            return false;
+        } else if(!stringMaxLength($el.find("#txtPerson").val(), $el.find("#txtPerson"),20)){
+            $el.find("#txtPerson").siblings("label").text("最多输入20个字符").show();
+            $el.find("#txtPerson").focus();
+            isSubmit = true;
+            return false;
+        }else {
+            isSubmit = false;
+            $el.find("#txtPerson").siblings("label").hide();
+        }
+    });
+
+    $el.find("#txtTelephone").blur(function () {
+        if (!$el.find("#txtTelephone").val().trim()) {
+            $el.find("#txtTelephone").siblings("label").text("电话不能为空").show();
+            $el.find("#txtTelephone").focus();
+            isSubmit = true;
+            return false;
+        } else if (!photos.test($el.find("#txtTelephone").val())) {
+            $el.find("#txtTelephone").siblings("label").text("请输入正确的手机号码").show();
+            $el.find("#txtTelephone").focus();
+            isSubmit = true;
+            return false;
+        } else {
+            isSubmit = false;
+            $el.find("#txtTelephone").siblings("label").hide();
+        }
+    });
+
+    $el.find("#txtValidCode").blur(function () {
+        if (!$el.find("#txtValidCode").val().trim()) {
+            $el.find("#txtValidCode").siblings("label").text("验证码不能为空").show();
+            $el.find("#txtValidCode").focus();
+            isSubmit = true;
+            return false;
+        } else if ($el.find('#txtValidCode').val().trim() !== $("#codeVal").val().trim()) {
+            $el.find("#txtValidCode").siblings("label").text("验证码错误,请重新输入").show();
+            $el.find("#txtValidCode").focus();
+            isSubmit = true;
+            return false;
+        } else {
+            isSubmit = false;
+            $el.find("#txtValidCode").siblings("label").hide();
+        }
+    });
+
     if (!window.lanh) {
         $el.find("#btnSubmit").on("click", function (e) {
-            var inputValidCode = $('#txtValidCode').val();
-            if (!inputValidCode) {
-                alert('请输入验证码.');
-                return false;
-            }
-            if (!validCode.verify(inputValidCode)) {
-                alert('验证码错误,请重新输入.');
-                validCode.update($el.find('#validCode').get(0));
-                return false;
-            }
+            var inputValidCode = $el.find('#txtValidCode').val();
             var msgText = $el.find("#txtMessage").val(),
                 personText = $el.find("#txtPerson").val(),
                 telText = $el.find("#txtTelephone").val();
-            if (!msgText.trim()) {
-                alert('内容不能为空.');
-                return false;
-            }
-            if (!personText.trim()) {
-                alert('姓名不能为空.');
-                return false;
-            }
-            if (!telText.trim()) {
-                alert('电话不能为空.');
-                return false;
+            if (!isSubmit) {
+                if (!msgText.trim()) {
+                    $el.find("#txtMessage").siblings("label").text("内容不能为空").show();
+                    $el.find("#txtMessage").focus();
+                    isSubmit = true;
+                    return false;
+                } else if (!personText.trim()) {
+                    $el.find("#txtPerson").siblings("label").text("姓名不能为空").show();
+                    $el.find("#txtPerson").focus();
+                    isSubmit = true;
+                    return false;
+                } else if (!telText.trim()) {
+                    $el.find("#txtTelephone").siblings("label").text("电话不能为空").show();
+                    $el.find("#txtTelephone").focus();
+                    isSubmit = true;
+                    return false;
+                } else if (!inputValidCode) {
+                    $el.find("#txtValidCode").siblings("label").text("请输入验证码").show();
+                    $el.find("#txtValidCode").focus();
+                    isSubmit = true;
+                    return false;
+                }
             }
 
             var data = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\
@@ -266,21 +345,24 @@ $(function () {
             data = data.replace("{content}", msgText)
                        .replace("{person}", personText)
                        .replace("{telephone}", telText);
-            $.ajax({
-                type: "POST",
-                url: "http://" + window.location.host + "/action/itemedit?m=message&type=json",
-                data: data,
-                dataType: "text",
-                success: function (result) {
-                    if (typeof result == 'string' && result.indexOf("success") > 0) {
-                        alert("留言成功");
-
-                        $el.find("#txtValidCode").val("");
-                        validCode.update($el.find('#validCode').get(0));
-                        $el.find("#txtMessage").val("");
+            if (!isSubmit) {
+                $.ajax({
+                    type: "POST",
+                    url: "http://" + window.location.host + "/action/itemedit?m=message&type=json",
+                    data: data,
+                    dataType: "text",
+                    success: function (result) {
+                        if (typeof result == 'string' && result.indexOf("success") > 0) {
+                            messageTip.success("留言成功");
+                            $el.find("#txtValidCode").val("");
+                            validCode.update($el.find('#validCode').get(0));
+                            $el.find("#txtMessage").val("");
+                            $el.find("#txtPerson").val("");
+                            $el.find("#txtTelephone").val("");
+                        }
                     }
-                }
-            });
+                });
+            }
             return false;
         });
 
@@ -295,5 +377,26 @@ $(function () {
         $el.find("#btnReset").on("click", function (e) {
             clearControlValue();
         });
+    }
+
+    /* 字符最大长度验证（一个中文字符长度为2）*/
+    var stringMaxLength = function (value, element, param) {
+        var length = 0;
+        for (var i = 0; i < value.length; i++) {
+            if (value.charCodeAt(i) > 127) {
+                if (length + 2 > param) {
+                    break;
+                }
+                length += 2;
+            } else {
+                if (length + 1 > param) {
+                    break;
+                }
+                length++;
+            }
+        }
+        $(element).val(value.substr(0, i));
+        return length <= param;
+       // return this.optional(element) || (length <= param);
     }
 });

@@ -104,6 +104,7 @@ angular.module('lanhKdesignApp')
                   self.$scope.model[id].style["left"] = parentPosition.left + currentPosition.left;
                   self.$scope.model[id].style["top"] = parentPosition.top + currentPosition.top;
               });
+              history.log();
           }
 
 

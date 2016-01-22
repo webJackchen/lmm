@@ -20,7 +20,8 @@ angular.module('lanhKdesignApp')
               title: "",
               previewImg: "../../images/no_image_220x220.jpg",
               imgSuffix: "",
-              description: ""
+              description: "",
+              closeElement:""
           }
 
           $scope.btnOK = function () {
@@ -34,8 +35,9 @@ angular.module('lanhKdesignApp')
                   messengerService.info("请填写组件描述");
                   return false;
               }
+              $scope.data.closeElement = $element.parent();
               $scope.$parent.$broadcast("framework.component.create", $scope.data);
-              $element.parent().dialog("close");    //固定方法, 关闭弹窗.
+              //$element.parent().dialog("close");    //固定方法, 关闭弹窗.
           }
 
           $scope.$on("uploadImageComplete", function (e, result) {

@@ -20,50 +20,42 @@ $(function () {
             var address = "";
         }
 
-        var addressContact = $("#mapDiv").attr("address"), addressLink = $("#mapDiv").attr("link");
-        if (addressContact != null && addressContact != "") {
-            longitude = "";
-            latitude = "";
+        var addressContact = $("#_panelId_ #mapDiv").attr("address");
+        //if (addressContact != null && addressContact != "") {
+        //    longitude = "";
+        //    latitude = "";
            
-            if (!!window.lanh) {
-                address = addressContact;
-                MapData(longitude, latitude, address, mapPanel);
-                return;
-            } else {
-                url = "/action/itemlist?i={0}&type=json".replace("{0}", addressLink);
-            }
-            $.get(url, function (location) {
-                if (!!location.jsonText) {
-                    location = JSON.parse(location.jsonText).channel;
-                } else {
-                    location = JSON.parse(location).channel;
-                }
+        //    if (!!window.lanh) {
+        //        address = addressContact;
+        //        MapData(longitude, latitude, address, mapPanel);
+        //        return;
+        //    } else {
+        //        url = "/action/itemlist?i={0}&type=json".replace("{0}", addressLink);
+        //    }
+        //    $.get(url, function (location) {
+        //        if (!!location.jsonText) {
+        //            location = JSON.parse(location.jsonText).channel;
+        //        } else {
+        //            location = JSON.parse(location).channel;
+        //        }
                
-                if (location.item.address) {
-                     address = location.item.address.text
-                } else {
-                     address = "";
-                }
-                MapData(longitude, latitude, address, mapPanel);
-                return;
-            });
-        }
+        //        if (location.item.address) {
+        //             address = location.item.address.text
+        //        } else {
+        //             address = "";
+        //        }
+        //        MapData(longitude, latitude, address, mapPanel);
+        //        return;
+        //    });
+        //}
 
-        MapData(longitude, latitude, address, mapPanel);
+        MapData("", "", addressContact, mapPanel);
      
     });
    
     function MapData(longitude, latitude, address, mapPanel) {
         var lng = "", lat = "";
-        if (longitude != null && longitude != 0 && latitude != null && latitude != 0) {
-            lng = longitude;
-            lat = latitude;
-            mapObj = new AMap.Map(mapPanel, {
-                center: new AMap.LngLat(lng, lat),
-                level: 13
-            });
-            addMarker(lng, lat);
-        } else if (address != "" && address != null) {/*通过地址定位*/
+        if (address != "" && address != null) {/*通过地址定位*/
             var MGeocoder;
             //加载地理编码插件
             AMap.service(["AMap.Geocoder"], function () {
@@ -82,9 +74,16 @@ $(function () {
                         lat = 30.578002;
                     }
                     mapObj = new AMap.Map(mapPanel, {
+                        resizeEnable: true,
                         center: new AMap.LngLat(lng, lat),
                         level: 15
                     });
+                    AMap.plugin(['AMap.ToolBar', 'AMap.Scale'], function () {
+                        var toolBar = new AMap.ToolBar();
+                        var scale = new AMap.Scale();
+                        mapObj.addControl(toolBar);
+                        mapObj.addControl(scale);
+                    })
                     addMarker(lng, lat);
                 });
             });
@@ -92,16 +91,25 @@ $(function () {
             lng = 104.060032;
             lat = 30.578002;
             mapObj = new AMap.Map(mapPanel, {
+                resizeEnable: true,
                 center: new AMap.LngLat(lng, lat),
                 level: 15
             });
+            AMap.plugin(['AMap.ToolBar', 'AMap.Scale'], function () {
+                var toolBar = new AMap.ToolBar();
+                var scale = new AMap.Scale();
+                mapObj.addControl(toolBar);
+                mapObj.addControl(scale);
+            })
             addMarker(lng, lat);
         }
+
     }
 
     //实例化点标记
     function addMarker(lng, lat) {
         marker = new AMap.Marker({
+            
             icon: "http://webapi.amap.com/images/1.png",
             position: new AMap.LngLat(lng, lat)
         });

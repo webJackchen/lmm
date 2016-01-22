@@ -1,77 +1,44 @@
-﻿<div ng-controller="SettingbreadcrumbsCtrl" style="width:330px;">
+﻿<div ng-controller="SettingbreadcrumbsCtrl" style="width:290px;">
     <div class="setting-content">
-        <div class="form-group row">
+        <div class="form-group">
+            <div class="col-sm-12">字体设置</div>
             <div class="col-sm-12">
-                <label class="control-label">标题</label>
-                <input type="text" value="" class="form-control" ng-model="data.title"
-                       placeholder="可以支持HTML代码" />
+                <select style="padding:0;" class="form-control page-dropdownlist"
+                        ng-options="fontItem.key as fontItem.text for fontItem in source.fonts "
+                        ng-model="data.fontName"></select>
             </div>
         </div>
-        <div class="form-group row">
+
+        <div class="form-group">
+            <div class="col-sm-12">字号设置</div>
             <div class="col-sm-12">
-                <label class="control-label">定位</label>
+                <select style="padding:0;" class="form-control page-dropdownlist"
+                        ng-options="sizeItem as sizeItem for sizeItem in source.fontSizes "
+                        ng-model="data.fontSize"></select>
             </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-12">字体样式</div>
+            <div class="col-sm-12 btn-group" style="padding-top:12px;">
+                <button type="button" ng-class="{active:data.fontBold}" class="btn btn-default" ng-click="setBold()"><i class="fa fa-bold"></i></button>
+                <button type="button" ng-class="{active:data.fontItalic}" class="btn btn-default" ng-click="setItalic()"><i class="fa fa-italic"></i></button>
+                <button type="button" ng-class="{active:data.fontUnderline}" class="btn btn-default" ng-click="setUnderline()"><i class="fa fa-underline"></i></button>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-12">字体颜色</div>
             <div class="col-sm-12">
-                <div class="btn-group" ng-repeat="crumbsItem in data.source">
-                    <a class="btn btn-default" style="width:auto;border-radius:3px;">
-                        {{crumbsItem.text}}
-                    </a>
-                    <a class="btn btn-link" style="padding-left:2px;padding-right:2px;"
-                       ng-if="crumbsItem!==data.source[data.source.length-1]">{{data.delimiter}}</a>
+                <div class="btn-group" style="padding-top:2px;">
+                    <input id="fontColorPicker" type="text" />
                 </div>
             </div>
         </div>
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <label class="control-label">选择分隔符</label>
-                <div class="btn-toolbar">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default btn-small" ng-class="{active:data.delimiter==delimiterItem}"
-                                ng-click="setDelimiter(delimiterItem)"
-                                ng-repeat="delimiterItem in source.delimiters">
-                            {{delimiterItem}}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <label class="control-label">字符设置</label>
-                <div class="btn-toolbar">
-                    <div class="btn-group">
-                        <select style="padding:0;" class="form-control page-dropdownlist"
-                                ng-options="fontItem.key as fontItem.text for fontItem in source.fonts "
-                                ng-model="data.fontName"></select>
-                    </div>
-                    <div class="btn-group">
-                        <select style="padding:0;" class="form-control page-dropdownlist"
-                                ng-options="sizeItem as sizeItem for sizeItem in source.fontSizes "
-                                ng-model="data.fontSize"></select>
-                    </div>
-                    <div class="btn-group">
-                        <button type="button" ng-class="{active:data.fontBold}" class="btn btn-default" ng-click="setBold()"><i class="fa fa-bold"></i></button>
-                        <button type="button" ng-class="{active:data.fontItalic}" class="btn btn-default" ng-click="setItalic()"><i class="fa fa-italic"></i></button>
-                        <button type="button" ng-class="{active:data.fontUnderline}" class="btn btn-default" ng-click="setUnderline()"><i class="fa fa-underline"></i></button>
-                    </div>
-                    <div class="btn-group" style="padding-top:2px;">
-                        <input id="fontColorPicker" type="text" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <custom-manage type="plug_bread_crumbs"></custom-manage>
-            </div>
-        </div>
+
+        
     </div>
     <div class="setting-btn">
-        <div class="form-group row lanh-line">
-            <div class="col-sm-12">
-                <location-size-manage></location-size-manage>
-            </div>
-        </div>
         <div class="col-sm-12 text-center">
             <button class="btn btn-primary" ng-click="applySetting();">确定</button>
         </div>

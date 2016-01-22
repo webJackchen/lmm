@@ -1,27 +1,18 @@
-﻿<div ng-controller="SettingLoginCtrl">
+﻿<div ng-controller="SettingLoginCtrl" style="width:295px;margin-top:16px;">
     <div class="setting-content">
-        <div class="form-group row">
+        <div class="form-group">
             <div class="col-sm-12">
-                <label>欢迎语:</label>
+                <label class="nofontweight">注册验证码:</label>
             </div>
             <div class="col-sm-12">
-                <input class="form-control" ng-model="data.welcomeText" />
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <label>注册验证码:</label>
-            </div>
-            <div class="col-sm-12">
-                <label class="radio-inline">
-                    <input type="radio" ng-model="data.verificationCode" value="1"> 开启
-                </label>
-                <label class="radio-inline">
-                    <input type="radio" ng-model="data.verificationCode" value="0"> 关闭
-                </label>
+                <select class="form-control" ng-model="data.verificationCode">
+                    <option value="1">是</option>
+                    <option value="0">否</option>
+                </select>
             </div>
         </div>
-        <div class="form-group row">
+
+      <!--  <div class="form-group row">
             <div class="col-sm-6">注册信息：</div>
             <div class="col-sm-6" style="text-align:right"><button class="btn btn-primary" ng-click="btnAdd()">添加</button></div>
         </div>
@@ -49,21 +40,12 @@
                     <i ng-hide="item.default" class="iconfont icon-delete" style="cursor:pointer" ng-click="changeDeleted(item)"></i>
                 </td>
             </tr>
-        </table>
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <custom-manage type="plug_login"></custom-manage>
-            </div>
-        </div>
+        </table> -->
+
     </div>
     <div class="setting-btn">
-        <div class="form-group row lanh-line">
-            <div class="col-sm-12">
-                <location-size-manage></location-size-manage>
-            </div>
-        </div>
         <div class="form-group text-center">
-            <button class="btn btn-primary" ng-click="btnOK()">确定</button>
+            <button class="btn btn-ok" ng-click="btnOK()">确定</button>
         </div>
     </div>
 </div>

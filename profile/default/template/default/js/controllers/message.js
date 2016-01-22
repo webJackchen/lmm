@@ -1,33 +1,45 @@
-﻿/*--------数据列表  start--------*/
-$.getJSON("/action/itemlist?m=message&type=json&isauthor=true&isShowContent=true", function ($result) {
-    var item = [];
-    if (!!$result && !!$result.channel && !!$result.channel.item) {
-        item = $result.channel.item;
-        pageTotal = $result.channel.page.allPageCount;
+﻿/* 状态 */
+var pageSize = 10
+, pageTotal = 1;
 
-        if (item.length > 0) {
-            $("tbody").html("");
-            $.each(item, function (i, message) {
+/*--------数据列表  start--------*/
+var refreshMessageList = function () {
+    $.getJSON("/action/itemlist?m=message&type=json&isauthor=true&isShowContent=true&p=" + pageIndex+"&count=" + pageSize, function ($result) {
+        var item = [];
+        if (!!$result && !!$result.channel && !!$result.channel.item) {
+            item = $result.channel.item;
+            pageTotal = $result.channel.page.allPageCount;
+            if (item.length > 0) {
+                $("tbody").html("");
+                $.each(item, function (i, message) {
+                    $("tbody").append('<tr>' +
+                        '<th><input type="checkbox"  name="select_item" value="' + message.link.text + '"></th>' +
+                        '<td  style="width:25%;">' + message.buildDate + '</td>' +
+                        '<td  style="width:50%;">' + message.content.text.substring(0, 20) + '</td>' +
+                        '<td><span class="showInfo"><a href="javascript:;" onclick="MessageInfo(' + message.link.text + ')">查看</a></span><span><a href="javascript:;" onclick="doDeleteMessage(' + message.link.text + ')">删除</a></span></td>' +
+                    '</tr>');
+                })
+            }
+            else {
                 $("tbody").append('<tr>' +
-                    '<th><input type="checkbox"  name="select_item" value="' + message.link.text + '"></th>' +
-                    '<td  style="width:25%;">' + message.pubDate.text + '</td>' +
-                    '<td  style="width:50%;">' + message.content.text.substring(0, 20) + '</td>' +
-                    '<td><span class="showInfo"><a href="javascript:;" onclick="MessageInfo(' + message.link.text + ')">查看</a></span><span><a href="javascript:;" onclick="doDeleteMessage(' + message.link.text + ')">删除</a></span></td>' +
-                '</tr>');
-            })
+                       '<th><input type="checkbox"  name="select_item" value="' + item.link.text + '"></th>' +
+                       '<td  style="width:25%;">' + item.buildDate + '</td>' +
+                       '<td style="width:50%;">' + item.content.text.substring(0, 20) + '</td>' +
+                       '<td><span class="showInfo"><a href="javascript:;" onclick="MessageInfo(' + item.link.text + ')">查看</a></span><span><a href="javascript:;" onclick="doDeleteMessage(' + item.link.text + ')">删除</a></span></td>' +
+                   '</tr>');
+            }
+            /* 加载分页数据 */
+            LoadPage($result.channel.page, $("#page"));
         }
-        else {
-            $("tbody").append('<tr>' +
-                   '<th><input type="checkbox"  name="select_item" value="' + item.link.text + '"></th>' +
-                   '<td  style="width:25%;">' + item.pubDate.text + '</td>' +
-                   '<td style="width:50%;">' + item.content.text.substring(0, 20) + '</td>' +
-                   '<td><span class="showInfo"><a href="javascript:;" onclick="MessageInfo(' + item.link.text + ')">查看</a></span><span><a href="javascript:;" onclick="doDeleteMessage(' + item.link.text + ')">删除</a></span></td>' +
-               '</tr>');
-        }
-    }
-})
+    })
+}
+refreshMessageList();
 /*--------数据列表  end--------*/
-
+/* 分页查询 */
+var LoadData = function ($page) {
+    pageIndex = $page;
+    refreshMessageList();
+}
 /*--------单条数据查看  start--------*/
 function MessageInfo(link) {
     $.getJSON("/action/itemlist?m=message&type=json&isauthor=true&isShowContent=true&i=" + link, function ($result) {
@@ -39,7 +51,7 @@ function MessageInfo(link) {
                 replayHtml = '<div  class="messageDialog">' +
                                                     '<div><label>管理员回复：</label></div>' +
                                                     '<div>' + item.description.text + '</div>' +
-                                                    '<div  class="pull-right">' + item.lasteditdate.text.split(' ')[0].replace("/", "-").replace("/", "-") + '</div>' +
+                                                    '<div  class="pull-right">' + item.lasteditdate.text + '</div>' +
                                                 '</div>';
             }
             $('#showMessageInfo').append('<div>' +
@@ -48,7 +60,7 @@ function MessageInfo(link) {
                                             '<label>您对管理员说：</label>' +
                                         '</div>' +
                                         '<div>' + item.content.text + '</div>' +
-                                        '<div class="pull-right">' + item.pubdate.text + '</div>' +
+                                        '<div class="pull-right">' + item.lastexaminedate.text + '</div>' +
                                     '</div>' +
                                     replayHtml +
                                 '</div>');
@@ -140,3 +152,4 @@ function doAddMessage() {
     Kplus.message("留言", $('#addMessage').html());
 }
 /*--------留言弹出框  end--------*/
+

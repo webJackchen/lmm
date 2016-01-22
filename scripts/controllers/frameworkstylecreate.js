@@ -19,10 +19,11 @@ angular.module('lanhKdesignApp')
           $scope.data = {
               title: "",
               previewImg: "../../images/no_image_220x220.jpg",
-              imgSuffix: ""
+              imgSuffix: "",
+              closeElement:''
           }
 
-          $scope.btnOK = function () {
+          $scope.btnCreateStyle = function () {
               if ($scope.data.title == "") {
                   messengerService.info("请填写样式名称");
                   return false;
@@ -30,8 +31,9 @@ angular.module('lanhKdesignApp')
                   messengerService.info("请上传预览图");
                   return false;
               }
+              $scope.data.closeElement = $element.parent();
               $scope.$parent.$broadcast("framework.style.create", $scope.data);
-              $element.parent().dialog("close");    //固定方法, 关闭弹窗.
+              //$element.parent().dialog("close");    //固定方法, 关闭弹窗.
           }
 
           $scope.$on("uploadImageComplete", function (e, result) {

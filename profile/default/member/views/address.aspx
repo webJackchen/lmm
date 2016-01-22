@@ -10,7 +10,7 @@
                     <span style="color: red;" class="pull-right control-label">*</span>
                 </div>
                 <div class="col-sm-10">
-                    <input type="text" id="name" name="name" class="form-control" placeholder="请输入收货人">
+                    <input type="text" id="name" name="name" class="form-control" maxlength="20" placeholder="请输入收货人">
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
                     <label id="labDistrict" style="font-size: 14px; font-weight: normal;"></label>
                 </div>
                 <div id="addressDiv" class="pull-left col-sm-8" style="padding-left: initial;">
-                    <input type="text" id="address" name="address" class="form-control" placeholder="请输入详细地址">
+                    <input type="text" id="address" name="address" class="form-control" maxlength="50" onkeyup="adressInputLengthLimit(this.value,this,50)" placeholder="请输入详细地址">
                 </div>
             </div>
         </div>

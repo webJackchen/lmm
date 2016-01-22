@@ -122,7 +122,7 @@
     /*读取评价*/
     function getEvaluation() {
         if (_link != "") {
-            $.getJSON("/action/ItemListReply?type=json&m=goods&i=" + _link, function (result) {
+            $.getJSON("/action/ItemListReply?type=json&m=goods&isExamine=1&i=" + _link, function (result) {
                 if (!!result && !!result.channel && !!result.channel.item) {
                     console.log(result.channel.item)
                     var _content = result.channel.item,

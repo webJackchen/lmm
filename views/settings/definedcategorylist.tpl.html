@@ -1,34 +1,28 @@
-﻿<div ng-controller="DefinedCategoryCtrl" style="width:320px;">
+﻿<div ng-controller="DefinedCategoryCtrl" style="width:320px;margin-top:10px;">
     <div class="setting-content">
-        <div class="form-group row">
+        <div class="form-group row nomargin" ng-show="!isCompontent">    
             <div class="col-sm-12">
-                <div class="pull-left">分类管理:</div>
-                <div class="pull-right"><button ng-click="addCategorys($event)" class="btn btn-primary">添加栏目</button></div>
+                <div class="pull-left">菜单分类:</div>
             </div>
-            <div class="col-sm-12  setting-menu-content border-menu">
-                <ul class="menu-content sortable">
-                    <li ng-repeat="menu in data.definedCategory" data-key="{{menu.key}}">
-                        <i class="iconfont icon-move"></i><span>{{menu.title.text}}</span>
-                        <i class="iconfont icon-close pull-right" ng-click="removeCategory(menu)"></i>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <custom-manage type="controls_list_category"></custom-manage>
-            </div>
-        </div>
+                <div class="col-sm-12  setting-menu-content border-menu">
+                    <ul class="menu-content sortable" style="height:auto;border:none;">
+                        <li ng-repeat="menu in data.definedCategory" data-key="{{menu.key}}" class="borderblue">
+                            <!--<i class="iconfont icon-move"></i>-->
+                            <span>{{menu.text}}</span>
+                            <i class="iconfont icon-close pull-right" data-key="{{menu.key}}" ng-click="removeCategory($event)"></i>
+                            <i class="iconfont icon-editor pull-right" data-key="{{menu.key}}" ng-click="editorCategory($event)"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-12">
+                    <button ng-click="addCategorys($event)" class="btn borderblue" style="width:100%;"><i class="iconfont icon-add-to"></i> </button>
+                </div>
+            </div>        
     </div>
 
-    <div class="setting-btn">
-        <div class="form-group row lanh-line">
-            <div class="col-sm-12">
-                <location-size-manage></location-size-manage>
-            </div>
-        </div>
+    <div class="setting-btn" ng-show="!isCompontent">
         <div class="form-group text-center">
-            <button class="btn btn-primary" ng-click="btnOK()">确定</button>
+            <button class="btn btn-ok" ng-click="btnOK()">确定</button>
         </div>
     </div>
 </div>

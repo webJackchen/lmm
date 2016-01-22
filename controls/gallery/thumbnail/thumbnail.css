@@ -10,9 +10,6 @@
 
 #_panelId_ .thumbnail-region {
     cursor: move;
-    position: absolute;
-    left: 0px;
-    top: 0px;
     width: 100%;
     height: 356px;
     overflow: hidden;

@@ -12,6 +12,39 @@ angular.module('lanhKdesignApp')
       function (storage, $location, $http) {
           var self = this;
 
+          self.setPlatformType = function (platformType) {
+              if (!platformType || platformType === '') {
+                  platformType = 'Web';
+              }
+              storage.session.set('platformType', platformType);
+          }
+
+          self.getPlatformType = function () {
+              var platformType = storage.session.get('platformType');
+              if (!platformType || platformType === '') {
+                  platformType = 'Web';
+              }
+              return platformType;
+          }
+
+          self.setGlobalhTML = function (data, callback) {
+              var url = 'GlobalSetting';
+              debugger;
+              $http.put(lanh.apiPath + url, data)
+                .success(function (result) {
+                    callback(result);
+                });
+          }
+
+          self.getGlobalhTML = function (callback) {
+              var url = 'GlobalSetting ';
+              $http.get(lanh.apiPath + url)
+                .success(function (result) {
+                    callback(result);
+                });
+          }
+
+
           self.login = function (username, password, isKplusUser, callback) {
               if (!!isKplusUser) {
                   storage.session.set('loginUserName', username);
@@ -83,7 +116,15 @@ angular.module('lanhKdesignApp')
                       $location.path('/management');
                   }
               } else {
-                  $location.path('/login');
+                  if (!action) {
+                      $location.path('/login');
+                  }
+                  else if (!!params.u) {
+                      location.href = lanh.kPlusPath(params.u);
+                  }
+                  else {
+                      $location.path('/login');
+                  }
               }
           }
 

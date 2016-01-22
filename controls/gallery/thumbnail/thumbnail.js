@@ -1,4 +1,13 @@
 ﻿$(function () {
+    for (var o = 0 ; o < $("#_panelId_ a").length; o++) {
+        if ($("#_panelId_ a").eq(o).attr("iscontent-data") == "1") {
+            var href = $("#_panelId_ a").eq(o).attr("data-href");
+            $("#_panelId_ a").eq(o).attr("href", href);
+        } else if ($("#_panelId_ a").eq(o).attr("iscontent-data") == "0") {
+            $("#_panelId_ a").eq(o).attr("href", "javascript:void(0);");
+            $("#_panelId_ a").eq(o).attr("target", "")
+        }
+    }
     var controlId = '_panelId_',
         _SlideshowTransitions = [
             {

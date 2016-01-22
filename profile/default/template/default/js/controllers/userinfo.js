@@ -22,8 +22,15 @@ $(function () {
             $("#special").text(_special);
             var _mail = $(data).find("channel").find("item").find("mail").text();
             $("#mail").val(_mail);
-            $(".js_mailUpdate").attr("href", "views/verifyemail?mail=" + _mail);
+            $(".js_mailUpdate").attr("href", "views/verifyemail?mail=" + _mail + "&" + Math.random());
             $(".js_mailBind").attr("href", "views/verifyemail?mail=" + _mail);
+            if(!!_mail){
+                var urlStr = window.location.href,
+                    codePosition = urlStr.indexOf("&code=");
+                if(codePosition!== -1){
+                    window.location.href = urlStr.substring(0,codePosition);
+                } 
+            }
 
             var _mobilephone = $(data).find("channel").find("item").find("mobilephone").text();
             $("#mobilephone").val(_mobilephone);
@@ -35,6 +42,7 @@ $(function () {
                 $(".js_phoneUpdate").show();
                 $(".js_phoneStatus").show();
                 $(".js_phoneBind").hide();
+                $("#mobilephone").attr("readonly",true);
             }
             var _isverifyemail = $(data).find("channel").find("item").find("isverifyemail").text();
             if (_isverifyemail == "1") {

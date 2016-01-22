@@ -19,9 +19,10 @@ angular.module('lanhKdesignApp')
               $item$: [],
               attrs: {
                   autoPlay: 'true',
-                  autoPlayInterval: '1000',
+                  autoPlayInterval: '2000',
                   isShowIcon: 'true'
               }
+
           };
 
           //*********以下代码可以通用*********
@@ -30,6 +31,11 @@ angular.module('lanhKdesignApp')
           for (var property in _currentObj) {
               $scope[property] = _currentObj[property];
           }
+
+          $scope.isCompontent = true;
+          $scope.$emit("framework.get.editorInfo", function (result) {
+              $scope.isCompontent = result.type != "component"
+          });
 
           $scope.applySetting = function () {
               $scope.$parent.$broadcast("framework.setting." + $scope.controlId, {

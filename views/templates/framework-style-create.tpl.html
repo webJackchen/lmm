@@ -5,26 +5,28 @@
                 <label>样式名称:</label>
             </div>
             <div class="col-sm-12">
-                <input class="form-control" type="text" id="title" ng-model="data.title" maxlength="20" />
+                <input input-valid="1-20" class="form-control" type="text" id="title" ng-model="data.title" maxlength="20" />
             </div>
         </div>
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <label>效果预览图</label>
-            </div>
-            <div class="col-sm-12">
+       
+
+        <div class="form-group row preview-image">
+            <div class="col-sm-12 nopadding">
                 <div class="pull-left">
-                    <img src="{{data.previewImg}}" style="width: 250px; height: 220px; border:1px solid rgb(76, 76, 76);" ng-model="data.previewImg">
+                    <label>效果预览图</label>
                 </div>
-                <div class="pull-left" style="margin-top: 200px; margin-left: 10px;">
-                    <div><i class="iconfont icon-pic-upload ng-scope" title="选择图片" upload-image="uploadImageComplete"></i></div>
+                <div class="pull-right">
+                    <a href="javascript:void(0)" upload-image="uploadImageComplete" style="text-decoration: underline;color: #3ec5df;">上传</a>
                 </div>
+            </div>
+            <div class="col-sm-12 nopadding">
+                <img ng-model="data.previewImg" src="{{data.previewImg || '../../images/no_image_220x220.jpg'}}" style="width: 100%; height: 220px;border:1px solid #ddd;">
             </div>
         </div>
     </div>
     <div class="setting-btn">
         <div class="form-group text-center">
-            <button class="btn btn-primary" ng-click="btnOK()">确认</button>
+            <button class="btn btn-primary" ng-click="btnCreateStyle()">确认</button>
         </div>
     </div>
 </div>

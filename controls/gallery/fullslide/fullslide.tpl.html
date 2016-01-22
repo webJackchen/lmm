@@ -4,7 +4,7 @@
      data-chancetoshow="{{data.attrs.isShowIcon}}">
     <div u="slides" class="carousel-region">
         <div ng-repeat="imageItem in data.$item$">
-            <a target="_blank" href="{{ imageItem.hyperLink.text }}">
+            <a target="_blank" href="{{ imageItem.hyperLink.text }}" data-href="{{imageItem.url}}" iscontent-data="{{imageItem.isContent.text}}">
                 <img class="item-image" u="image" ng-src="{{imageItem.image.url}}" alt="{{imageItem.allTitle.text}}" />
             </a>
         </div>

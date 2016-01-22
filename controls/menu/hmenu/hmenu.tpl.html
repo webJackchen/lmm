@@ -1,6 +1,6 @@
-﻿<div>
+﻿<div style="height:100%">
     <ul class="menu-nav h-menu">
-        <li ng-repeat="menu in data.selectMenus" ng-show="menu.show">
+        <li ng-repeat="menu in data.selectMenus" ng-show="menu.show" >
             <a target="_self" title="{{menu.text}}" href="{{menu.href}}">{{menu.text}}</a>
             <ul ng-if="menu.childs&&menu.childs.length" class="children-menu">
                 <li ng-repeat="childMenu in menu.childs">

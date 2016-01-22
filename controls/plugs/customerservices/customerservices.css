@@ -2,6 +2,12 @@
     padding: 0;
 }
 
+.no-close .ui-dialog-titlebar-close {
+    display: none;
+}
+
+
+
 #message_text > div > div.edui-default {
     width: 99% !important;
 }
@@ -31,6 +37,15 @@
     padding: 0;
 }
 
+#msg_region .edui-container,
+#msg_region .edui-body-container {
+    width: 100% !important;
+}
+
+#msg_region .edui-body-container {
+    min-height: 140px !important;
+}
+
 #msg_region.ui-dialog-content > div {
     padding: 0;
 }
@@ -40,6 +55,38 @@
     padding-right: 0;
 }
 
+#msg_region #msgEditor img.no-emotion {
+    width: 100px !important;
+    max-height: 150px !important;
+}
+
+
+ul#txtOldMessage > li {
+    border-bottom: 1px dotted #bbb;
+    margin-bottom: 15px;
+}
+
+    ul#txtOldMessage > li .title {
+        background-color: #eee;
+    }
+
+    ul#txtOldMessage > li.youself p {
+        text-align: right;
+        margin-right: 20px;
+    }
+
+    ul#txtOldMessage > li.youself .title {
+        color: #d16300;
+    }
+
+    ul#txtOldMessage > li.customer .title {
+        color: #3b5999;
+    }
+
+    ul#txtOldMessage > li img.no-emotion {
+        width: 100px;
+        max-height: 150px;
+    }
 
 #msg_tabs.ui-widget-content {
     border: 0;

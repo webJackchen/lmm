@@ -16,7 +16,9 @@
             <tbody>
             </tbody>
         </table>
+        <div class="text-right" id="page"></div>
     </div>
 </div>
+<script src="/js/framework/page.js"></script>
 <div id="showCommentInfo" style="display: none;"></div>
 <script src="/js/controllers/comment.js"></script>

@@ -108,7 +108,6 @@
                     dataType: "text",
                     contentType: "application/x-www-form-urlencoded; charset=utf-8",
                     success: function (result) {
-                        debugger;
                         var state = $(result).find("item").find("return").text();
                         if (state == "success") {
                             alert("提交成功");
@@ -119,7 +118,8 @@
                                 window.location = "/payment/web/alipayescow/" + orderInfo.split("#")[1] + "?title=" + orderInfo.split("#")[0] + "&total=" + totalAll;
                             }
                         } else {
-                            alert("提交失败")
+                            alert($(result).find("item").find("message").text());
+                            window.location = "http://" + window.location.host + "/web/default.html";
                         }
                     },
                     error: function (XMLHttpRequest, textStatus, errorThrown) {

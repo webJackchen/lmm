@@ -1,9 +1,9 @@
-﻿<div class="linksContent" data-col="{{data.col}}" data-row="{{data.row}}">
+﻿<div class="linksContent" data-col="{{data.col}}" data-row="{{data.row}}" data-type="{{data.type}}">
     <ul class="links">
-        <li ng-repeat="link in data.links" style="width:{{data.width}}%">
-            <a href="{{link.hyperLink.text}}" title="{{link.title.text}}">
-                <span ng-show="data.type === 'text'">{{link.title.text}}</span>
-                <img ng-show="data.type === 'image'" src="{{link.image.url}}" alt="{{link.title.text}}" />
+        <li ng-repeat="value in data.$item$" style="width:{{data.width}}%;">
+            <a href="{{value.hyperLink.text}}" title="{{value.title.text}}" target="_blank">
+                <span ng-show="data.type === 'text'">{{value.title.text}}</span>
+                <img ng-show="data.type === 'image'" src="{{value.image.url}}" alt="{{value.title.text}}" />
             </a>
         </li>
     </ul>

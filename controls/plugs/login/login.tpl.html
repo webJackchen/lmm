@@ -1,135 +1,126 @@
 ﻿<div class="login_content">
-    <div id="navigation" class="col-sm-12">
-        <ul>
-            <li id="welcome">{{data.welcomeText}}</li>
-            <li id="hello">您好，</li>
-            <li id="loginName"></li>
-            <li><a href="javascript:void(0);" hidefocus="true" id="login">请登录</a></li>
-            <li><a href="javascript:void(0);" hidefocus="true" id="register">免费注册</a></li>
-            <li><a href="/web/member/index" hidefocus="true" id="userinfo" target="_blank">个人中心</a></li>
-            <li><a href="javascript:void(0);" hidefocus="true" id="logout">退出</a></li>
-        </ul>
-    </div>
-    <div class="loginContainer" style="font-family: 微软雅黑;">
-        <div class="col-sm-12" style="text-align:right; margin:0;padding:0;">
-            <span id="closeLogin" class="iconfont icon-close" style="cursor:pointer"></span>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-12" style="text-align:center;border-bottom: 1px solid #ccc;">
-                <h4>会员登录</h4>
+    <div class="display-table">
+        <div class="display-table-cell">
+            <div id="navigation" class="col-sm-12" style="padding:0px;">
+                <ul>
+                    <li id="welcome">{{data.welcomeText}}</li>
+                    <li id="hello">您好</li>
+                    <li id="loginName"></li>
+                    <li><a href="javascript:void(0);" hidefocus="true" id="login">请登录</a></li>
+                    <li><a href="javascript:void(0);" hidefocus="true" id="register">免费注册</a></li>
+                    <li><a href="/web/member/index" hidefocus="true" id="userinfo" target="_blank">个人中心</a></li>
+                    <li><a href="javascript:void(0);" hidefocus="true" id="logout">退出</a></li>
+                </ul>
             </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <div style="border:1px solid #DDDDDD; border-radius:5px;">
-                    <i class="iconfont icon-people" style="margin:5px 0px 5px 5px;"></i>
-                    <input id="txtLoginName" style="border:0px;border-left:1px solid #969595; padding-left:5px;outline:none;margin:5px 0px 5px 0px;" placeholder="请输入用户名" />
+
+            <div class="loginContainer" style="font-family:' 微软雅黑';width:370px;">
+                <div class="col-sm-12" style="text-align:right; margin:0;padding:0;">
+                    <span id="closeLogin" class="iconfont icon-close" style="cursor:pointer"></span>
                 </div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <div style="border:1px solid #DDDDDD; border-radius:5px;">
-                    <i class="iconfont icon-lock" style="margin:5px 0px 5px 5px;"></i>
-                    <input type="password" style="border:0px;border-left:1px solid #969595; padding-left:5px;outline:none;margin:5px 0px 5px 0px;" placeholder="请输入用密码" id="txtPassWord" />
-                </div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-5">
-                <input id="ckbKeep" type="checkbox" style="" />下次自动登录
-            </div>
-            <div class="col-sm-7" style="text-decoration:none;">
-                <a href="javascript:void(0);">忘记密码？</a>
-                <a id="loginContainerRegister" href="javascript:void(0);">注册新帐号？</a>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-12" style="text-align:center">
-                <button style="border-radius:5px;background-color:#3ec5df;border:0;height:30px;min-width:90px;color:#fff;width:150px;" id="btnLogin">
-                    登 录
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="registerContainer">
-        <div class="col-sm-12" style="text-align:right; margin:0;padding:0;">
-            <span id="closeRegister" class="iconfont icon-close" style="cursor:pointer"></span>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-12" style="text-align:center;border-bottom: 1px solid #ccc;">
-                <h4>会员注册</h4>
-            </div>
-        </div>
-        <div ng-repeat="item in data.registerFields">
-            <div ng-if="item.selected && item.display">
-                <div class="form-group row" ng-if="item.type == 'text'">
-                    <div class="col-sm-3" style="text-align: right; margin-right:-20px;"><span style="color:red" ng-if="item.required">*</span> {{item.title}}:</div>
-                    <div class="col-sm-8">
-                        <input fieldkey="{{item.key}}" fieldtitle="{{item.title}}" type="text" class="form-control" requiredfield="{{item.required}}" />
+                <div class="form-group row">
+                    <div class="col-sm-12" style="text-align:center;border-bottom: 1px solid #ccc;">
+                        <h4>会员登录</h4>
                     </div>
                 </div>
-                <div class="form-group row" ng-if="item.type == 'password'">
-                    <div class="col-sm-3" style="text-align: right; margin-right:-20px;"><span style="color:red" ng-if="item.required">*</span> {{item.title}}:</div>
-                    <div class="col-sm-8">
-                        <input fieldkey="{{item.key}}" fieldtitle="{{item.title}}" type="password" class="form-control" requiredfield="{{item.required}}" />
+                <div style="padding:0 10px;">
+                    <form id="loginForm">
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <div style="border:1px solid #DDDDDD; border-radius:5px;">
+                                    <i class="iconfont icon-people" style="margin:5px 0px 5px 5px;"></i>
+                                    <input id="txtLoginName" name="txtLoginName" style="width:90%;height:28px; border:0px;border-left:1px solid #969595; padding-left:5px;outline:none;margin:5px 0px 5px 0px;" placeholder="请输入用户名" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-12">
+                                <div style="border:1px solid #DDDDDD; border-radius:5px;">
+                                    <i class="iconfont icon-lock" style="margin:5px 0px 5px 5px;"></i>
+                                    <input type="password" name="txtPassWord"  style="border:0px;border-left:1px solid #969595; padding-left:5px;outline:none;margin:5px 0px 5px 0px;" placeholder="请输入用密码" id="txtPassWord" />
+                                </div>
+                            </div>
+                        </div>
+                        <!--
+        <div class="form-group row">
+            <div class="col-sm-5" style="font-size: 12px;">
+                <input id="ckbKeep" type="checkbox" />记住账号
+            </div>
+        </div>
+            -->
+                        <div class="form-group row">
+                            <div class="col-sm-12" style="text-align:center">
+                                <button style="background-color:#3ec5df;border:0;height:30px;min-width:90px;color:#fff;width:150px;" id="btnLogin">
+                                    登 录
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+      </div>
+                <div class="form-group row">
+                    <div class="col-sm-12 text-right" style="text-decoration:none;font-size: 12px;">
+                       <!-- <a href="javascript:void(0);">忘记密码？</a>-->
+                        <a id="loginContainerRegister" href="javascript:void(0);">注册新帐号？</a>
                     </div>
                 </div>
-                <div class="form-group row" ng-if="item.type == 'password'">
-                    <div class="col-sm-3" style="text-align: right; margin-right:-20px;"><span style="color:red" ng-if="item.required">*</span> 确定{{item.title}}:</div>
-                    <div class="col-sm-8">
-                        <input fieldkey="{{item.key}}" excludefield="true" fieldtitle="{{item.title}}" type="password" class="form-control" requiredfield="{{item.required}}" />
+                
+            </div>
+
+            <div class="registerContainer">
+                <form id="registerForm">
+                    <div class="col-sm-12" style="text-align:right; margin:0;padding:0;">
+                        <span id="closeRegister" class="iconfont icon-close" style="cursor:pointer"></span>
                     </div>
-                </div>
-                <div class="form-group row" ng-if="item.type == 'radio'">
-                    <div class="col-sm-3" style="text-align: right; margin-right:-20px;"><span style="color:red" ng-if="item.required">*</span> {{item.title}}:</div>
-                    <div class="col-sm-8">
-                        <div class="pull-left form-col radio-region" ng-repeat="col in item.item" style="margin-right:5px;">
-                            <label class="radio-inline">
-                                <input fieldkey="{{item.key}}" fieldtitle="{{item.title}}" name="{{item.key}}" value="{{col.text}}" type="radio" requiredfield="{{item.required}}" />{{col.text}}
-                            </label>
+                    <div class="form-group row">
+                        <div class="col-sm-12" style="text-align:center;border-bottom: 1px solid #ccc;">
+                            <h4>会员注册</h4>
                         </div>
                     </div>
-                </div>
-                <div class="form-group row" ng-if="item.type == 'checkbox'">
-                    <div class="col-sm-3" style="text-align: right; margin-right:-20px;"><span style="color:red" ng-if="item.required">*</span> {{item.title}}:</div>
-                    <div class="col-sm-8">
-                        <div class="pull-left form-col" ng-repeat="col in item.item" style="margin-right:5px;">
-                            <label class="checkbox-inline">
-                                <input fieldkey="{{item.key}}" fieldtitle="{{item.title}}" value="{{col.text}}" type="checkbox" requiredfield="{{item.required}}" />{{col.text}}
-                            </label>
+                            <div class="form-group row">
+                                <div class="col-sm-3" style="text-align: right; margin-right:-20px;"><span style="color:red" ng-if="item.required">*</span> 账号:</div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control inputStyle" name="username" id="username" />
+                                </div>
+                            </div>
+                           
+                            <div class="form-group row" >
+                                <div class="col-sm-3" style="text-align: right; margin-right:-20px;"><span style="color:red" ng-if="item.required">*</span> 密码:</div>
+                                <div class="col-sm-8">
+                                    <input type="password" class="form-control inputStyle" name="password" id="password" />
+                                </div>
+                            </div>
+                           
+                            <div class="form-group row" >
+                                <div class="col-sm-3" style="text-align: right; margin-right:-20px;"><span style="color:red" ng-if="item.required">*</span> 确认密码:</div>
+                                <div class="col-sm-8">
+                                    <input type="password" class="form-control inputStyle" name="rePassword" id="rePassword" />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3" style="text-align: right; margin-right:-20px;"><span style="color:red" ng-if="item.required">*</span> 昵称:</div>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control inputStyle" name="nickname" id="nickname" />
+                                </div>
+                            </div>
+
+
+                    <div class="form-group row" ng-if="data.verificationCode===1">
+                        <div class="col-sm-3 col-label col-label-inline" style="text-align:right;">验证码:</div>
+                        <div class="col-sm-3" style="margin-left:-20px;">
+                            <input type="text" class="form-control" id="txtValidCode" />
+                        </div>
+                        <div class="col-sm-3">
+                            <div id="validCode" style="width: 80px;height: 42px;"></div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group row" ng-if="item.type == 'image'">
-                    <div class="col-sm-3" style="text-align: right; margin-right:-20px;"><span style="color:red" ng-if="item.required">*</span> {{item.title}}:</div>
-                    <div class="col-sm-8">
-                        <input fieldkey="{{item.key}}" fieldtitle="{{item.title}}" type="file" requiredfield="{{item.required}}" />
+                    <div class="form-group row">
+                        <div class="col-sm-12" style="text-align:center">
+                            <button style="background-color:#3ec5df;border:0;height:30px;min-width:90px;color:#fff;width:150px;" id="btnRegister">
+                                立即注册
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group row" ng-if="item.type == 'date'">
-                    <div class="col-sm-3" style="text-align: right; margin-right:-20px;"><span style="color:red" ng-if="item.required">*</span> {{item.title}}:</div>
-                    <div class="col-sm-8">
-                        <input fieldkey="{{item.key}}" fieldtitle="{{item.title}}" type="text" fieldtype="date" class="form-control" requiredfield="{{item.required}}" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group row" ng-if="data.verificationCode===1">
-            <div class="col-sm-3 col-label col-label-inline" style="text-align:right;">验证码:</div>
-            <div class="col-sm-3" style="margin-left:-20px;">
-                <input type="text" class="form-control" id="txtValidCode" />
-            </div>
-            <div class="col-sm-3">
-                <div id="validCode" style="width: 80px;height: 42px;"></div>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-12" style="text-align:center">
-                <button style="border-radius:5px;background-color:#3ec5df;border:0;height:30px;min-width:90px;color:#fff;width:150px;" id="btnRegister">
-                    立即注册
-                </button>
-            </div>
+                    </form >
+</div>
         </div>
     </div>
 </div>

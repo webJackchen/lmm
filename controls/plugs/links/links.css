@@ -1,28 +1,23 @@
 ﻿@charset "utf-8";
 /* CSS Document */
-#_panelId_ ul.links {
-    margin: 0;
+#_panelId_ ul.links,#_panelId_ .linksContent{
+    margin: 0px auto;
     padding: 0;
+    width:100%;
 }
 
     #_panelId_ ul.links li {
-        text-align: left;
+        float: left;
         display: inline-block;
-        padding: 5px;
-    }
-
+    }      
         #_panelId_ ul.links li a {
-            width: 90%;
-            height: 90%;
-            display: block;
-            border: 1px solid #ebe4e4;
-            text-align: center;
-            vertical-align: middle;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow:hidden;
+            display:block;
+            color:#333333;
+            height:100%;
+            width:auto;
+            font-size:12px;
+            text-align:center;
         }
-
             #_panelId_ ul.links li a span {
                 vertical-align: middle;
                 display: block;

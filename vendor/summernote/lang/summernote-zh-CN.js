@@ -70,7 +70,7 @@
         justify: '两端对齐'
       },
       color: {
-        recent: '最近使用',
+        recent: '文字背景颜色',
         more: '更多',
         background: '背景',
         foreground: '前景',

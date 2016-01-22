@@ -1,12 +1,14 @@
-﻿<div class="breadcrumbs">
+﻿<div class="breadcrumbs" >
     <ul>
         <li class="title">
             <span bind-html-unsafe="data.title">{{data.title}}</span>
         </li>
-        <li class="crumbs" ng-repeat="crumbItem in data.source">
-            <div class="text">
-                <a title="{{crumbItem.text}}" style="{{data.settingStyle}}" href="{{crumbItem.url}}">{{crumbItem.text}}</a>
-            </div>
+        <li class="title">
+            <div class="text">首页 <span style="margin: 0px 5px;">></span> </div>
+        </li>
+        <li class="crumbs" ng-repeat="crumbItem in data.$item$">
+            <div class="text">{{crumbItem.title.text}}</div>
+            <div class="text">{{crumbItem.link.select}}</div>
             <div class="delimiter">
                 {{data.delimiter}}
             </div>

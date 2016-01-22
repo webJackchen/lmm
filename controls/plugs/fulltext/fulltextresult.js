@@ -5,6 +5,10 @@
         ctrlObj.find('.search-list-region').show();
     }
     else {
+        $('#' + panelId).css({
+            overflow: 'visible'
+        });
+
         ctrlObj.find('#btnSearch').on('click', function () {
             var searchKey = ctrlObj.find('#txtSearch').val();
             executeSearch(searchKey);
@@ -21,7 +25,7 @@
         }
 
         var executeSearch = function (keyword) {
-            $.get('/action/item_list?top=1000000&m=news,product&type=json&titlekey=' + encodeURIComponent(keyword) || '')
+            $.get('/action/item_list?top=1000000&m=news,product,goods&type=json&titlekey=' + encodeURIComponent(keyword) || '')
                 .success(function (result) {
                     var kplusObj = JSON.parse(result) || {},
                         kplusList = kplusObj.channel.item !== '0' ? kplusObj.channel.item : [];

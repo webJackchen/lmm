@@ -198,7 +198,6 @@
                 var result = JSON.parse(data);
                 if (result && result.channel && result.channel.item) {
                     var info = result.channel.item;
-                    debugger;
                     if (Object.prototype.toString.call(result.channel.item) === '[object Array]' && result.channel.item.length > 0) {
                         info = $.grep(result.channel.item, function (obj, index) {
                             return obj.state.text === "1";
@@ -244,13 +243,4 @@
     $('body').append($('#orderModal'));
     $('body').append($('#confirmOrderModal'));
     $("#orderModal").find('.modal-content').css({ 'width': '480px' });
-
-    $(document).ready(function () {
-        ///*修复body高度*/
-        $('#content-body').css('min-height', '');
-        //if (document.getElementById("content-footer").offsetTop === $('#content-header').height()) {
-        if (document.getElementById("content-footer").offsetTop < ($('.detail-top').height() + $('.detail-descript').height() + $('#content-header').height())) {
-            $("#content-body").css('height', document.body.scrollHeight - $('#content-header').height());
-        }
-    });
 })();

@@ -1,5 +1,15 @@
-﻿<div class="col-sm-12 editor" ng-controller="ManagementEditorCtrl">
-    <div class="computer">
+﻿<div class="col-sm-12 editor manuscript" ng-controller="ManagementEditorCtrl">
+    <div class="col-sm-12 nopadding" style="float: none;overflow: hidden;">
+        <ul class="col-sm-12 nav nav-tabs management-content-bar nopadding" id="management-module">
+            <li class="{{terminalType == 'PC' ? 'active' : ''}}" ng-click="changeTerminal($event,'PC')"><a href="javascript:void(0);">PC<s class="active"><i></i></s></a></li>
+            <!--<li class="{{terminalType == 'WAP' ? 'active' : ''}}" ng-click="changeTerminal($event,'WAP')"><a href="javascript:void(0);">WAP</a></li>
+            <li class="{{terminalType == 'WXP' ? 'active' : ''}}" ng-click="changeTerminal($event,'WXP')"><a href="javascript:void(0);">WX</a></li>
+            <li class="{{terminalType == 'APP' ? 'active' : ''}}" ng-click="changeTerminal($event,'APP')"><a href="javascript:void(0);">APP</a></li>-->
+            <li class="pull-right"><button class="btn btn-primary btn-add pull-right" ng-click="moduleSet($event)">模板设置</button></li>
+        </ul>
+    </div>
+
+    <div class="computer" ng-show="terminalType =='PC'">
         <div class="col-sm-12 col-padding-clear toolbar">
             <div class="input-group">
                 <div class="input-group-addon"><i class="iconfont icon-internet"></i></div>
@@ -7,6 +17,55 @@
             </div>
         </div>
         <div class="content" style="background-image: url({{ currentTemplate.previewImg || '../../images/no_image_220x220.jpg' }});">
+            <div class="hover-btn">
+                <button class="btn btn-primary" ng-click="btnEdit()" ng-show="!!currentTemplate">编辑</button>
+                <button class="btn btn-primary" ng-click="btnInstall()" ng-show="!currentTemplate">安装模板</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="mobile" ng-show="terminalType =='WAP'">
+        <div class="col-sm-12 col-padding-clear mobile-top">
+            <span style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;display: block;width: 80%;margin-left: 15px;" title="{{currentTemplate.title}}">{{currentTemplate.title}}</span>
+            <i class="iconfont icon-qr-code"></i>
+            <div class="mobile-codes">
+                <div class="mobile-code-arrow"></div>
+                <div class="mobile-code"></div>
+            </div>
+        </div>
+        <div class="col-sm-12 content" style="background-image: url({{ currentTemplate.previewImg || '../../images/no_image_220x220.jpg' }});">
+            <div class="hover-btn">
+                <button class="btn btn-primary" ng-click="btnEdit()" ng-show="!!currentTemplate">编辑</button>
+                <button class="btn btn-primary" ng-click="btnInstall()" ng-show="!currentTemplate">安装模板</button>
+            </div>
+        </div>
+    </div>
+    <div class="mobile" ng-show="terminalType =='WXP'">
+        <div class="col-sm-12 col-padding-clear mobile-top">
+            <span style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;display: block;width: 80%;margin-left: 15px;" title="{{currentTemplate.title}}">{{currentTemplate.title}}</span>
+            <i class="iconfont icon-qr-code"></i>
+            <div class="mobile-codes">
+                <div class="mobile-code-arrow"></div>
+                <div class="mobile-code"></div>
+            </div>
+        </div>
+        <div class="col-sm-12 content" style="background-image: url({{ currentTemplate.previewImg || '../../images/no_image_220x220.jpg'}});">
+            <div class="hover-btn">
+                <button class="btn btn-primary" ng-click="btnEdit()" ng-show="!!currentTemplate">编辑</button>
+                <button class="btn btn-primary" ng-click="btnInstall()" ng-show="!currentTemplate">安装模板</button>
+            </div>
+        </div>
+    </div>
+    <div class="mobile" ng-show="terminalType =='APP'">
+        <div class="col-sm-12 col-padding-clear mobile-top">
+            <span style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;display: block;width: 80%;margin-left: 15px;" title="{{currentTemplate.title}}">{{currentTemplate.title}}</span>
+            <i class="iconfont icon-qr-code"></i>
+            <div class="mobile-codes">
+                <div class="mobile-code-arrow"></div>
+                <div class="mobile-code"></div>
+            </div>
+        </div>
+        <div class="col-sm-12 content" style="background-image: url({{ currentTemplate.previewImg || '../../images/no_image_220x220.jpg' }});">
             <div class="hover-btn">
                 <button class="btn btn-primary" ng-click="btnEdit()" ng-show="!!currentTemplate">编辑</button>
                 <button class="btn btn-primary" ng-click="btnInstall()" ng-show="!currentTemplate">安装模板</button>

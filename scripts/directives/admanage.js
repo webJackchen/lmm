@@ -45,8 +45,8 @@ angular.module('lanhKdesignApp')
                   }
 
                   $scope.initTree = function () {
-                      //$http.get(lanh.apiPath + "proxy?catgeoryList=true&catgeoryType=ad")
-                      $http.get(lanh.apiPath + "proxy?isSection=true")
+                     // $http.get(lanh.apiPath + "proxy?catgeoryList=true&catgeoryType=ad")
+                      $http.get(lanh.apiPath + "proxy/ad")
                         .success(function (result) {
                             if (!result || !result.jsonText) {
                                 return;
@@ -54,7 +54,6 @@ angular.module('lanhKdesignApp')
                             var _result = JSON.parse(result.jsonText),
                                 _adList = $.grep(_result.channel.item, function (_item) { return _item.module == "ad" });
                             var treeData = [];
-
                             var _eachTreeNode = function (node, childs) {
                                 if (!!childs) {
                                     var _childs = childs;
@@ -67,7 +66,7 @@ angular.module('lanhKdesignApp')
                                             "icon": "iconfont icon-folder",
                                             "children": [],
                                             "data": _child,
-                                            "state": { "selected": attrs.value == "<channel>" + _child.alias + "</channel><model>ad</model>" }
+                                            "state": { "selected": attrs.value == "<channel>" + _child.alias + "</channel><module>ad</module>" }
                                         }
                                         node.children.push(_node);
                                         _eachTreeNode(_node, _child.item)

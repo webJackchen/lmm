@@ -1,5 +1,5 @@
-﻿<div class="contentlist-setting" ng-controller="SettingContentListCtrl" style="width:320px;">
-    <div class="setting-content">
+﻿<div class="contentlist-setting" ng-controller="SettingDefinedContentListCtrl" style="width:290px;margin-top:16px">
+    <!--<div class="setting-content">
         <div class="form-group row" ng-show="data.showType">
             <div class="col-sm-12">
                 <label>数据类型:</label>
@@ -32,7 +32,7 @@
                 <label>选择分类：<span style="color:red;font-weight:normal;">请勿选择多个栏目数据</span></label>
             </div>
             <div class="col-sm-12 setting-category-list">
-               <!-- <ul class="content-list" ng-if="data.categories&&data.categories.length">
+               <ul class="content-list" ng-if="data.categories&&data.categories.length">
                     <li class="checkbox">
                         <label>
                             <input type="checkbox" ng-model="data.selectedAll" ng-click="selectAll()" />全选
@@ -50,7 +50,7 @@
                             </li>
                         </ul>
                     </li>
-                </ul>-->
+                </ul>
                 <kdo-tree source='data.treeData' single-all="false" useall="true" child-name="item"></kdo-tree>
             </div>
         </div>
@@ -68,7 +68,7 @@
         </div>
 
         <div ng-if="data.category !== 'product' && data.category !== 'goods'">
-            <!--<div class="form-group row">
+            <div class="form-group row">
                 <div class="col-sm-12">
                     <label>是否滚动</label>
                 </div>
@@ -78,7 +78,8 @@
                         <option value="false">否</option>
                     </select>
                 </div>
-            </div>-->
+            </div>
+
             <div class="form-group row" ng-show="data.isPaged == 'true'">
                 <div class="col-sm-12">
                     <label>每页显示个数</label>
@@ -156,15 +157,35 @@
             </div>
         </div>
     </div>
-
-    <div class="setting-btn">
-        <div class="form-group row lanh-line">
+        -->
+    <div class="setting-content">
+        <div class="form-group row nomargin">
+            <div class="col-sm-12">是否分页</div>
             <div class="col-sm-12">
-                <location-size-manage></location-size-manage>
+                <select class="form-control" ng-model="data.isPaged">
+                    <option value="true">是</option>
+                    <option value="false">否</option>
+                </select>
             </div>
         </div>
+
+        <div class="col-sm-12">每页显示</div>
+        <div class="col-sm-12">
+            <select class="form-control" ng-model="data.pageSize">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="">自定义</option>
+            </select>
+        </div>
+        <div class="col-sm-12" ng-show="data.pageSize === ''">
+            <input type="text" class="form-control" ng-model="data.defindePageSize">
+        </div>
+    </div>
+    <div class="setting-btn">
         <div class="form-group text-center">
-            <button class="btn btn-primary" ng-click="btnOK()">确定</button>
+            <button class="btn btn-ok" ng-click="btnOK()">确定</button>
         </div>
     </div>
 

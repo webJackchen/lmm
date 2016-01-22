@@ -14,6 +14,10 @@ angular.module('lanhKdesignApp')
               restrict: 'EA',
               scope: true,
               link: function postLink($scope, $element, attrs) {
+
+                  $scope.bindHtml = function (htmlString) {
+                      return $sce.trustAsHtml(htmlString);
+                  }
                   /*
                     attrs:
                         title           //按钮名称
@@ -24,7 +28,7 @@ angular.module('lanhKdesignApp')
                   $scope._kid = attrs.kid;
                   var _callback = null;
                   if ($element.get(0).tagName.toLowerCase() == "image-manage") {
-                      $element.html($compile('<button class="btn btn-primary" ng-click="selectImages()">{{ _title }}</button>')($scope));
+                      $element.html($compile('<button class="btn btn-primary btn-fontSize" ng-click="selectImages()">{{ _title }}</button>')($scope));
                       _callback = attrs.callback;
                   } else {
                       $element.on("click.selectImageManage", function (e) {
@@ -35,7 +39,7 @@ angular.module('lanhKdesignApp')
                       _callback = attrs.imageManage;
                   }
 
-                  $scope._title = attrs.title || "图片管理";
+                  $scope._title = attrs.title || "选择";
 
                   var model = $scope.model = {
                       resource: {
@@ -51,20 +55,17 @@ angular.module('lanhKdesignApp')
                   var tpl_status = $scope.tpl_status = {
                       mode: "server", //local or server
                       selectetype: attrs.selectetype || "single", //single | multiple
-                      pageSize: '40',
+                      pageSize: 12,
                       pageIndex: 1,
                       total: 0,
-                      isDesc: 'true',
+                      sortBy: 'id_desc',
                       titleKey: ''
                   }
 
                   $scope.resetTplStatus = function () {
                       tpl_status.mode = "server";
                       tpl_status.selectetype = attrs.selectetype || "single";
-                      tpl_status.pageSize = '40';
-                      tpl_status.pageIndex = 1;
-                      tpl_status.total = 0;
-                      tpl_status.isDesc = 'true';
+                      tpl_status.sortBy = 'id_desc';
                       tpl_status.titleKey = '';
                       _getImages();
                   }
@@ -74,13 +75,30 @@ angular.module('lanhKdesignApp')
                       _getImages();
                   }
 
+                  var getImageWidth = function (obj, callback) {
+                      var img = new Image();
+                      img.src = obj.srcTrue;
+                      // 如果图片被缓存，则直接返回缓存数据
+                      if (img.complete) {
+                          obj.size = img.width + '*' + img.height;
+                      } else {
+                          // 完全加载完毕的事件
+                          img.onload = function () {
+                              obj.size = img.width + '*' + img.height;
+                              //callback(img.width, img.height);
+                              $timeout(function () {
+                                  $scope.$apply();
+                              })
+                          }
+                      }
+                  }
+
                   var _getImages = function () {
-                      var url = lanh.apiPath + "/proxy?isImage=true&kid="
-                          + (!!attrs.kid ? attrs.kid : "")
-                          + "&pageSize=" + tpl_status.pageSize
-                          + "&pageIndex=" + tpl_status.pageIndex
-                          + "&isDesc=" + tpl_status.isDesc
-                          + "&titleKey=" + (!!tpl_status.titleKey ? tpl_status.titleKey : "");
+                      var url = lanh.apiPath + "proxy/images?kid="+ (!!attrs.kid ? attrs.kid : "")
+                          + "&pageSize=" + $scope.tpl_status.pageSize
+                          + "&pageIndex=" + $scope.tpl_status.pageIndex
+                          + "&titleKey=" + (!!tpl_status.titleKey ? tpl_status.titleKey : "")
+                          + "&sortBy=" + tpl_status.sortBy;
                       $http.get(url)
                       .success(function (result) {
                           var _result = JSON.parse(result.jsonText),
@@ -88,23 +106,40 @@ angular.module('lanhKdesignApp')
                           if (!!_result.channel.item && _result.channel.item != "0") {
                               if (!angular.isArray(_result.channel.item)) _result.channel.item = [_result.channel.item];
                               $.each(_result.channel.item, function (i, _item) {
-                                  _files.push({
+                                  var size, src = "http://" + _result.channel.host + _item.url.text;
+
+                                  var newImageItem = {
                                       id: _item.id.text,
                                       link: _item.link.text,
                                       websiteid: _item.websiteid.text,
-                                      title: _item.title.text,
+                                      allTitle: _item.alltitle.text,
+                                      title: _item.alltitle.text,
                                       isdelete: _item.isdelete.text,
-                                      src: "http://" + _result.channel.host + _item.url.text,
-                                      size: _item.size.text
+                                      src: "http://" + _result.channel.host + "/250_0_1_60_0_fff" + _item.url.text,
+                                      srcTrue: "http://" + _result.channel.host  + _item.url.text,
+                                      size: size
+                                  }
+                                  getImageWidth(newImageItem, function (w, h) {
+                                      size = w + "*" + h;
                                   });
+                                  _files.push(newImageItem);
                               });
                           }
-                          debugger;
-                          tpl_status.total = _result.channel.allcount;
+                          $scope.tpl_status.total = parseInt(_result.channel.allcount);
                           model.resource.server = {
                               files: _files
                           }
                       });
+                  }
+
+                  $scope.imagesUp = function (template) {
+                      $http.get("../../views/common/imageUploading.tpl.html")
+                         .success(function (template) {
+                             lanhWindow.create({
+                                 title: "图片上传",
+                                 template: template
+                             }, $scope);
+                         });
                   }
 
                   $scope.selectImages = function () {
@@ -122,7 +157,22 @@ angular.module('lanhKdesignApp')
                       _getImages();
                   }
 
-                  $scope.btnSelectedFile = function (file, $flow) {
+                  $scope.btnSelectedFile = function ($event, file, $flow) {
+                      var myEl = angular.element($event.target);
+                      var _h = '<span class="K-imgSelected-icon K-VHcenter"><i class="iconfont icon-ok K-VHcenter"></i></span>';
+                      if (!myEl.hasClass('K-imgSelected'))
+                          myEl = myEl.parent();
+                      if (!myEl.hasClass('K-imgSelected'))
+                          myEl = myEl.parent();
+                      if (!myEl.hasClass('K-imgSelected'))
+                          myEl = myEl.parent();
+                      var data = myEl.attr("data-imgSelected");
+                      $(".K-imgSelected").removeAttr("data-imgSelected");
+                      $(".K-imgSelected .K-imgSelected-icon").remove();
+                      if (!data)
+                          myEl.append(_h).attr('data-imgSelected', "0");
+                      else
+                          myEl.removeAttr("data-imgSelected");
                       var _files = null;
                       if (tpl_status.mode == "local") {
                           _files = $flow.files;
@@ -142,7 +192,7 @@ angular.module('lanhKdesignApp')
                           }
                       }
                       /*样式库添加src*/
-                      $("#styleImage").val(file.src);
+                      $("#styleImage").val(file.srcTrue);
                   }
 
                   $scope.selectAll = function (e) {
@@ -163,7 +213,15 @@ angular.module('lanhKdesignApp')
                       var canExtension = $.grep(["png", "gif", "jpg", "jpeg"], function (n) { return n == $file.getExtension() }).length > 0;
                       if (!canExtension) return false;
                   }
-
+                  $scope.upImgDel = function (file, $flow) {
+                      $flow.files = $.grep($flow.files, function (n) { return n.$$hashKey != file.$$hashKey });
+                      if ($flow.files.length != 0)
+                          $(".uplength").html($flow.files.length + "张图片等待上传");
+                      else {
+                          $('.upimgAddH').show();
+                          $('.upimgListTop').hide();
+                      }
+                  }
                   var uploadedImgs = {};
                   var isUploadedImgs = function (hashKey) {
                       var isUploaded = false;
@@ -177,6 +235,9 @@ angular.module('lanhKdesignApp')
 
                   $scope.fileComplete = function ($file, $event, $flow) {
                       if ($flow.files.length) {
+                          $('.upimgAddH').hide();
+                          $('.upimgListTop').show();
+                          $(".uplength").html($flow.files.length + "张图片等待上传");
                           var flowFiles = [];
                           $.each($flow.files, function () {
                               var flowFile = this;
@@ -184,8 +245,9 @@ angular.module('lanhKdesignApp')
                                   flowFiles.push(flowFile);
                               }
                           });
-
-                          /*开始上传*/
+                          flowFiles.push($scope.flowFiles);
+                          $scope.flowFiles = flowFiles;
+                          /*开始上传
                           $timeout(function () {
                               if (!!flowFiles && flowFiles.length > 0) {
                                   var imgs = $("#localImages .image-column");
@@ -209,10 +271,49 @@ angular.module('lanhKdesignApp')
                                       })(i);
                                   }
                               }
-                          }, 500);
+                          }, 500);*/
                       }
                   }
 
+                  $scope.btnUploadImageOK = function ($event) {
+                      var flowFiles = $scope.flowFiles;
+                      if (!!flowFiles && flowFiles.length > 0) {
+                          var imgs = $("#localImages .image-column");
+                          var needUploadImgs = imgs;
+                          for (var i = 0; i < needUploadImgs.length; i++) {
+                              var imgSrc = $(needUploadImgs[i]).find("img").attr("src");
+                              var _i = i,
+                                  num = 0;
+                              (function (index) {
+                                  $http.post(lanh.apiPath + "/proxy", {
+                                      filePath: imgSrc,
+                                      fileName: encodeURIComponent(flowFiles[index].name),
+                                      KID: !!attrs.kid ? attrs.kid : ""
+                                  }).success(function (result) {
+                                      if (result && result.jsonText) {
+                                          num++;
+                                          console.log(num);
+                                          var resultObj = JSON.parse((result.jsonText || "")
+                                              .replace(new RegExp('\'', 'gm'), '\"'));
+                                          flowFiles[index].src = result.host + '/' + resultObj.url;
+                                          flowFiles[index].hideProgress = true;
+                                          if (num == needUploadImgs.length)
+                                              _getImages();
+                                      }
+                                  });
+                              })(i);
+                          }
+
+                      }
+                      $($event.currentTarget).parents(".lanh-modal").dialog("close");
+                  }
+                  $scope.clearupimgList = function ($event, file, $flow) {
+                      $('.upimgAddH').show();
+                      $('.upimgListTop').hide();
+                      $scope.flowFiles = [];
+                      $flow.files = $scope.flowFiles
+
+                  }
                   $scope.btnOk = function ($event, $flow) {
                       if (!!_callback) {
                           var _files = [];
@@ -225,7 +326,7 @@ angular.module('lanhKdesignApp')
                                       //websiteid: file.websiteid,
                                       title: file.name,
                                       isdelete: "-1",
-                                      src: file.src,
+                                      src: file.srcTrue,
                                       size: file.size,
                                       focus: file.focus
                                   });
@@ -240,6 +341,8 @@ angular.module('lanhKdesignApp')
                           $scope.$emit(_callback, _selected);
                       }
                       $($event.currentTarget).parents(".lanh-modal").dialog("close");
+
+
                   }
               }
           };

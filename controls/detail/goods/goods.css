@@ -1,6 +1,9 @@
 ﻿#_panelId_ .nopadding {
     padding: 0;
 }
+#_panelId_ {
+    width:100% !important;
+}
 
 #_panelId_ .content-detail {
     font-size: 13px;

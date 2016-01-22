@@ -1,6 +1,6 @@
 ﻿<div class="order">
     <ul class="nav nav-tabs management-content-bar nopadding">
-        <li class="active" data-value="0"><a href="javascript:void(0);">全部订单<s class="active"><i></i></s></a></li>
+        <li class="active" data-value="0"><a href="javascript:void(0);">全部订购<s class="active"><i></i></s></a></li>
         <li data-value="-1"><a href="javascript:void(0);">待确认</a></li>
         <li data-value="1"><a href="javascript:void(0);">已确认</a></li>
     </ul>
@@ -9,7 +9,7 @@
         <div class="form-inline">
             <div class="form-group">
                 <select class="form-control" id="orderType">
-                    <option value="0">请选择订单状态</option>
+                    <option value="0">请选择订购状态</option>
                     <option value="-1">待确认</option>
                     <option value="1">已确认</option>
                 </select>
@@ -19,7 +19,7 @@
                 <span class="add-on"><i class="iconfont icon-calendar"></i></span>
             </div>
             <div class="form-group ml10">
-                <input type="text" class="form-control" placeholder="输入订单编号" id="orderKey" />
+                <input type="text" class="form-control" placeholder="输入订购编号" id="orderKey" />
             </div>
             <div class="form-group ml20">
                 <button class="btn btn-primary pull-left">搜 索</button>

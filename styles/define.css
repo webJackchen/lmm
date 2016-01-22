@@ -1,10 +1,14 @@
 .nopadding {
-    padding: 0;
+    padding: 0 !important;
 }
 
 .nomargin {
     margin-left: 0 !important;
     margin-right: 0 !important;
+}
+
+.nofontweight {
+    font-weight: normal !important;
 }
 
 .management.nav-tabs-bar {
@@ -53,6 +57,116 @@
                 background-color: #fff !important;
                 border: none;
             }
+
+            .bar-top.nav-tabs-bar > ul li.platform {
+                margin-left: 682px;
+                height: 40px;
+            }
+
+            .bar-top.nav-tabs-bar > ul li.admin-platform {
+                margin-left: 705px;
+                height: 40px;
+            }
+
+                .bar-top.nav-tabs-bar > ul li.admin-platform > .btn-setting {
+                    background-color: #fff;
+                    width: 80px;
+                    font-size: 13px;
+                    height: 32px;              
+                    text-align: center;
+                    border: 1px solid #C8C8C8;
+                    color: #000;
+                    border-color: #ddd;
+                    margin-right: 20px;
+                }
+
+                    .bar-top.nav-tabs-bar > ul li.admin-platform > .btn-setting:hover {
+                        background-color: #3EC5DF;
+                        color: #fff;
+                    }
+
+            .bar-top.nav-tabs-bar > ul li > button.btn_left_platform {
+                background: url(../images/management/btn_bg_platform_l02.png) no-repeat;
+                width: 53px;
+                height: 28px;
+                border: 0px;
+                margin: 6px 0px 0px 0px;
+            }
+
+            .bar-top.nav-tabs-bar > ul li > button.btn_right_platform {
+                background: url(../images/management/btn_bg_platform_r01.png) no-repeat;
+                width: 53px;
+                height: 28px;
+                border: 0px;
+                margin: 6px 0px 0px -5px;
+            }
+
+            .bar-top.nav-tabs-bar > ul li > button.btn_left_platform > i {
+                margin-left: 8px;
+            }
+
+            .bar-top.nav-tabs-bar > ul li > button.btn_right_platform > i {
+                margin-right: 6px;
+            }
+
+#webTypeModal {
+    top: 280px;
+}
+
+    #webTypeModal .modal-content-settings {
+        width: 500px;
+    }
+
+        #webTypeModal .modal-content-settings .modal-body-settings {
+            padding: 0px;
+            height: 160px;
+            width: 500px;
+        }
+
+            #webTypeModal .modal-content-settings .modal-body-settings .platformType {
+                margin: 15px 0px 0px 0px;
+                height: 145px;
+            }
+
+                #webTypeModal .modal-content-settings .modal-body-settings .platformType .pc {
+                    margin: 40px 30px 0px 85px;
+                    cursor: pointer;
+                    width: 135px;
+                    float: left;
+                }
+
+                #webTypeModal .modal-content-settings .modal-body-settings .platformType .mobile {
+                    margin: 40px 0px 0px 35px;
+                    cursor: pointer;
+                    width: 135px;
+                    float: left;
+                }
+
+                #webTypeModal .modal-content-settings .modal-body-settings .platformType .verticalline {
+                    width: 1px;
+                    height: 145px;
+                    background-color: #B2B2B2;
+                    text-align: center;
+                    float: left;
+                }
+
+                #webTypeModal .modal-content-settings .modal-body-settings .platformType div.txtcontainer {
+                    text-align: left;
+                }
+
+                    #webTypeModal .modal-content-settings .modal-body-settings .platformType div.txtcontainer .firstspan {
+                        color: #B2B2B2;
+                    }
+
+                    #webTypeModal .modal-content-settings .modal-body-settings .platformType div.txtcontainer .lastspan {
+                        font-weight: bolder;
+                        font-size: 23px;
+                    }
+
+                #webTypeModal .modal-content-settings .modal-body-settings .platformType div.imgcontainer {
+                    float: left;
+                    margin-right: 10px;
+                }
 
 .management-content {
     width: 1200px;
@@ -113,35 +227,21 @@
                 border-width: 12px;
             }
 
- .btn-primary,.btn-primary:focus,.btn-primary:hover,.btn-primary:active{
-    background-color: #3ec5df;
-    border: 1px solid #3ec5df;
-    padding: 5px 25px;
-    border-color:#3ec5df;
-}
- .btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus {
+
+
+.btn:focus, .btn:active:focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn.active.focus {
     outline: none;
     outline-offset: -2px;
 }
- .btn-primary:hover {
-    color: #fff;
-    background-color: #3ec5df;
-    border-color: #3ec5df;
-}
 
- .manuscript .btn-copy,.btn.btn-cancel {
-    background-color: #f2f2f2;
-    border: 1px solid #ddd;
-    padding: 5px 25px;
-    color: #000;
-}
+
 
 .conditionQuery {
     margin-bottom: 20px;
     padding-bottom: 20px;
     border-bottom: 1px solid #ddd;
     float: left;
-    width:100%;
+    width: 100%;
 }
 
     .conditionQuery div.keyword {
@@ -150,6 +250,8 @@
 
 .query-more-condition {
     margin-top: 20px;
+    float: left;
+    width: 100%;
 }
 
     .query-more-condition .form-inline {
@@ -157,7 +259,7 @@
     }
 
     .query-more-condition .form-group {
-        margin-right: 45px;
+        margin-right: 40px;
     }
 
 .input-group-addon {
@@ -179,7 +281,6 @@
 .btn-blue {
     background-color: #3ec5df;
     border: 1px solid #3ec5df;
-    padding: 5px 25px;
     border-color: #3ec5df;
 }
 
@@ -187,15 +288,12 @@
         background-color: #3ec5df;
         border: 1px solid #3ec5df;
     }
-.btn-primary:active:hover, .btn-primary.active:hover, .open > .dropdown-toggle.btn-primary:hover, .btn-primary:active:focus, .btn-primary.active:focus, .open > .dropdown-toggle.btn-primary:focus, .btn-primary:active.focus, .btn-primary.active.focus, .open > .dropdown-toggle.btn-primary.focus {
-    background-color: #3ec5df;
-    border-color: #3ec5df;
-}
-.btn-copy:active:hover, .btn-copy.active:hover, .btn-copy:active:focus, .btn-copy.active:focus,.btn-copy:active.focus, .btn-copy.active.focus,
-.btn-cancel:hover,.btn-cancel:active:hover,.btn-cancel.active:hover,.btn-cancel:active:focus, .btn-cancel.active:focus,.btn-cancel:active.focus,.btn-cancel.active.focus{
+
+
+.btn-copy:active:hover, .btn-copy.active:hover, .btn-copy:active:focus, .btn-copy.active:focus, .btn-copy:active.focus, .btn-copy.active.focus,
+.btn-cancel:hover, .btn-cancel:active:hover, .btn-cancel.active:hover, .btn-cancel:active:focus, .btn-cancel.active:focus, .btn-cancel:active.focus, .btn-cancel.active.focus {
     background-color: #f2f2f2;
     border: 1px solid #ddd;
-    padding: 5px 25px;
     color: #000;
 }
 
@@ -218,76 +316,92 @@
     text-align: left;
 }
 
-    .apply-failure-reason span {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        padding-right: 0px;
-        display: block;
-    }
+.mobile-template-body .apply-failure-reason {
+    width: 130px;
+}
+
+.apply-failure-reason span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 0px;
+    display: block;
+}
 
 .ui-dialog .ui-dialog-content {
-    padding:0;
+    padding: 0;
 }
-.ui-dialog .ui-dialog-content .dialog-content {
-    margin:.5em 1em;
-    padding:10px 10px 0px 10px;
-    border:1px solid #ccc;
-}
-.ui-dialog .ui-dialog-content .dialog-btn {
-    border-top:1px solid #ccc;
-    padding-top: 10px;
-}
+
+    .ui-dialog .ui-dialog-content .dialog-content {
+        margin: .5em 1em;
+        padding: 10px 10px 0px 10px;
+        border: 1px solid #ccc;
+    }
+
+    .ui-dialog .ui-dialog-content .dialog-btn {
+        border-top: 1px solid #ccc;
+        padding-top: 10px;
+    }
+
     .ui-dialog .ui-dialog-content .conditionQuery {
-        padding:10px;
+        padding: 10px;
     }
-.ui-dialog .ui-dialog-content .dialog-copy-content {
-    min-height: 420px;
-    overflow: auto;
-    border-bottom:1px solid #ddd
-}
-.ui-dialog .ui-dialog-content .dialog-copy-content .template-content {
-    height:200px;
-}
-.ui-dialog .ui-dialog-content .dialog-query-info {
-    width:340px;
-    padding:15px;
-}
-    .ui-dialog .ui-dialog-content .dialog-query-info select {
-        width:228px;
+
+    .ui-dialog .ui-dialog-content .dialog-copy-content {
+        height: 400px;
+        overflow: auto;
+        border-bottom: 1px solid #ddd;
     }
-    
-.btn-pass,.btn-refuse {
-   width: 50%;
-    background:#fff;
-    display:inline-block;
+
+        .ui-dialog .ui-dialog-content .dialog-copy-content .template-content {
+            height: 200px;
+        }
+
+    .ui-dialog .ui-dialog-content .dialog-query-info {
+        width: 340px;
+        padding: 0px;
+    }
+
+        .ui-dialog .ui-dialog-content .dialog-query-info select {
+            width: 100%;
+        }
+
+.btn-pass, .btn-refuse {
+    width: 50%;
+    background: #fff;
+    display: inline-block;
     line-height: 36px;
 }
-    
+
 .btn-pass {
-    float:left;
-    border-right:1px solid #ccc;
+    float: left;
+    border-right: 1px solid #ccc;
 }
+
 .btn-refuse {
-    float:right;
+    float: right;
 }
+
     .btn-pass:hover, .btn-refuse:hover {
         background: #f2f2f2;
-        color:#3ec5df;
+        color: #3ec5df;
     }
+
 .preview-image {
-    border:1px solid #ddd;
+    border: 1px solid #ddd;
     margin: 0px;
-    padding: 5px;
-    margin-bottom:10px;
+    padding: 5px 5px 12px 5px;
+    margin-bottom:6px;
 }
+
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
-        text-overflow: ellipsis;
+    text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    max-width: 300px;
+    max-width: 250px;
 }
+
 .preview-template {
-        position: absolute;
+    position: absolute;
     left: 35px;
     top: 29px;
     width: 400px;
@@ -295,39 +409,168 @@
     display: none;
     z-index: 9;
 }
-.preview-template.preview-template-top {
-    bottom:30px;
-    top:auto;
+
+    .preview-template.preview-template-top {
+        bottom: 30px;
+        top: auto;
+    }
+/*组件库设置弹窗样式更改*/
+.lanh-line .formControl {
+    border: 1px solid #a9a9a9;
+    border-radius: 0px;
+    font-size: 12px;
+    height: 28px;
+    width: 170px;
+    color: #34495e;
+    padding: 0px 4px;
 }
 
+.lanh-line .formLmargin {
+    width: 255px;
+}
 
+.lanh-line .formSearch {
+    width: 200px;
+    height: 28px;
+    border: 1px solid #a9a9a9;
+    border-radius: 0px;
+    font-size: 12px;
+}
 
+.lanh-line a {
+    color: #fff;
+}
+/*图片设置弹窗*/
+.setting-content .form-control {
+    height: 23px;
+    width: 100%;
+    padding: 0px 5px;
+    font: 12px/12px "微软雅黑";
+    border: 1px solid #a9a9a9;
+    border-radius: 0px;
+    color: #000000;
+    margin: 12px auto;
+    margin-bottom: 0;
+}
 
+.setting-content textarea.form-control {
+    padding: 5px;
+    height: auto;
+}
 
+.setting-content .form-group .btn-fontSize {
+    font-size: 13px;
+}
 /* setting 通用style */
-.ui-dialog {
-    padding:.2em 0;
-}
+
 .ui-dialog-content > div {
-    position:relative;
+    position: relative;
 }
+
 .setting-content {
-    padding:10px;
-    min-height: 120px;
-    max-height:420px;
+    /*  min-height: 120px;*/
+    max-height: 400px;
     overflow-y: auto;
     overflow-x: hidden;
+    margin:0px auto;
 }
+
 .setting-btn {
-    padding-left: 10px;
-    padding-top:15px;
-    margin-bottom:10px;
-    min-height: 50px;
+    padding: 10px;
+    padding: 10px;
     overflow: hidden;
-    border-top:1px solid #c8c8c8;
 }
-.td-disabled>button {
+.td-disabled > button {
     padding: 0;
     border: none !important;
-    background-color: #fff !important;;
+    background-color: #fff !important;
+}
+/*输入框和复选框获取焦点样式*/
+.form-control:focus {
+    border: 1px solid #6587be;
+    box-shadow: 0px 0px 4px #a5c7fe;
+}
+
+.borderBottom1 {
+    border-bottom: 1px solid #d9e1e8;
+    padding-bottom: 10px;
+}
+
+.borderTop1 {
+    border-top: 1px solid #d9e1e8;
+    padding-top: 6px;
+}
+/*按钮样式*/
+.Btncolor {
+    display: block;
+    width: 100px;
+    height: 36px;
+    font: 13px/36px "微软雅黑";
+    text-align: center;
+}
+
+.btn-primary, .btn-ok, .Btncolor,.btn-blue {
+    border-radius: 0;
+    font: 12px/28px "微软雅黑" !important;
+    font-family: "微软雅黑";
+    color: #fff !important;
+    background: #32c5d2;
+    border: 1px solid #32c5d2;
+    text-align: center !important;
+    padding: 0px!important;
+}
+    .btn-primary:hover, .btn-ok:hover, .Btncolor:hover,btn-blue:hover {
+        color: #fff !important;
+    }
+/*图片库和组件库搜索&确定按钮*/
+.btn-primary {
+    width: 50px;
+    height: 28px;
+    margin-left: -5px;
+}
+.btn-copy,.btn-blue,.btn-cancel{
+width: 50px;
+height: 28px;
+}
+/*设置确认按钮*/
+.btn-ok {
+    width: 70px;
+    height: 35px;
+    padding: 0px!important;
+}
+
+.btn-primary:active:hover, .btn-primary.active:hover, .open > .dropdown-toggle.btn-primary:hover, .btn-primary:active:focus, .btn-primary.active:focus, .open > .dropdown-toggle.btn-primary:focus, .btn-primary:active.focus, .btn-primary.active.focus, .open > .dropdown-toggle.btn-primary.focus {
+    background-color: #3ec5df;
+    border-color: #3ec5df;
+}
+
+.btn-primary, .btn-primary:focus, .btn-primary:active {
+    background-color: #32c5d2;
+    border: 1px solid #32c5d2;
+}
+
+.btn-primary:hover {
+        color: #fff;
+        background-color: #3ec5df;
+        border-color: #3ec5df;
+    }
+.btn-copy,.btn-cancel{
+    font: 12px/28px "微软雅黑" !important;
+    background-color: #f2f2f2;
+    border: 1px solid #ddd;
+    color: #000;
+    border-radius: 0;
+    padding:0px !important;
+}
+.btn-copy:hover,.btn-copy.active,.btn-copy:active,.btn-cancel:hover{
+     color: #fff;
+    background: #32c5d2;
+    border: 1px solid #32c5d2;
+}
+.btn-default {
+    width: 50px;
+    height: 28px;
+    border-radius:0px;
+    padding:0px;
+    font:12px/28px "微软雅黑";
 }

@@ -41,7 +41,7 @@ div.menu-left .menu-group-title:first-child { margin-top: 0px; }
 .mr20 { margin-right: 20px; }
 .table-bordered > thead > tr > th, .table-bordered > thead > tr > td { border-bottom-width: 1px; }
 
-.btn-primary, .btn-primary:focus, .btn-primary:hover, .btn-primary:active { background-color: #3ec5df; border: 1px solid #3ec5df; padding: 5px 25px; border-color: #3ec5df; }
+.container .btn-primary,.container .btn-primary:focus,.container .btn-primary:hover,.container .btn-primary:active { background-color: #3ec5df; border: 1px solid #3ec5df; padding: 5px 25px; border-color: #3ec5df; }
 
 .btn-default, .btn-default:focus, .btn-default:hover, .btn-default:active { padding: 5px 25px; border-color: #ccc; background-color: #fff; }
 

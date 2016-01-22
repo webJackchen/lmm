@@ -1,4 +1,29 @@
-﻿<div class="col-sm-12 custommanage-grid">
+﻿<div class="col-sm-12 custommanage-grid">    
+    <div class="col-sm-12 custom-editor nopadding" style="margin-top:4px">
+        <div class="col-sm-12 nopadding" style="margin-bottom:4px">
+            <button class=" btn btn-primary nopadding " image-manage="imageManageCallback" kid="1000000001" style="width:100px;margin-left:0px;">选择图片</button>
+        </div>
+        <div class="col-sm-12 col-padding-clear">
+            <div class="col-sm-6 nopadding" style="margin-bottom:10px;background-color:#f3f5f6;">
+                <span class="col-sm-12 text-right" style="margin-bottom:10px;color:#959ba2;">HTML</span>
+                <textarea class="col-sm-12 codeEditor01" ng-model="editorTemplate._template.html" ng-disabled="isPreview" ng-change="changedPreview()"></textarea>
+            </div>
+            <div class="col-sm-6 nopadding" style="margin-bottom:10px;background-color:#f3f5f6;">
+                <span class="col-sm-12  text-right" style="margin-bottom:10px;color:#959ba2;">Js</span>
+                <textarea class="col-sm-12 codeEditor01" ng-model="editorTemplate._template.js" ng-disabled="isPreview" ng-change="changedPreview()"></textarea>
+            </div>
+            <div class="col-sm-6 nopadding" style="background-color:#f3f5f6;">
+                <span class="col-sm-12 text-right" style="margin-bottom:10px;color:#959ba2;">CSS</span>
+                <textarea class="col-sm-12 codeEditor02" ng-model="editorTemplate._template.css" style="height:250px;" ng-disabled="isPreview" ng-change="changedPreview()"></textarea>
+            </div>
+            <div class="col-sm-6 nopadding" style="background-color:#e9e9e9;">
+                <span class="col-sm-12 text-right" style="margin-bottom:10px;color:#959ba2;">视图</span>
+                <div id="preview" class="col-sm-12 preview" style="height:250px;border:none;" bind-html-unsafe-new="editorTemplate._template._preview"></div>
+            </div>
+        </div>
+    </div>
+
+    <!--
     <div class="col-sm-12 custom-editor">
         <div id="editor_preview" class="col-sm-12 col-padding-clear preview" style="margin-bottom: 10px;" bind-html-unsafe-new="editorTemplate._template._preview"></div>
         <div class="col-sm-12 col-padding-clear">
@@ -11,13 +36,14 @@
                 <button class="btn btn-primary" image-manage="imageManageCallback" kid="1000000001">选择图片</button>
             </div>
             <div class="col-sm-12 col-padding-clear">
-                <textarea class="col-sm-12 col-padding-clear" ng-model="editorTemplate._template.css" ng-show="tpl_status.editor == 'css'" style="height:200px;" ng-change="changedPreview()"></textarea>
-                <textarea class="col-sm-12 col-padding-clear" ng-model="editorTemplate._template.js" ng-show="tpl_status.editor == 'js'" style="height:200px;" ng-change="changedPreview()"></textarea>
-                <textarea class="col-sm-12 col-padding-clear" ng-model="editorTemplate._template.html" ng-show="tpl_status.editor == 'html'" style="height:200px;" ng-change="changedPreview()"></textarea>
+                <textarea class="col-sm-12 col-padding-clear" ng-model="editorTemplate._template.css" ng-show="tpl_status.editor == 'css'" style="height:200px;" ng-disabled="isPreview" ng-change="changedPreview()"></textarea>
+                <textarea class="col-sm-12 col-padding-clear" ng-model="editorTemplate._template.js" ng-show="tpl_status.editor == 'js'" style="height:200px;" ng-disabled="isPreview" ng-change="changedPreview()" ></textarea>
+                <textarea class="col-sm-12 col-padding-clear" ng-model="editorTemplate._template.html" ng-show="tpl_status.editor == 'html'" style="height:200px;" ng-disabled="isPreview" ng-change="changedPreview()" ></textarea>
             </div>
         </div>
     </div>
-    <div class="col-sm-12 form-group text-center">
-        <button class="btn btn-primary" ng-click="btnSet($event)">保存</button>
+        -->
+    <div class="col-sm-12 form-group text-right nopadding">
+        <button class="btn btn-primary pull-right nopadding " ng-click="btnSet($event)">保存</button>
     </div>
 </div>

@@ -1,50 +1,70 @@
 ﻿<div ng-controller="SettinggallerygridCtrl" style="min-width:300px;">
-    <div class="setting-content">
-        <div class="form-group row">
-            <div class="col-sm-12 text-center">
-                <ad-manage title="图片管理" callback="adCallback" value="{{data.$dataconfig}}"></ad-manage>
-                <!--<a class="btn btn-default" href="javascript:void(0)" ng-click="imagesFile()">图片管理</a>-->
+    <div class="setting-content dialog-CustomScrollbar" style="width:300px;">
+        <div class="form-group row nomargin" ng-show="!isCompontent">
+            <div class="col-sm-12 K-VHcenter k-re-image k-shade " style="height:145px;">
+                <img ng-src="{{data.$item$[0].image.url}}" style="height:145px;" />
+                <div class="K-VHcenter k-shade-MlayerB">
+                    <ad-manage title="图片管理" callback="adCallback" value="{{data.$dataconfig}}"></ad-manage>
+                    <!--<a class="btn btn-default" href="javascript:void(0)" ng-click="imagesFile()">图片管理</a>-->
+                </div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row nomargin">
             <div class="col-sm-12">
-                <label class="control-label">行数</label>
+                <label class="control-label nofontweight">行数</label>
                 <select class="form-control" ng-model="data.attrs.row">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
                 </select>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="form-group row nomargin">
             <div class="col-sm-12">
-                <label class="control-label">列数</label>
+                <label class="control-label nofontweight">列数</label>
                 <select class="form-control" ng-model="data.attrs.col">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
                 </select>
             </div>
         </div>
-        <div class="form-group row">
+
+        <div class="form-group row nomargin" style=" border-top: 1px solid rgb(217,225,232); padding-top:8px">
             <div class="col-sm-12">
-                <custom-manage type="controls_gallery_grid"></custom-manage>
+                <label class="control-label nofontweight">间距</label>
+                <input type="text" ng-model="data.spacing" class="form-control text-number" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
+                       onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}" />
             </div>
         </div>
+
+        <div class="form-group row nomargin">
+            <div class="col-sm-12">
+                <label class="control-label nofontweight">边距</label>
+                <input type="text" ng-model="data.edgeSpacing" class="form-control text-number" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
+                       onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}" />
+            </div>
+        </div>
+
     </div>
 
     <div class="setting-btn">
-        <div class="form-group row lanh-line">
-            <div class="col-sm-12">
-                <location-size-manage></location-size-manage>
-            </div>
-        </div>
         <div class="form-group text-center">
-            <button class="btn btn-primary" ng-click="applySetting()">确定</button>
+            <button class="btn btn-ok" ng-click="applySetting()">确定</button>
         </div>
     </div>
 </div>
